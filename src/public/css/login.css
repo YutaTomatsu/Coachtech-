@@ -1,0 +1,66 @@
+body {
+    width: 100%;
+}
+
+.header {
+    background-color: black;
+    height: 50px;
+}
+
+.form {
+    margin: 100px auto;
+    width: 500px;
+}
+
+.title {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.item__box {
+    display: flex;
+    flex-direction: column;
+    margin: 25px 0;
+}
+
+.item__name {
+    font-weight: bold;
+    font-size: 17px;
+
+}
+
+.text {
+    height: 50px;
+    border: solid 0.5px black;
+    border-radius: 5px;
+}
+
+.under__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    background-color: #ff5858;
+    border: none;
+    color: white;
+    height: 50px;
+    margin: 25px 0;
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+.register {
+    text-align: center;
+    text-decoration: none;
+    color: #2196F3;
+}
+
+@media screen and (max-width: 768px) {
+
+    body {
+        width: 768px;
+    }
+
+}

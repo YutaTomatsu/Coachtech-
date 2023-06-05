@@ -1,0 +1,46 @@
+form {
+    width:60%;
+    margin:50px auto;
+}
+
+.payment__box{
+    border-top:solid gray;
+}
+
+.amount__box{
+    display:flex;
+    justify-content:space-between;
+    border-top:solid gray;
+    margin:30px auto;
+}
+
+.amount__title{}
+
+.amount{}
+
+.address__box{
+    border-top:solid gray;
+}
+
+.item__title{
+    font-weight:bold;
+}
+
+.address{}
+
+.addresses{
+    margin:15px 0;
+}
+
+.button{
+    
+}
+
+button{
+    width:100%;
+    height:40px;
+    border:none;
+    background-color: #ff5858;
+    color:white
+    
+}
