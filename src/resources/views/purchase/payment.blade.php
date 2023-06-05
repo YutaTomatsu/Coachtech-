@@ -9,6 +9,9 @@
 <body>
     <form id="payment-form" method="POST" action="{{ route('payment-success', ['id' => $items->id]) }}">
         @csrf
+        <input type="hidden" name="postcode" value="{{ $addresses->postcode }}">
+        <input type="hidden" name="address" value="{{ $addresses->address }}">
+        <input type="hidden" name="build" value="{{ $addresses->build }}">
         <div class="payment__box">
             <div class="item__title">支払い方法</div>
             <div id="payment-element"></div>
@@ -67,7 +70,7 @@
                 const messageContainer = document.querySelector('#error-message');
                 messageContainer.textContent = error.message;
             } else {
-                // Your customer will be redirected to your `return_url`.
+                form.submit();
             }
         });
 

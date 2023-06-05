@@ -64,9 +64,12 @@
                 </div>
             </div>
             <form class="purchage" action="{{ route('card', ['id' => $item->id]) }}" method="GET" id="payment-form">
-                <input type="hidden" name="postcode" value="{{ $addresses->postcode }}">
-                <input type="hidden" name="address" value="{{ $addresses->address }}">
-                <input type="hidden" name="build" value="{{ $addresses->build }}">
+                @if ($addresses !== null)
+                    <input type="hidden" name="postcode" value="{{ $addresses->postcode }}">
+                    <input type="hidden" name="address" value="{{ $addresses->address }}">
+                    <input type="hidden" name="build" value="{{ $addresses->build }}">
+                @else
+                @endif
                 <button class="purchage__button" type="submit">購入する</button>
             </form>
 

@@ -12,7 +12,7 @@ use App\Models\Profile;
 
 class PaymentController extends Controller
 {
-    public function showConvenienceForm(Request $request,$id)
+    public function showConvenienceForm(Request $request, $id)
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
 
@@ -23,13 +23,16 @@ class PaymentController extends Controller
             'address' => $request->input('address'),
             'build' => $request->input('build'),
         ];
+
+        $request->session()->put('addresses', $addresses);
+
         $paymentIntent = $stripe->paymentIntents->create([
             'amount' => $items->price,
             'currency' => 'jpy',
             'payment_method_types' => ['konbini'],
         ]);
-dd($addresses);
-        return view('purchase.payment', compact('user','items','addresses'), ['stripe' => $stripe, 'client_secret' => $paymentIntent->client_secret]);
+
+        return view('purchase.payment', compact('user', 'items', 'addresses'), ['stripe' => $stripe, 'client_secret' => $paymentIntent->client_secret]);
     }
 
     public function showCardForm(Request $request, $id)
@@ -45,6 +48,8 @@ dd($addresses);
             'build' => $request->input('build'),
         ];
 
+        $request->session()->put('addresses', $addresses);
+
         $paymentIntent = PaymentIntent::create([
             'amount' => $items->price,
             'currency' => 'jpy',
@@ -55,7 +60,7 @@ dd($addresses);
     }
 
 
-    public function showBankForm(Request $request,$id)
+    public function showBankForm(Request $request, $id)
     {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -67,6 +72,9 @@ dd($addresses);
             'address' => $request->input('address'),
             'build' => $request->input('build'),
         ];
+
+        $request->session()->put('addresses', $addresses);
+
         $intent = \Stripe\PaymentIntent::create([
             'amount' => $items->price,
             'currency' => 'jpy',
@@ -85,35 +93,26 @@ dd($addresses);
             ],
         ]);
 
-        return view('purchase.payment', compact('user','addresses','items'), ['customer' => $customer, 'client_secret' => $intent->client_secret]);
+        return view('purchase.payment', compact('user', 'addresses', 'items'), ['customer' => $customer, 'client_secret' => $intent->client_secret]);
     }
 
-    public function success($id)
+    public function success(Request $request, $id)
     {
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        $address = Purchase::where('user_id', Auth::id())->where('item_id', $id)->first();
-        if (!$address) {
-            $address = new Purchase();
-            $address->user_id = Auth::id();
-            $address->item_id = $id;
+        $addresses = $request->session()->get('addresses');
 
-            $profile = Profile::where('user_id', Auth::id())->first();
-            if ($profile) {
-                $address->postcode = $profile->postcode;
-                $address->address = $profile->address;
-                $address->build = $profile->build;
-            } else {
-                return redirect()->back()->with('error', '配送先が指定されていません。今回使用する配送先を指定してするか、プロフィールの住所を登録してください。');
-            }
-
-            $address->save();
-        }
+        $purchase = new Purchase();
+        $purchase->user_id = Auth::id();
+        $purchase->item_id = $id;
+        $purchase->postcode = $addresses->postcode;
+        $purchase->address = $addresses->address;
+        $purchase->build = $addresses->build;
+        $purchase->save();
 
         return view('purchase.success');
     }
-
 
 }

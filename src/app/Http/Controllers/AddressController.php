@@ -44,7 +44,6 @@ class AddressController extends Controller
         $addresses->postcode = $request->input('postcode');
         $addresses->address = $request->input('address');
         $addresses->build = $request->input('build');
-        $addresses->save();
 
         return view('purchase.purchase',compact('user','item', 'addresses'))->with('status','発送先が変更されました');
     }

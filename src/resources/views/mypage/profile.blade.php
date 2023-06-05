@@ -15,7 +15,7 @@
                     <img id="preview" src="{{ $profile->icon }}" alt="プロフィール画像"
                         style="width: 100px; height: 100px; border-radius: 50%;">
                 @else
-                    <img id="preview" src="" alt="プロフィール画像"
+                    <img id="preview" src=""
                         style="width: 100px; height: 100px; border-radius: 50%;">
                 @endif
                 </div>

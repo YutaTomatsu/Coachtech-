@@ -8,23 +8,23 @@
 }
 
 .thanks__box{
+    border-top:solid;
+    border-bottom:solid;
     width:500px;
     margin:100px auto;
-    border-top:solid gray;
-    border-bottom:solid gray;
 }
 
 .home{
+    border:solid;
     text-decoration:none;
     background-color:black;
     color:white;
     width:120px;
-    margin:30px auto;
+    margin:20px auto;
     height:30px;
     border-radius:7px;
     text-align:center;
     line-height:30px;
-    
     
 }
 
@@ -41,16 +41,19 @@
 }
 
 .thanks__box{
+    border-top:solid;
+    border-bottom:solid;
     width:600px;
     margin:100px auto;
 }
 
 .home{
+    border:solid;
     text-decoration:none;
     background-color:black;
     color:white;
     width:120px;
-    margin:0 auto;
+    margin:20px auto;
     height:30px;
     border-radius:7px;
     text-align:center;
