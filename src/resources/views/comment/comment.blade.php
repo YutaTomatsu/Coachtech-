@@ -38,8 +38,7 @@
                         @endif
                         <div class="mylist__count">
                             @php
-                                $mylistCount = \App\Models\Mylist::where('item_id', $item->id)
-                                    ->count();
+                                $mylistCount = \App\Models\Mylist::where('item_id', $item->id)->count();
                                 echo $mylistCount;
                             @endphp
                         </div>
@@ -57,28 +56,40 @@
                     </div>
                 </div>
 
-                @foreach ($comments as $comment)
-                    <div class="comments {{ $comment->is_seller ? 'seller-comment' : 'buyer-comment' }}">
-                        <div class="comment__user">
-                            <img class="icon" src="{{ asset($comment->user_icon) }}" alt="User Icon">
-                            <span class="comment__username">{{ $comment->user_name }}</span>
+                <div class="comments__box">
+                    @foreach ($comments as $comment)
+                        <div class="comments {{ $comment->is_seller ? 'seller-comment' : 'buyer-comment' }}">
+                            <div class="comment__user">
+                                <img class="icon" src="{{ asset($comment->user_icon) }}" alt="User Icon">
+                                <span class="comment__username">{{ $comment->user_name }}</span>
+                            </div>
+                            <div class="comment__content">
+                                {{ $comment->comment }}
+                                @if ($item->user_id === Auth::id())
+                                    <form action="{{ route('comment-delete', ['id' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        <a onclick="return confirm('本当に予約を削除しますか？')" type="submit" class="btn btn-danger">
+                                            <img class="comment__delete" src="/img/delete.svg" alt="delete">
+                                        </a>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
-                        <p class="comment__content">{{ $comment->comment }}</p>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
 
 
-                @if(in_array($item->id,$purchasedItemId))
+                @if (in_array($item->id, $purchasedItemId))
                     <div class="sold" type="submit">売り切れのためコメントできません</div>
                 @else
-                <form class="comment__form" action="{{ route('comment', ['id' => $item->id]) }}" method="POST">
-                    @csrf
-                    <div class="comment__box">
-                        <label class="comment__title" for="comment">商品へのコメント</label>
-                        <textarea class="comment__text" name="comment"></textarea>
-                    </div>
-                    <button class="comment__button" type="submit">コメントを送信する</button>
-                </form>
+                    <form class="comment__form" action="{{ route('comment', ['id' => $item->id]) }}" method="POST">
+                        @csrf
+                        <div class="comment__box">
+                            <label class="comment__title" for="comment">商品へのコメント</label>
+                            <textarea class="comment__text" name="comment"></textarea>
+                        </div>
+                        <button class="comment__button" type="submit">コメントを送信する</button>
+                    </form>
                 @endif
             </div>
 
@@ -113,6 +124,12 @@
                     }).fail(function() {
                         console.log('Error: the request was not sent!!!.');
                     });
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('.detail__right').css('overflow-y', 'scroll');
+                    $('.detail__right').css('max-height', '700px');
                 });
             </script>
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Mylist;
+use App\Models\Purchase;
 
 class SearchController extends Controller
 {

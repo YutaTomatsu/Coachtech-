@@ -84,6 +84,15 @@
                 alert('支払い方法を選択して下さい');
             }
         });
+
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            var addresses = {!! json_encode($addresses) !!};
+            if (!addresses) {
+                event.preventDefault();
+                alert('配送先が指定されていません');
+            }
+        });
+
         document.getElementById('payment-method').addEventListener('change', function(e) {
             var paymentMethod = e.target.value;
             var selectedPaymentMethod = document.getElementById('selected-payment-method');

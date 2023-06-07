@@ -19,7 +19,7 @@
 
         <div class="item__box">
             <x-label class="item__name" for="build" :value="__('建物名')" />
-            <x-input class="text" id="build" type="text" name="build" :value="optional()->build" required />
+            <x-input class="text" id="build" type="text" name="build" :value="optional()->build"/>
         </div>
         <div class="under__box">
             <x-button class="button">

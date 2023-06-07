@@ -17,6 +17,15 @@ class ProfileController extends Controller
         }
 
         $user = Auth::user();
+
+        if (!$user->icon) {
+            $user->icon = 'icon/icon_user_2.svg';
+        }
+
+        if ($user->icon === 'icon/icon_user_2.svg') {
+            $user->icon = Storage::url($user->icon);
+        }
+        
         $profile = Profile::where('user_id', $user->id)->first();
 
         return view('mypage.profile', compact('profile','user'));

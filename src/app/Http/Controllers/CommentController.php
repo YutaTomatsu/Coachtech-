@@ -68,4 +68,17 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'コメントが送信されました');
     }
+
+    public function delete($id)
+    {
+        $comment_id = $id;
+
+        $comment = Comment::where('id', $comment_id)->first();
+
+        if ($comment) {
+            $comment->delete();
+        }
+
+        return redirect()->back()->with('success', 'コメントが削除されました');
+    }
 }

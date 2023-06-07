@@ -55,11 +55,14 @@
                         </div>
                     </div>
                 </div>
-                @if (in_array($item->id, $purchasedItemId))
+                @if ($item->user_id === Auth::id())
                 @else
-                    <a class="purchage" href="{{ route('show-purchage', ['id' => $item->id]) }}">
-                        <button class="purchage__button" type="submit">購入する</button>
-                    </a>
+                    @if (in_array($item->id, $purchasedItemId))
+                    @else
+                        <a class="purchage" href="{{ route('show-purchage', ['id' => $item->id]) }}">
+                            <button class="purchage__button" type="submit">購入する</button>
+                        </a>
+                    @endif
                 @endif
                 <div class="about__box">
                     <div class="about__title">商品説明</div>
@@ -69,9 +72,11 @@
                     <div class="information__title">商品の情報</div>
                     <div class="category__box">
                         <div class="category__title">カテゴリー</div>
-                        @foreach ($categories as $category)
-                            <div class="category">{{ $category->category }}</div>
-                        @endforeach
+                        <div class="category__item__box">
+                            @foreach ($categories as $category)
+                                <div class="category">{{ $category->category }}</div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="condition__box">
                         <div class="condition__title">商品の状態</div>

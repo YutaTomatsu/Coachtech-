@@ -22,9 +22,9 @@
                         <a class="menu__item" href="{{ route('show-sell') }}">出品</a>
                         <form class="logout" action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="menu__item">Logout</button>
+                            <button type="submit" class="menu__item">ログアウト</button>
                         </form>
-                        <a href="{{ route('mypage') }}" class="menu__item">Mypage</a>
+                        <a href="{{ route('mypage') }}" class="menu__item">マイページ</a>
                     </div>
                 </div>
             </div>
@@ -38,8 +38,8 @@
                     <button class="close-button" type="button">X</button>
                     <div class="menu__all">
                         <a class="menu__item" href="{{ route('show-sell') }}">出品</a>
-                        <a href="{{ route('register') }}" class="menu__item">Registration</a>
-                        <a href="{{ route('login') }}" class="menu__item">Login</a>
+                        <a href="{{ route('register') }}" class="menu__item">会員登録</a>
+                        <a href="{{ route('login') }}" class="menu__item">ログイン</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: #fff;
+                background-color: #ffffffaa;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
@@ -75,7 +75,6 @@
                 height: 40px;
                 border-radius: 7px;
                 margin: 50px 100px;
-
             }
 
             .menu__all {
@@ -85,6 +84,7 @@
             .logout {
                 display: flex;
                 justify-content: center;
+                background-color:none;
             }
 
             .menu__item {
@@ -95,7 +95,7 @@
                 margin: 15px 0;
                 text-decoration: none;
                 border: none;
-                background-color: white;
+                background-color:#ff000000;
             }
 
             .menu-open {

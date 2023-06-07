@@ -11,17 +11,22 @@
         <div class="top">
             <div class="user">
                 <div class="icon">
-                @if ($profile && $profile->icon)
-                    <img id="preview" src="{{ $profile->icon }}" alt="プロフィール画像"
-                        style="width: 100px; height: 100px; border-radius: 50%;">
-                @else
-                    <img id="preview" src=""
-                        style="width: 100px; height: 100px; border-radius: 50%;">
-                @endif
+                    @if ($profile && $profile->icon)
+                        @if ($profile && $profile->icon)
+                            <img id="preview" src="{{ $profile->icon }}" alt="プロフィール画像"
+                                style="width: 100px; height: 100px; border-radius: 50%;">
+                        @else
+                            <img id="preview" src="" style="width: 100px; height: 100px; border-radius: 50%;">
+                        @endif
+                    @else
+                        <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
+                            style="width: 100px; height: 100px; border-radius: 50%;">
+                    @endif
                 </div>
                 <div class="edit">
                     <label for="icon" class="select-image">画像を選択する</label>
-                    <input type="file" id="icon" name="icon" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                    <input type="file" id="icon" name="icon" accept="image/*" style="display: none;"
+                        onchange="previewImage(this)">
                 </div>
             </div>
         </div>

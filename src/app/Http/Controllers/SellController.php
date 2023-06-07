@@ -31,13 +31,34 @@ class SellController extends Controller
         }
 
         $request->validate([
-            'item_name' => 'required|max:255',
+            'item_name' => 'required|max:50',
             'price' => 'required|integer',
             'image' => 'required|file|image',
-            'about' => 'required',
-            'category' => 'required|array|min:1|max:3',
-            'category.*' => 'required|string|distinct',
-            'condition' => 'required|string',
+            'about' => 'required|max:255',
+            'category' => [
+                'required',
+                'array',
+                'min:1',
+                function ($attribute, $value, $fail) {
+                    $nonEmptyCategories = array_filter($value, function ($category) {
+                        return !empty($category);
+                    });
+                    if (count($nonEmptyCategories) === 0) {
+                        $fail('カテゴリーを1つ以上選択してください');
+                    }
+                    $uniqueCategories = array_unique($nonEmptyCategories);
+                    if (count($uniqueCategories) < count($nonEmptyCategories)) {
+                        $fail('同じカテゴリーは選択できません');
+                    }
+                },
+            ],
+            'condition' => 'required',
+        ], [
+            'item_name.max' => '商品名は50文字以内で入力してください',
+            'about.max' => '商品の説明は255文字以内で入力してください',
+            'image.required' => '画像が選択されていません',
+            'category.required' => 'カテゴリーは1つ以上選択する必要があります',
+            'price.integer' => '販売価格は半角数字で入力してください'
         ]);
 
         $item = new Item;
@@ -70,6 +91,12 @@ class SellController extends Controller
             'condition_id' => $conditionId,
         ]);
 
-        return redirect()->back()->with('success', '商品を出品しました');
+        return redirect()->route('sell-done');
+
+    }
+
+    public function sellDone()
+    {
+        return view('sell.sell_done');
     }
 }

@@ -11,6 +11,7 @@
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
+  overflow: hidden;
 }
 
 .item__box {
@@ -22,13 +23,17 @@
 }
 
 .change__button {
-  background-color: white;
+  background-color: transparent;
   border: none;
   color: gray;
   font-weight: bold;
   font-size: 20px;
   margin: 60px 0 0 70px
 }
+        .active {
+            color: #ff5858;
+            ;
+        }
 
 .main {
   border-top: #c4c3c3 solid 3px;
@@ -101,14 +106,25 @@
 
   }
 
+  .list{
+    display:flex;
+    justify-content:space-between;
+  
+}
+
   .change__button {
     background-color: white;
     border: none;
     color: gray;
     font-weight: bold;
     font-size: 20px;
-    margin: 60px 0 0 70px
+    margin: 60px auto 0;
   }
+
+          .active {
+            color: #ff5858;
+            ;
+        }
 
   .main {
     border-top: #c4c3c3 solid 3px;

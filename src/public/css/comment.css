@@ -84,7 +84,12 @@
     flex-direction: row-reverse
 }
 
-.comment__content {}
+.comment__content {
+    background-color:#eaeaea;
+    border-radius:10px;
+    padding:10px;
+    
+}
 
 .comment__box {
     display: flex;
@@ -98,6 +103,12 @@
 .comment__text {
     height: 130px;
     border-radius: 5px;
+}
+
+.comment__delete{
+    width:20px;
+    margin:10px 0 0 auto;
+    display:flex;
 }
 
 .comment__button {

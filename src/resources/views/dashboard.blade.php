@@ -4,20 +4,10 @@
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
 </head>
 @section('content')
-    <style>
-        .change__button {
-            background-color: transparent;
-            color: gray;
-        }
-
-        .active {
-            color: #ff5858;
-            ;
-        }
-    </style>
-
-    <button class="change__button active" id="recommendTrigger">おすすめ</button>
-    <button class="change__button" id="mylistTrigger">マイリスト</button>
+    <div class="list">
+        <button class="change__button active" id="recommendTrigger">おすすめ</button>
+        <button class="change__button" id="mylistTrigger">マイリスト</button>
+    </div>
 
     <div class="main">
         <div class="recommend">
@@ -80,5 +70,3 @@
         });
     </script>
 @endsection
-
-

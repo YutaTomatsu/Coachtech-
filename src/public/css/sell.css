@@ -12,6 +12,18 @@
     margin: auto auto auto 0;
 }
 
+.item__img{
+    height:110px;
+    margin:auto 0;
+}
+
+.img__box {
+    margin:0 auto;
+    width:60%;
+    display:flex;
+    justify-content:space-between;
+}
+
 .icon {
     margin: auto;
     text-decoration: none;
@@ -19,6 +31,7 @@
     border: 1px solid;
     border-radius: 5px;
     padding: 3px 20px;
+    width:120px;
 }
 
 .form {
@@ -80,3 +93,110 @@
 .error {}
 
 .status {}
+
+
+@media screen and (max-width:768px){
+
+    body {
+        width:768px;
+    }
+
+    .top {
+    height: auto;
+    border: dashed #8b8b8b;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding:20px 0;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    margin: auto auto auto 0;
+}
+
+.item__img{
+    margin:20px auto;
+    height:300px;
+}
+
+.img__box {
+    margin:0 auto;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.icon {
+    margin:auto;
+    text-decoration: none;
+    color: #ff5858;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 3px 20px;
+    width:105px;
+    font-size:15px;
+}
+
+.form {
+    margin: 100px auto;
+    width: 80%;
+}
+
+.title {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.item__box {
+    display: flex;
+    flex-direction: column;
+    margin: 25px 0;
+}
+
+.item__name {
+    font-weight: bold;
+    font-size: 17px;
+
+}
+
+.text {
+    height: 30px;
+    border: solid 0.5px black;
+    border-radius: 5px;
+}
+
+.textarea {
+    height: 100px;
+    border: solid 0.5px black;
+    border-radius: 5px;
+}
+
+.under__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    background-color: #ff5858;
+    border: none;
+    color: white;
+    height: 50px;
+    margin: 25px 0;
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+.class {
+    border-bottom: solid #8b8b8b;
+    color: #8b8b8b;
+    font-size: 20px;
+}
+
+.error {}
+
+.status {}
+    
+}

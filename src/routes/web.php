@@ -54,6 +54,9 @@ Route::get('/sell', [SellController::class, 'showSellForm'])->name('show-sell');
 
 Route::post('/sell', [SellController::class, 'sell'])->name('sell');
 
+Route::get('/sell/done', [SellController::class, 'sellDone'])->name('sell-done');
+
+
 Route::get('/item/{id}', [ItemController::class, 'detail'])->name('detail');
 
 Route::post('/mylist/toggle', [MylistController::class, 'toggle'])->name('mylist.toggle');
@@ -61,6 +64,8 @@ Route::post('/mylist/toggle', [MylistController::class, 'toggle'])->name('mylist
 Route::get('/comment/{id}', [CommentController::class, 'showCommentForm'])->name('show-comment');
 
 Route::post('/comment/{id}', [CommentController::class, 'comment'])->name('comment');
+
+Route::post('comment//delete/{id}', [CommentController::class, 'delete'])->name('comment-delete');
 
 Route::get('/purchage/{id}', [PurchaseController::class, 'showPurchageForm'])
     ->name('show-purchage');
