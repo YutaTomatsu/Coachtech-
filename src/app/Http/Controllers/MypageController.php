@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 class MypageController extends Controller
 {
-    public function create(){
+    public function create()
+    {
         if (!Auth::user()) {
             return redirect()->route('login');
         }
@@ -25,7 +26,7 @@ class MypageController extends Controller
         }
 
         $items = Item::where('items.user_id', Auth::id())
-        ->get();
+            ->get();
 
         $purchases = Purchase::where('user_id', $user->id)->get();
 
@@ -39,6 +40,6 @@ class MypageController extends Controller
             }
         }
 
-        return view('mypage.mypage',compact('user','items', 'purchaseItems'));
+        return view('mypage.mypage', compact('user', 'items', 'purchaseItems'));
     }
 }

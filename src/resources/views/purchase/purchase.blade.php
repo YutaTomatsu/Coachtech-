@@ -72,16 +72,22 @@
                 @endif
                 <button class="purchage__button" type="submit">購入する</button>
             </form>
-
+            <div id="error-message" class="error-message"></div>
         </div>
     </div>
+
     <script>
         document.getElementById('payment-form').addEventListener('submit', function(e) {
             var paymentMethod = document.getElementById('payment-method').value;
+            var itemPrice = {{ $item->price }};
 
             if (paymentMethod === '') {
                 e.preventDefault();
                 alert('支払い方法を選択して下さい');
+            } else if (paymentMethod === 'convenience_store' && itemPrice >= 300000) {
+                e.preventDefault();
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = '300000円以上の商品を購入する場合は、クレジットカード払いか銀行振り込みを選択してください。';
             }
         });
 

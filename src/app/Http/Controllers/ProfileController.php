@@ -25,10 +25,10 @@ class ProfileController extends Controller
         if ($user->icon === 'icon/icon_user_2.svg') {
             $user->icon = Storage::url($user->icon);
         }
-        
+
         $profile = Profile::where('user_id', $user->id)->first();
 
-        return view('mypage.profile', compact('profile','user'));
+        return view('mypage.profile', compact('profile', 'user'));
     }
 
     public function update(Request $request)
@@ -39,7 +39,24 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        $user->name = $request->input('name');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'postcode' => 'required|string|size:8|regex:/^\d{3}-\d{4}$/',
+            'address' => 'required|string|max:255',
+            'build' => 'nullable|string|max:255',
+        ], [
+            'name.string' => '名前は文字列で入力してください。',
+            'name.max' => '名前は255文字以内で入力してください。',
+            'postcode.string' => '郵便番号は文字列で入力してください。',
+            'postcode.size' => '郵便番号は半角数字にハイフンを含めた形式で入力してください。',
+            'postcode.regex' => '郵便番号は半角数字にハイフンを含めた形式で入力してください。',
+            'address.string' => '住所は文字列で入力してください。',
+            'address.max' => '住所は255文字以内で入力してください。',
+            'build.string' => '建物名は文字列で入力してください。',
+            'build.max' => '建物名は255文字以内で入力してください。',
+        ]);
+
+        $user->name = $validatedData['name'];
 
         if ($request->hasFile('icon')) {
             $uploadedFile = $request->file('icon');

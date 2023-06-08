@@ -14,6 +14,10 @@ class PaymentController extends Controller
 {
     public function showConvenienceForm(Request $request, $id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
 
         $user = Auth::user();
@@ -37,6 +41,10 @@ class PaymentController extends Controller
 
     public function showCardForm(Request $request, $id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
         $user = Auth::user();
@@ -62,6 +70,10 @@ class PaymentController extends Controller
 
     public function showBankForm(Request $request, $id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
         $user = Auth::user();
@@ -114,5 +126,4 @@ class PaymentController extends Controller
 
         return view('purchase.success');
     }
-
 }

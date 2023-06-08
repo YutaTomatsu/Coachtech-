@@ -29,6 +29,20 @@ class AddressController extends Controller
             return redirect()->route('login');
         }
 
+        $validatedData = $request->validate([
+            'postcode' => 'required|string|size:8|regex:/^\d{3}-\d{4}$/',
+            'address' => 'required|string|max:255',
+            'build' => 'nullable|string|max:255',
+        ], [
+            'postcode.string' => '郵便番号は文字列で入力してください。',
+            'postcode.size' => '郵便番号は8文字で入力してください。',
+            'postcode.regex' => '郵便番号は半角数字にハイフンを含めた形式で入力してください。',
+            'address.string' => '住所は文字列で入力してください。',
+            'address.max' => '住所は255文字以内で入力してください。',
+            'build.string' => '建物名は文字列で入力してください。',
+            'build.max' => '建物名は255文字以内で入力してください。',
+        ]);
+
         $user = Auth::user();
 
         $item = Item::where('items.id', $id)->first();

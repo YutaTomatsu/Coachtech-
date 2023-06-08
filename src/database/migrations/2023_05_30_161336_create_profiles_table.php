@@ -14,7 +14,7 @@ class CreateProfilesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('postcode');
             $table->string('address');
-            $table->string('build');
+            $table->string('build')->nullable();
             $table->timestamps();
         });
     }

@@ -71,6 +71,10 @@ class CommentController extends Controller
 
     public function delete($id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $comment_id = $id;
 
         $comment = Comment::where('id', $comment_id)->first();
