@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\CommentNotification;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendCommentNotificationJob;
 
 
 class CommentController extends Controller
@@ -66,8 +69,39 @@ class CommentController extends Controller
         $comment->comment = $validateData['comment'];
         $comment->save();
 
+        $item = Item::find($id);
+        $seller = User::find($item->user_id);
+        $sellerEmail = $seller->email;
+
+        // コメントをしたユーザーのメールアドレスを取得
+        $comments = Comment::where('item_id', $id)->get();
+
+        $sentEmails = []; // 送信済みのメールアドレスを記録する配列
+
+        $data = [
+            'item_name' => $item->item_name,
+            'buyer_name' => Auth::user()->name,
+        ];
+
+        foreach ($comments as $comment) {
+            $commentUser = User::find($comment->user_id);
+            $commentUserEmail = $commentUser->email;
+
+            // 既にメールを送信したユーザーでない場合のみメールを送信する
+            if (Auth::id() !== $commentUser->id && !in_array($commentUserEmail, $sentEmails)) {
+                dispatch(new SendCommentNotificationJob($comment->id, $commentUserEmail,$data));
+                $sentEmails[] = $commentUserEmail; // 送信済みのメールアドレスを記録する
+            }
+        }
+
+        if (Auth::id() !== $seller->id && !in_array($sellerEmail, $sentEmails)) {
+            dispatch(new SendCommentNotificationJob($comment->id, $sellerEmail,$data));
+        }
+
         return redirect()->back()->with('success', 'コメントが送信されました');
     }
+
+
 
     public function delete($id)
     {

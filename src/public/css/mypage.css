@@ -1,40 +1,63 @@
-.top{
-    height:200px;
-    display:flex;
-    justify-content:space-between;
+.top {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 50px auto 0;
 }
 
-.user{
-    display:flex;
-    flex-direction:row;
-    margin:auto;
+.user {
+  display: flex;
+  justify-content: space-between;
 }
 
-.icon{
-    width:100px;
-    height:100px;
-    border-radius: 50%;
+.icon__name__box {
+  display: flex;
+  align-items: center;
+
 }
 
-.username{
-    margin:auto 0 auto 20px;
-    font-size:20px;
-    font-weight:bold;
+.icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
-.edit{
-    margin:auto;
-    text-decoration:none;
-    color:#ff5858;
-    border:1px solid;
-    border-radius:5px;
-    padding:3px 20px;
+.username {
+  margin: auto 0 auto 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.edit {
+  text-decoration: none;
+  color: #ff5858;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 3px 20px;
+  margin: auto 0;
 }
 
 .image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+.follow__box {}
+
+.following {
+  text-decoration: none;
+  border-left: solid gray;
+  border-right: solid gray;
+  color: #ff5858;
+  padding: 0 10px;
+}
+
+.follower {
+  text-decoration: none;
+  color: #ff5858;
+  padding: 0 10px;
 }
 
 .price {}
@@ -73,40 +96,106 @@
   border-top: #c4c3c3 solid 3px;
 }
 
+
+.rating__detail {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+}
+
+.rating__count {
+  margin: 0 0 0 100px;
+  color: #ff5858;
+}
+
+.star-rating {
+  position: relative;
+  font-size: 18px;
+  z-index: 0;
+}
+
+.star-rating::before,
+.star-rating::after {
+  content: "★★★★★";
+  color: #e1e1e1;
+  position: absolute;
+  top: -22px;
+  left: 0;
+}
+
+.star-rating::after {
+  color: #ffb448;
+  overflow: hidden;
+}
+
+.star-rating[data-rate="0"]::after {
+  width: 0px;
+}
+
+.star-rating[data-rate="0.5"]::after {
+  width: 9px;
+}
+
+.star-rating[data-rate="1"]::after {
+  width: 18px;
+}
+
+.star-rating[data-rate="1.5"]::after {
+  width: 27px;
+}
+
+.star-rating[data-rate="2"]::after {
+  width: 36px;
+}
+
+.star-rating[data-rate="2.5"]::after {
+  width: 45px;
+}
+
+.star-rating[data-rate="3"]::after {
+  width: 54px;
+}
+
+.star-rating[data-rate="3.5"]::after {
+  width: 63px;
+}
+
+.star-rating[data-rate="4"]::after {
+  width: 72px;
+}
+
+.star-rating[data-rate="4.5"]::after {
+  width: 81px;
+}
+
+.star-rating[data-rate="5"]::after {
+  width: 90px;
+}
+
 @media screen and (max-width: 768px) {
 
-  .top{
-    height:200px;
-    display:flex;
-    flex-direction:column;
+  .top {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
     margin: 0 0 0 10%;
-}
+  }
 
-  .user{
-    display:flex;
-    flex-direction:row;
-    margin:30px 0;
-}
-
-  .edit{
-    margin:0;
-    text-decoration:none;
-    color:#ff5858;
-    border:1px solid;
-    border-radius:5px;
-    padding:3px 20px;
-    width:150px;
-}
+  .user {
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+  }
 
   .change__button {
-  background-color: white;
-  border: none;
-  color: gray;
-  font-weight: bold;
-  font-size: 20px;
-  margin: 60px 0 0 0px;
-    
-}
+    background-color: white;
+    border: none;
+    color: gray;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 60px 0 0 0px;
+
+  }
 
   .item {
     flex-basis: calc(100%);
@@ -118,7 +207,7 @@
     align-items: center;
     background-color: #f0f0f0;
     position: relative;
-    height:94vw;
+    height: 94vw;
   }
 
   .item .image {
@@ -155,33 +244,33 @@
   }
 
   .image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
 
-.image-container {
-  position: relative;
-  overflow:hidden;
-  width:100%;
-  height:100%;
-}
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
 
-.sold-label {
-  position: absolute;
-  top: -5%;
-  left: -13%;
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  font-size:7vw;
-  text-align:center;
-  height:20vw;
-  width:35vw;
-  transform:rotate(-45deg);
-}
+  .sold-label {
+    position: absolute;
+    top: -5%;
+    left: -13%;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 7vw;
+    text-align: center;
+    height: 20vw;
+    width: 35vw;
+    transform: rotate(-45deg);
+  }
 
-.sold{
-  padding:10vw 0 0 0;
-}
+  .sold {
+    padding: 10vw 0 0 0;
+  }
 }

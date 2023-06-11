@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -36,7 +37,9 @@ class ItemController extends Controller
 
         $purchasedItemId = Purchase::pluck('item_id')->toArray();
 
+        $seller = User::where('id',$item->user_id)->first();
 
-        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId'));
+
+        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','seller'));
     }
 }

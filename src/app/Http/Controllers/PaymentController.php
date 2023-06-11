@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\PurchaseNotification;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Purchase;
 use App\Models\Profile;
 
@@ -123,6 +126,21 @@ class PaymentController extends Controller
         $purchase->address = $addresses->address;
         $purchase->build = $addresses->build;
         $purchase->save();
+
+        // 商品出品者の情報を取得
+        $item = Item::where('id', $id)->first();
+        $seller = User::where('id', $item->user_id)->first();
+
+        // 出品者にメールを送信
+        $data = [
+            'seller_name' => $seller->name,
+            'item_name' => $item->item_name,
+            'price' => $item->price,
+            'buyer_name' => Auth::user()->name,
+            'buyer_email' => Auth::user()->email,
+            'date' => $purchase->created_at,
+        ];
+        Mail::to($seller->email)->send(new PurchaseNotification($data));
 
         return view('purchase.success');
     }

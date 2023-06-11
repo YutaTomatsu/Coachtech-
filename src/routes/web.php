@@ -15,6 +15,12 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AdminEmailController;
+use App\Http\Controllers\SellerController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserEmailController;
 
 Route::get('/', function () {
     $items = Item::get();
@@ -44,7 +50,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/mypage', [MypageController::class, 'create'])->name('mypage');
+Route::get('/admin', function () {return view('admin.admin_dashboard');})->middleware(['can:admin'])->name('admin.dashboard');
+
+Route::get('/mypage', [MypageController::class, 'showMypage'])->name('mypage');
 
 Route::get('/mypage/profile', [ProfileController::class, 'create'])->name('profile');
 
@@ -84,3 +92,37 @@ Route::get('/address/{id}', [AddressController::class, 'showChangeAddressForm'])
 Route::post('/address/{id}', [AddressController::class, 'changeAddress'])->name('change-address');
 
 Route::get('/search', [SearchController::class,'search'])->name('search');
+
+Route::get('/admins/create-email', [AdminEmailController::class, 'showEmailForm'])->name('admin-show-email');
+Route::post('/admins/send-email', [AdminEmailController::class, 'sendEmail'])->name('admins.send-email');
+
+Route::get('/seller/{id}', [SellerController::class, 'showSeller'])->name('show-seller');
+
+Route::get('/review/{id}', [ReviewController::class, 'showReviewForm'])->name('write-review');
+
+Route::post('/review/{id}', [ReviewController::class, 'review'])->name('review');
+
+Route::get('/reviews/{id}', [ReviewController::class, 'showReviews'])->name('show-reviews');
+
+Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
+
+Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+
+Route::get('/following/{id}', [FollowController::class, 'showFollowing'])->name('following');
+
+Route::get('/follower/{id}', [FollowController::class, 'showFollower'])->name('follower');
+
+Route::get('/following/seller/{id}', [SellerController::class, 'showFollowingSeller'])->name('show-following-seller');
+
+
+Route::get('/login', function () {return view('auth.login');})->middleware('guest')
+->name('login');
+
+Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
+
+Route::post('/logout', function () {Auth::logout();return redirect('/');})
+->name('logout');
+
+Route::get('/user-emails', [UserEmailController::class, 'create'])->middleware('auth');
+
+Route::post('/user-emails', [UserEmailController::class, 'store'])->middleware('auth');

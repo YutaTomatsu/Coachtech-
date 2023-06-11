@@ -9,7 +9,20 @@
     </head>
     <div class="detail">
         <div class="detail__left">
-            <img class="image" src="{{ $item->image }}">
+            <div class="left__box">
+                <div class="seller__box">
+                    <a href="{{ route('show-seller', ['id' => $item->id]) }}">
+                        <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
+                    </a>
+                    <div class="seller__right">
+                        <div class="seller__name">{{ $seller->name }}</div>
+                        <div class="review">
+                        </div>
+                    </div>
+                </div>
+                <a class="edit" href="{{ route('write-review', ['id' => $item->id]) }}">レビューを書く</a>
+                <img class="image" src="{{ $item->image }}">
+            </div>
         </div>
         <div class="detail__right">
             <div class="center">
@@ -84,6 +97,22 @@
                     </div>
                 </div>
             </div>
+
+
+
+            @if (in_array($item->id, $mylist_items))
+                <div class="mylist">
+                    <img class="toggle_img" src="{{ asset('img/delete_mylist.svg') }}" alt="mylist"
+                        data-itemid="{{ $item->id }}" data-userid="{{ Auth::id() }}">
+                </div>
+            @else
+                <div class="mylist">
+                    <img class="toggle_img" src="{{ asset('img/add_mylist.svg') }}" alt="mylist"
+                        data-itemid="{{ $item->id }}" data-userid="{{ Auth::id() }}">
+                </div>
+            @endif
+
+
 
             <script>
                 $(document).on('click', '.toggle_img', function(e) {

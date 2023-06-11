@@ -30,6 +30,13 @@ return [
 
     'connections' => [
 
+        'emails' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'emails',
+            'retry_after' => false,
+        ],
+
         'sync' => [
             'driver' => 'sync',
         ],
@@ -70,7 +77,6 @@ return [
             'block_for' => null,
             'after_commit' => false,
         ],
-
     ],
 
     /*

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Item;
+use App\Models\Admin;
 
 class User extends Authenticatable
 {
@@ -49,4 +50,30 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Item::class, 'mylists', 'user_id', 'item_id')->withTimestamps();
     }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin !== null && $this->admin->role === 'admin';
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
+
+    public function isFollowing($sellerId)
+    {
+        return $this->follows()->where('seller_id', $sellerId)->exists();
+    }
+
+    public function emails()
+    {
+        return $this->hasMany(UserEmail::class);
+    }
+
 }

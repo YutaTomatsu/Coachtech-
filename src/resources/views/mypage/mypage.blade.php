@@ -7,15 +7,30 @@
     </head>
     <div class="top">
         <div class="user">
-            <div class="icon">
-                <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
-                    style="width: 100px; height: 100px; border-radius: 50%;">
+            <div class="icon__name__box">
+                <div class="icon">
+                    <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
+                        style="width: 100px; height: 100px; border-radius: 50%;">
+                </div>
+                <div class="user__left__right">
+                    <div class="username">{{ $user->name }}</div>
+                    <a class="rating__detail" href="{{ route('show-reviews', ['id' => $user->id]) }}">
+                            <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
+                        <p class="rating__count">{{ $totalReviews }}</p>
+                    </a>
+                </div>
             </div>
-
-            <div class="username">{{ $user->name }}</div>
+            <a class="edit" href="{{ route('profile') }}">プロフィールを編集</a>
         </div>
 
-        <a class="edit" href="{{ route('profile') }}">プロフィールを編集</a>
+        <div class="follow__box">
+            <a class="following" href="{{ route('following', ['id' => $user->id]) }}">
+                {{ $following }} フォロー中
+            </a>
+            <a class="follower" href="{{ route('follower', ['id' => $user->id]) }}">
+                {{ $follower }} フォロワー
+            </a>
+        </div>
     </div>
 
     <style>

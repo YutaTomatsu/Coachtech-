@@ -1,0 +1,38 @@
+.seller__box {
+    border-bottom: solid gray;
+    margin: 100px auto;
+    width: 80%;
+}
+
+.seller {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    border-top: solid gray;
+    align-items: center;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.seller__left {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 60px;
+}
+
+.seller__name {
+    color: black;
+    margin: 0 10px;
+}
+
+.button {
+    background-color: white;
+    border: #ff5858 solid;
+    width: 130px;
+    height: 30px;
+    color: #ff5858;
+    border-radius: 8px;
+}

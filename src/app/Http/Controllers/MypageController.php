@@ -6,10 +6,12 @@ use App\Models\Item;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Follow;
+use App\Models\Review;
 
 class MypageController extends Controller
 {
-    public function create()
+    public function showMypage()
     {
         if (!Auth::user()) {
             return redirect()->route('login');
@@ -40,6 +42,12 @@ class MypageController extends Controller
             }
         }
 
-        return view('mypage.mypage', compact('user', 'items', 'purchaseItems'));
+        $following = Follow::where('user_id', $user->id)->count();
+        $follower = Follow::where('seller_id', $user->id)->count();
+
+        $totalReviews = Review::where('seller_id',  $user->id)->count();
+        $reviewsAvg = Review::where('seller_id',  $user->id)->avg('rating');
+
+        return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg'));
     }
 }
