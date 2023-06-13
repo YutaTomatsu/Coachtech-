@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Purchase;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
 
 class ItemController extends Controller
 {
@@ -34,12 +36,24 @@ class ItemController extends Controller
 
         $comments = Comment::where('item_id', $id)->get();
 
-
         $purchasedItemId = Purchase::pluck('item_id')->toArray();
 
         $seller = User::where('id',$item->user_id)->first();
 
+        if (!$seller->icon) {
+            $seller->icon = 'icon/icon_user_2.svg';
+        }
 
-        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','seller'));
+        if ($seller->icon === 'icon/icon_user_2.svg') {
+            $seller->icon = Storage::url($seller->icon);
+        }
+
+        $totalReviews = Review::where('seller_id',  $seller->id)->count();
+        $reviewsAvg = Review::where('seller_id',  $seller->id)->avg('rating');
+
+        $reviewed = Review::where('user_id', Auth::id())->where('item_id', $item->id)->exists();
+
+
+        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','seller', 'totalReviews', 'reviewsAvg','reviewed'));
     }
 }

@@ -44,12 +44,12 @@ class FollowController extends Controller
 
 
         foreach($following as $follow) {
-        if (!$follow->icon) {
-            $follow->icon = 'icon/icon_user_2.svg';
+        if (!$follow->seller->icon) {
+            $follow->seller->icon = 'icon/icon_user_2.svg';
         }
 
-        if ($follow->icon === 'icon/icon_user_2.svg') {
-            $follow->icon = Storage::url($follow->icon);
+        if ($follow->seller->icon === 'icon/icon_user_2.svg') {
+            $follow->seller->icon = Storage::url($follow->seller->icon);
         }
             if (Auth::check()) {
             $isFollowing = Follow::where('user_id', Auth::id())
@@ -66,12 +66,12 @@ class FollowController extends Controller
         $isFollowing = null;
 
         foreach ($followers as $follower) {
-            if (!$follower->icon) {
-                $follower->icon = 'icon/icon_user_2.svg';
+            if (!$follower->user->icon) {
+                $follower->user->icon = 'icon/icon_user_2.svg';
             }
 
-            if ($follower->icon === 'icon/icon_user_2.svg') {
-                $follower->icon = Storage::url($follower->icon);
+            if ($follower->user->icon === 'icon/icon_user_2.svg') {
+                $follower->user->icon = Storage::url($follower->user->icon);
             }
 
             if(Auth::check()){

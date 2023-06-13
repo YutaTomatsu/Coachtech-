@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Follow;
 use App\Models\Review;
+use App\Models\Shop;
 
 class MypageController extends Controller
 {
@@ -48,6 +49,8 @@ class MypageController extends Controller
         $totalReviews = Review::where('seller_id',  $user->id)->count();
         $reviewsAvg = Review::where('seller_id',  $user->id)->avg('rating');
 
-        return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg'));
+        $haveShop = Shop::where('user_id',Auth::id())->exists();
+
+        return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg','haveShop'));
     }
 }

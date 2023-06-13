@@ -74,13 +74,14 @@
 }
 
 .rating__detail {
-  border: solid;
   display: flex;
   flex-direction: row;
+  text-decoration: none;
 }
 
-.rating__avg {
-  border: solid;
+.rating__count {
+  margin: 0 0 0 100px;
+  color: #ff5858;
 }
 
 .star-rating {
@@ -197,7 +198,33 @@ svg.w-5.h-5 {
 
 .reviews__title {
   color: #ff5858;
-  ;
+  font-size: 23px;
+  margin: 20px;
+
+}
+
+.review {
+  display: flex;
+  margin: 10px;
+}
+
+.buyer__icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 20px auto 0;
+  border-radius: 50%;
+
+}
+
+.review__right {
+  width: 100%;
+}
+
+.comment {
+  background-color: #e2e2e2;
+  padding: 10px;
+  border-radius: 10px;
+  width: 90%;
 }
 
 @media screen and (max-width: 768px) {

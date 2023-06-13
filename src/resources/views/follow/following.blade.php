@@ -12,7 +12,7 @@
             @foreach ($following as $follow)
                 <a class="seller" href="{{ route('show-following-seller', ['id' => $follow->seller_id]) }}">
                     <div class="seller__left">
-                        <img class="icon" src="{{ asset($follow->icon) }}" alt="User Icon">
+                        <img class="icon" src="{{ $follow->seller->icon }}" alt="User Icon">
                         <div class="seller__name">{{ $follow->seller->name }}</div>
                     </div>
 

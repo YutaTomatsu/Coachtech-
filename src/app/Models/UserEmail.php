@@ -11,8 +11,9 @@ class UserEmail extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'email',
-        'password'
+        'password',
     ];
 
     public function user()

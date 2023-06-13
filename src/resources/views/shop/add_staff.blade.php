@@ -1,27 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.shop_header')
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="{{ asset('css/add_staff.css') }}" rel="stylesheet">
 </head>
-<body>
-    <form method="POST" action="/user-emails">
+
+@section('content')
+    <form class="form" method="POST" action="/user-emails">
     @csrf
 
-    <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" required>
+    <div class="item__box">
+        <label class="item__name" for="name">スタッフ名</label>
+        <input class="text" id="name" type="name" name="name" required>
     </div>
 
-    <div>
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required>
+    <div class="item__box">
+        <label class="item__name" for="email">メールアドレス</label>
+        <input class="text" id="email" type="email" name="email" required>
     </div>
 
-    <button type="submit">Add Email</button>
+    <div class="item__box">
+        <label class="item__name" for="password">パスワード</label>
+        <input class="text" id="password" type="password" name="password" required>
+    </div>
+
+    <div class="items__box">
+    <button  class="button" type="submit">スタッフを作成する</button>
+    </div>
+
+    @if(session('success'))
+    <p class="success">{{session('success')}}</p>
+    @endif
 </form>
 
-</body>
-</html>
+@endsection

@@ -1,0 +1,35 @@
+.shop__detail{
+    margin:50px;
+    border:solid #b0b0b0;
+    border-radius:10px;
+}
+
+.icon__name{
+    display:flex;
+    align-items:center;
+    margin:30px;
+}
+
+.shop__icon{
+    width:60px;
+    height:60px;
+}
+
+.shop__name{
+    margin:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.about__box{
+}
+
+.about__title{
+    margin:0 50px;
+}
+
+.about{
+    margin:20px 50px;
+}
+
+.shop_edit{}

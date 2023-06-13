@@ -3,7 +3,7 @@
 @section('content')
 
     <head>
-        <link href="{{ asset('css/following.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/follower.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
@@ -11,7 +11,7 @@
         @foreach ($followers as $follower)
             <a class="seller" href="{{ route('show-following-seller', ['id' => $follower->user_id]) }}">
                 <div class="seller__left">
-                    <img class="icon" src="{{ asset($follower->icon) }}" alt="User Icon">
+                    <img class="icon" src="{{ asset($follower->user->icon) }}" alt="User Icon">
                     <div class="seller__name">{{ $follower->user->name }}</div>
                 </div>
             </a>

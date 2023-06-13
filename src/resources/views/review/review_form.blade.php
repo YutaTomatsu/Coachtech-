@@ -17,7 +17,7 @@
         <div class="detail__left">
             <div class="left__box">
                 <div class="seller__box">
-                    <a href="{{ route('show-seller',['id'=>$item->id]) }}">
+                    <a href="{{ route('show-seller', ['id' => $item->id]) }}">
                         <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
                     </a>
                     <div class="seller__right">
@@ -36,10 +36,11 @@
                         <div class="review__box">
                             <div class="review__title">{{ __('レビューを書く') }}</div>
                             <div class="review__body">
-                                <form class="review__form" method="POST" action="{{ route('review',['id'=>$item->id]) }}">
+                                <form class="review__form" method="POST" action="{{ route('review', ['id' => $item->id]) }}">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="rating" class="col-md-4 col-form-label text-md-right">{{ __('評価') }}</label>
+                                        <label for="rating"
+                                            class="col-md-4 col-form-label text-md-right">{{ __('評価') }}</label>
                                         <input type="hidden" name="" value="">
                                         <div class="rate-form">
                                             <input id="star5" type="radio" name="rating" value="5">
@@ -53,21 +54,22 @@
                                             <input id="star1" type="radio" name="rating" value="1">
                                             <label for="star1">★</label>
                                             @error('rating')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="comment__group">
-                                        <label for="comment" class="col-md-4 col-form-label text-md-right">{{ __('コメント') }}</label>
+                                        <label for="comment"
+                                            class="col-md-4 col-form-label text-md-right">{{ __('コメント') }}</label>
                                         <div class="col-md-6">
                                             <textarea class="comment__text" name="comment" id="comment" class="form-control" required>{{ old('comment') }}</textarea>
 
                                             @error('comment')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -80,18 +82,18 @@
                                     </div>
                                 </form>
                                 @if ($errors->any())
-                                <div class="alert alert-danger mt-3">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                                    <div class="alert alert-danger mt-3">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 @endif
                                 @if (session('success'))
-                                <div class="alert alert-success mt-3">
-                                    {{ session('success') }}
-                                </div>
+                                    <div class="alert alert-success mt-3">
+                                        {{ session('success') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>

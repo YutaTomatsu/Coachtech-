@@ -21,6 +21,9 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserEmailController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShopSellController;
+use App\Http\Controllers\ShopEditController;
 
 Route::get('/', function () {
     $items = Item::get();
@@ -114,15 +117,28 @@ Route::get('/follower/{id}', [FollowController::class, 'showFollower'])->name('f
 
 Route::get('/following/seller/{id}', [SellerController::class, 'showFollowingSeller'])->name('show-following-seller');
 
-
-Route::get('/login', function () {return view('auth.login');})->middleware('guest')
-->name('login');
-
-Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
-
 Route::post('/logout', function () {Auth::logout();return redirect('/');})
 ->name('logout');
 
-Route::get('/user-emails', [UserEmailController::class, 'create'])->middleware('auth');
+Route::get('/staff/{id}', [UserEmailController::class, 'showStaff'])->middleware('auth')
+    ->name('show-staff');
+
+
+Route::get('/user-emails/{id}', [UserEmailController::class, 'create'])->middleware('auth')
+->name('show-create-staff');
 
 Route::post('/user-emails', [UserEmailController::class, 'store'])->middleware('auth');
+
+Route::get('/shop', [ShopController::class, 'showShopForm'])->name('show-create-shop');
+
+Route::post('/shop', [ShopController::class, 'createShop'])->name('create-shop');
+
+Route::get('/shop/dashboard/{id}', [ShopController::class, 'showShop'])->name('show-shop');
+
+Route::get('/shop/sell/{id}', [ShopSellController::class, 'showShopSellForm'])->name('show-shop-sell');
+
+Route::post('/shop/sell/{id}', [ShopSellController::class, 'shopSell'])->name('shop-sell');
+
+Route::get('/shop/edit/{id}', [ShopEditController::class, 'showShopEditForm'])->name('show-shop-edit');
+
+Route::post('/shop/edit/{id}', [ShopEditController::class, 'shopEdit'])->name('shop-edit');

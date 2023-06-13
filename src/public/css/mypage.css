@@ -11,6 +11,21 @@
   justify-content: space-between;
 }
 
+.user__right{
+  display:flex;
+  flex-direction:column;
+}
+
+.shop{
+  text-decoration: none;
+  color: #0063ff;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 3px 20px;
+  margin:0 0 0 auto;
+  
+}
+
 .icon__name__box {
   display: flex;
   align-items: center;

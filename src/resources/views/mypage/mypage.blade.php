@@ -2,97 +2,105 @@
 
 @section('content')
 
-    <head>
-        <link href="{{ asset('css/mypage.css') }}" rel="stylesheet">
-    </head>
-    <div class="top">
-        <div class="user">
-            <div class="icon__name__box">
-                <div class="icon">
-                    <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
-                        style="width: 100px; height: 100px; border-radius: 50%;">
-                </div>
-                <div class="user__left__right">
-                    <div class="username">{{ $user->name }}</div>
-                    <a class="rating__detail" href="{{ route('show-reviews', ['id' => $user->id]) }}">
-                            <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
-                        <p class="rating__count">{{ $totalReviews }}</p>
-                    </a>
-                </div>
+<head>
+    <link href="{{ asset('css/mypage.css') }}" rel="stylesheet">
+</head>
+<div class="top">
+    <div class="user">
+        <div class="icon__name__box">
+            <div class="icon">
+                <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像" style="width: 100px; height: 100px; border-radius: 50%;">
             </div>
+            <div class="user__left__right">
+                <div class="username">{{ $user->name }}</div>
+                <a class="rating__detail" href="{{ route('show-reviews', ['id' => $user->id]) }}">
+                    <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
+                    <p class="rating__count">{{ $totalReviews }}</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="user__right">
+            @if(!$haveShop)
+            <a class="shop" href="{{route('show-create-shop')}}">ショップ作成</a>
+            @else
+            <a class="shop" href="{{route('show-shop',['id'=>$user->id])}}">ショップ管理</a>
+            @endif
+
             <a class="edit" href="{{ route('profile') }}">プロフィールを編集</a>
         </div>
+    </div>
 
-        <div class="follow__box">
-            <a class="following" href="{{ route('following', ['id' => $user->id]) }}">
-                {{ $following }} フォロー中
+    <div class="follow__box">
+        <a class="following" href="{{ route('following', ['id' => $user->id]) }}">
+            {{ $following }} フォロー中
+        </a>
+        <a class="follower" href="{{ route('follower', ['id' => $user->id]) }}">
+            {{ $follower }} フォロワー
+        </a>
+    </div>
+</div>
+
+<style>
+    .change__button {
+        background-color: transparent;
+        color: gray;
+    }
+
+    .active {
+        color: #ff5858;
+        ;
+    }
+</style>
+
+<button class="change__button active" id="recommendTrigger">出品した商品</button>
+<button class="change__button" id="mylistTrigger">購入した商品</button>
+
+<div class="main">
+    <div class="recommend">
+        <div class="item__box" id="recommendItems">
+            @foreach ($items as $item)
+            <a class="item" href="{{ route('detail', ['id' => $item->id]) }}">
+                <img class="image" src="{{ $item->image }}" alt="Item Image">
             </a>
-            <a class="follower" href="{{ route('follower', ['id' => $user->id]) }}">
-                {{ $follower }} フォロワー
-            </a>
+            @endforeach
         </div>
     </div>
 
-    <style>
-        .change__button {
-            background-color: transparent;
-            color: gray;
-        }
+    <div class="mylist">
+        <div class="item__box" id="mylistItems" style="display: none;">
+            @foreach ($purchaseItems as $purchaseItem)
+            <a class="item" href="{{ route('detail', ['id' => $purchaseItem->id]) }}">
+                <img class="image" src="{{ $purchaseItem->image }}" alt="Item Image">
+            </a>
+            @endforeach
 
-        .active {
-            color: #ff5858;
-            ;
-        }
-    </style>
-
-    <button class="change__button active" id="recommendTrigger">出品した商品</button>
-    <button class="change__button" id="mylistTrigger">購入した商品</button>
-
-    <div class="main">
-        <div class="recommend">
-            <div class="item__box" id="recommendItems">
-                @foreach ($items as $item)
-                    <a class="item" href="{{ route('detail', ['id' => $item->id]) }}">
-                        <img class="image" src="{{ $item->image }}" alt="Item Image">
-                    </a>
-                @endforeach
-            </div>
-        </div>
-
-        <div class="mylist">
-            <div class="item__box" id="mylistItems" style="display: none;">
-                @foreach ($purchaseItems as $purchaseItem)
-                    <a class="item" href="{{ route('detail', ['id' => $purchaseItem->id]) }}">
-                        <img class="image" src="{{ $purchaseItem->image }}" alt="Item Image">
-                    </a>
-                @endforeach
-
-            </div>
         </div>
     </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var recommendTrigger = document.getElementById('recommendTrigger');
-            var recommendItems = document.getElementById('recommendItems');
-            var mylistTrigger = document.getElementById('mylistTrigger');
-            var mylistItems = document.getElementById('mylistItems');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var recommendTrigger = document.getElementById('recommendTrigger');
+        var recommendItems = document.getElementById('recommendItems');
+        var mylistTrigger = document.getElementById('mylistTrigger');
+        var mylistItems = document.getElementById('mylistItems');
 
-            recommendTrigger.addEventListener('click', function() {
-                recommendItems.style.display = 'flex';
-                mylistItems.style.display = 'none';
+        recommendTrigger.addEventListener('click', function() {
+            recommendItems.style.display = 'flex';
+            mylistItems.style.display = 'none';
 
-                recommendTrigger.classList.add('active');
-                mylistTrigger.classList.remove('active');
-            });
-
-            mylistTrigger.addEventListener('click', function() {
-                recommendItems.style.display = 'none';
-                mylistItems.style.display = 'flex';
-
-                mylistTrigger.classList.add('active');
-                recommendTrigger.classList.remove('active');
-            });
+            recommendTrigger.classList.add('active');
+            mylistTrigger.classList.remove('active');
         });
-    </script>
+
+        mylistTrigger.addEventListener('click', function() {
+            recommendItems.style.display = 'none';
+            mylistItems.style.display = 'flex';
+
+            mylistTrigger.classList.add('active');
+            recommendTrigger.classList.remove('active');
+        });
+    });
+</script>
 @endsection

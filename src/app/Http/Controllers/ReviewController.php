@@ -42,6 +42,25 @@ class ReviewController extends Controller
 
         $seller = User::where('id', $item->user_id)->first();
 
+        if (!$seller->icon) {
+            $seller->icon = 'icon/icon_user_2.svg';
+        }
+
+        if ($seller->icon === 'icon/icon_user_2.svg') {
+            $seller->icon = Storage::url($seller->icon);
+        }
+
+        $purchased = Purchase::where('user_id', Auth::id())
+        ->where('item_id', $id)
+        ->exists();
+
+        $error_message = "購入後にレビューができます";
+
+        if (!$purchased) {
+            return redirect()->back()->with('error', '購入後にレビューができます');
+        }
+
+        
         return view('review.review_form', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'seller'));
     }
 
@@ -50,6 +69,10 @@ class ReviewController extends Controller
 
     public function review(Request $request, $id)
     {
+        if (!Auth::user()) {
+            return redirect()->route('login');
+        }
+
         $validatedData = $request->validate(
             [
                 'rating' => 'required',
@@ -78,7 +101,7 @@ class ReviewController extends Controller
 
     public function showReviews($id)
     {
-        $reviews = Review::where('seller_id',$id)->get();
+        $reviews = Review::with('user')->where('seller_id',$id)->get();
 
         $item = Item::where('id', $id)->first();
 
@@ -109,7 +132,18 @@ class ReviewController extends Controller
         $totalReviews = Review::where('seller_id',  $user->id)->count();
         $reviewsAvg = Review::where('seller_id',  $user->id)->avg('rating');
 
-        return view('review.reviews', compact('reviews', 'user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews'));
+        foreach ($reviews as $review) {
+
+            if (!$review->user->icon) {
+                $review->user->icon = 'icon/icon_user_2.svg';
+            }
+
+            if ($review->user->icon === 'icon/icon_user_2.svg') {
+                $review->user->icon = Storage::url($review->user->icon);
+            }
+        }
+
+        return view('review.reviews', compact('reviews', 'user', 'items', 'purchaseItems','reviewsAvg','totalReviews'));
     }
     }
 

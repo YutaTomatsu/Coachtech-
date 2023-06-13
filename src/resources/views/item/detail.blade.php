@@ -11,16 +11,27 @@
         <div class="detail__left">
             <div class="left__box">
                 <div class="seller__box">
-                    <a href="{{ route('show-seller', ['id' => $item->id]) }}">
-                        <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
-                    </a>
-                    <div class="seller__right">
-                        <div class="seller__name">{{ $seller->name }}</div>
-                        <div class="review">
+                    <div class="seller__box__top">
+                        <a href="{{ route('show-seller', ['id' => $item->id]) }}">
+                            <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
+                        </a>
+                        <div class="seller__right">
+                            <div class="seller__name">{{ $seller->name }}</div>
+                            <a class="rating__detail" href="{{ route('show-reviews', ['id' => $seller->id]) }}">
+                                <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
+                                <p class="rating__count">{{ $totalReviews }}</p>
+                            </a>
                         </div>
                     </div>
+                    @if (Auth::id() !== $item->user_id)
+                        @if (!$reviewed)
+                            <a class="review" href="{{ route('write-review', ['id' => $item->id]) }}">レビューを書く</a>
+                        @endif
+                    @endif
+                    @if (session('error'))
+                        <p>{{ session('error') }}</p>
+                    @endif
                 </div>
-                <a class="edit" href="{{ route('write-review', ['id' => $item->id]) }}">レビューを書く</a>
                 <img class="image" src="{{ $item->image }}">
             </div>
         </div>
@@ -97,23 +108,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-            @if (in_array($item->id, $mylist_items))
-                <div class="mylist">
-                    <img class="toggle_img" src="{{ asset('img/delete_mylist.svg') }}" alt="mylist"
-                        data-itemid="{{ $item->id }}" data-userid="{{ Auth::id() }}">
-                </div>
-            @else
-                <div class="mylist">
-                    <img class="toggle_img" src="{{ asset('img/add_mylist.svg') }}" alt="mylist"
-                        data-itemid="{{ $item->id }}" data-userid="{{ Auth::id() }}">
-                </div>
-            @endif
-
-
-
             <script>
                 $(document).on('click', '.toggle_img', function(e) {
                     e.preventDefault();
