@@ -18,10 +18,10 @@
 
                     @if (Auth::user())
                         @if (Auth::id() != $follow->seller_id)
-                            <button id="follow-button-{{ $follow->seller->id }}"
+                            <button class="button" id="follow-button-{{ $follow->seller->id }}"
                                 style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
 
-                            <button id="unfollow-button-{{ $follow->seller->id }}"
+                            <button class="button" id="unfollow-button-{{ $follow->seller->id }}"
                                 style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
                         @endif
                     @endif

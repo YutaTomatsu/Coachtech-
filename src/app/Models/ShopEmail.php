@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
-class UserEmail extends Model
+class ShopEmail extends Model
 {
     use HasFactory;
 
+    protected $table = 'shops_emails';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'shop_id',
+        'content',
+        'sent_by',
+        'status',
     ];
 
     public function user()
@@ -21,8 +24,8 @@ class UserEmail extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function setPasswordAttribute($password)
+    public function shop()
     {
-        $this->attributes['password'] = Hash::make($password);
+        return $this->belongsTo(Shop::class);
     }
 }

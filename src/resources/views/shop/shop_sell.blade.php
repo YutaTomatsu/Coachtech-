@@ -5,7 +5,7 @@
 </head>
 
 @section('content')
-    <form class="form" method="POST" action="{{ route('shop-sell',['id'=>$shop->id]) }}" enctype="multipart/form-data">
+    <form class="form" method="POST" action="{{ route('shop-sell', ['id' => $shop->id]) }}" enctype="multipart/form-data">
         @csrf
         <div class="title">商品の出品</div>
         <div class="item__box">
@@ -86,14 +86,12 @@
             <x-button class="button">
                 {{ __('出品する') }}
             </x-button>
-        </div>
 
-        <x-auth-validation-errors class="error" :errors="$errors" />
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+            @if (session('success'))
+                <p class="success">{{ session('success') }}</p>
+            @endif
+            <x-auth-validation-errors class="error" :errors="$errors" />
+        </div>
     </form>
     <script>
         function previewImage(event) {

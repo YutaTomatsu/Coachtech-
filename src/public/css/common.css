@@ -1,3 +1,7 @@
+.common__main {
+    margin: 50px 0 0 0;
+}
+
 .header__menu {
     display: none;
 }
@@ -48,6 +52,11 @@
     display: flex;
     justify-content: space-between;
     height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
 }
 
 .header__left {
@@ -58,14 +67,14 @@
 .rogo {
     width: 40px;
     color: white;
-    align-items:center;
-    display:flex;
+    align-items: center;
+    display: flex;
 }
 
-.ct{
-    width:100%;
-    margin:auto 0;
-    
+.ct {
+    width: 100%;
+    margin: auto 0;
+
 }
 
 
@@ -118,11 +127,6 @@
 
 @media screen and (max-width: 768px) {
 
-    body {
-        width: 100%;
-    }
-
-
     .header__menu {
         display: flex;
         flex-direction: row;
@@ -159,8 +163,6 @@
 
     .search {
         margin: auto 10px;
-        border:solid white
-        dis
     }
 
     .search__text {

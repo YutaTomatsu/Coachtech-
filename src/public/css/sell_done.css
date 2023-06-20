@@ -31,14 +31,10 @@ h1 {
 
 @media screen and (max-width:768px) {
 
-.body{
-    width:768px;
-}
-
 .thanks__box{
     border-top:solid;
     border-bottom:solid;
-    width:600px;
+    width:80%;
     margin:100px auto;
 }
 }

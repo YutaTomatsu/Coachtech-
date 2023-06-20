@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.logo_only')
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-    <title>Document</title>
 </head>
 
-<body>
-
-    <header class="header">
-    </header>
-
+@section('content')
     <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -39,10 +30,13 @@
             <a class="register" href="{{ route('register') }}">会員登録はこちら</a>
         </div>
 
+        @if (Route::has('password.request'))
+            <a class="forgot__pass" href="{{ route('password.request') }}">
+                {{ __('Forgot your password?') }}
+            </a>
+        @endif
+
         <x-auth-session-status class="status" :status="session('status')" />
         <x-auth-validation-errors class="error" :errors="$errors" />
     </form>
-
-</body>
-
-</html>
+@endsection

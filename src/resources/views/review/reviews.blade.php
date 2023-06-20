@@ -24,7 +24,12 @@
 
     <div class="reviews__title" id="recommendTrigger">評価一覧</div>
 
-    @foreach ($reviews as $review)
+<div class="reviews__box">
+
+    @if($reviews->count() === 0 )
+    <div class="none__review">まだレビューがありません</div>
+    @else
+        @foreach ($reviews as $review)
         <div class="review">
             <img class="buyer__icon" src="{{ asset($review->user->icon) }}">
             <div class="review__right">
@@ -33,4 +38,7 @@
             </div>
         </div>
     @endforeach
+    @endif
+
+</div>
 @endsection

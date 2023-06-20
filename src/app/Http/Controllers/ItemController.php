@@ -10,6 +10,9 @@ use App\Models\Comment;
 use App\Models\Purchase;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\ShopReview;
+use App\Models\ShopItem;
+use App\Models\Shop;
 
 class ItemController extends Controller
 {
@@ -38,6 +41,8 @@ class ItemController extends Controller
 
         $purchasedItemId = Purchase::pluck('item_id')->toArray();
 
+        $purchased = Purchase::where('item_id',$id)->where('user_id',Auth::id())->exists();
+
         $seller = User::where('id',$item->user_id)->first();
 
         if (!$seller->icon) {
@@ -53,7 +58,35 @@ class ItemController extends Controller
 
         $reviewed = Review::where('user_id', Auth::id())->where('item_id', $item->id)->exists();
 
+        $shopReviewed =ShopReview::where('user_id', Auth::id())->where('item_id', $item->id)->exists();
 
-        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','seller', 'totalReviews', 'reviewsAvg','reviewed'));
+        $shop = null;
+
+        $shopId = ShopItem::where('item_id',$id)->first();
+        if($shopId){
+        $shop = Shop::where('id',$shopId->shop_id)->first();
+        }
+
+        $myShop = Shop::where('user_id',Auth::id())->first();
+
+        return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','purchased','seller', 'totalReviews', 'reviewsAvg','reviewed','shop','myShop','shopReviewed'));
+    }
+
+
+    public function getSaleItems(Request $request)
+    {
+        // 全てのアイテムを取得
+        $items = Item::all();
+
+        // purchasesテーブルに存在するitem_idのリストを取得
+        $purchasedItemIds = Purchase::pluck('item_id');
+
+        // 各アイテムが購入済みかどうかを判定
+        $items = $items->map(function ($item) use ($purchasedItemIds) {
+            $item['purchased'] = $purchasedItemIds->contains($item->id);
+            return $item;
+        });
+
+        return response()->json($items);
     }
 }

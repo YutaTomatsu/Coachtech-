@@ -7,12 +7,12 @@
     </head>
     <form class="form" method="POST" action="{{ route('create-shop') }}" enctype="multipart/form-data">
         @csrf
-        <div class="title">ショップ名を決めてショップを作成しよう！</div>
+        <div class="title">coachtechショップでは、スタッフを作成して複数人で運営したり、クーポンを発行できるなど、個人アカウントより本格的な販売ができます。まずはショップ名を決めてショップを作成してみましょう！
+        </div>
         <div class="top">
             <div class="user">
                 <div class="icon">
-                    <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
-                        style="width: 100px; height: 100px; border-radius: 50%;">
+                    <img class="shop__icon" id="preview" src="img/icon_default.svg" alt="プロフィール画像">
                 </div>
                 <div class="edit">
                     <label for="shop_icon" class="select-image">画像を選択する</label>
@@ -23,12 +23,12 @@
         </div>
         <div class="item__box">
             <x-label class="item__name" for="shop_name" :value="__('ショップ名')" />
-            <x-input class="text" id="shop_name" type="text" name="shop_name" :value="$user->name" required />
+            <x-input class="text" id="shop_name" type="text" name="shop_name" :value="old('shop_name')" required />
         </div>
 
         <div class="item__box">
             <x-label class="item__name" for="name" :value="__('ショップ説明')" />
-            <textarea class="text" id="about" type="text" name="about" :value="$user - > about" required></textarea>
+            <textarea class="text" id="about" type="text" name="about">{{old('about')}}</textarea>
         </div>
 
 

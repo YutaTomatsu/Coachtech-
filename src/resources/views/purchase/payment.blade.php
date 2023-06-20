@@ -18,7 +18,7 @@
         </div>
         <div class="amount__box">
             <div class="amount__title">支払い金額</div>
-            <div class="amount">{{ $items->price }}¥</div>
+            <div class="amount">{{ $paymentIntent->amount }}¥</div>
         </div>
 
         <div class="address__box">

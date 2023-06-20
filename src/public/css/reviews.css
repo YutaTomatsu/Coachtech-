@@ -16,8 +16,14 @@
   border-radius: 50%;
 }
 
+.user__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
 .username {
-  margin: auto 0 auto 20px;
   font-size: 20px;
   font-weight: bold;
 }
@@ -77,6 +83,7 @@
   display: flex;
   flex-direction: row;
   text-decoration: none;
+
 }
 
 .rating__count {
@@ -225,6 +232,19 @@ svg.w-5.h-5 {
   padding: 10px;
   border-radius: 10px;
   width: 90%;
+}
+
+.reviews__box {
+  border-top: solid gray;
+}
+
+.none__review {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0;
+  font-size: 27px;
+  font-weight: bold;
+  color: gray;
 }
 
 @media screen and (max-width: 768px) {

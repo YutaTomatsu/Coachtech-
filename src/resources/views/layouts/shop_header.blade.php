@@ -16,8 +16,49 @@
 <body>
     <header>
         <div class="header__left">
+            <div class="header__menu">
+                <button class="menu__design" type="button"></button>
+                <div class="under__line"></div>
+                <div class="menu__items">
+                    <ul class="menu">
+                        <li title="閉じる"><a href="#"
+                                class="close-button">閉じる</a></li>
+                        <li title="ホーム"><a href="{{ route('show-shop', ['id' => $shop->user_id]) }}"
+                                class="home">ホーム</a></li>
+                        <li title="出品"><a href="{{ route('show-shop-sell', ['id' => $shop->id]) }}"
+                                class="search">出品/a>
+                        </li>
+                        <li title="クーポン"><a href="{{ route('show-coupons', ['id' => $shop->id]) }}"
+                                class="pencil">クーポン</a>
+                        </li>
+                            <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}"
+                                    class="stuff">スタッフ</a>
+                            </li>
+                        <li title="メール"><a href="{{ route('show-mails', ['id' => $shop->id]) }}"
+                                class="email">メール</a></li>
+                        @if (!isset($userStaff))
+                            <li title="編集"><a href="{{ route('show-shop-edit', ['id' => $shop->id]) }}"
+                                    class="archive">編集</a>
+                            </li>
+                        @endif
+                        @if (!isset($userStaff))
+                            <li title="戻る"><a href="{{ route('mypage') }}" class="contact">contact</a></li>
+                        @else
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                                @csrf
+                            </form>
+
+                            <li title="ログアウト">
+                                <a href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    class="contact">ログアウト</a>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
             <div class="rogo">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('show-shop', ['id' => $shop->user_id]) }}">
                     <img class="ct" src="/img/cd_logo.png" alt="CT">
                 </a>
             </div>
@@ -28,29 +69,58 @@
             </div>
         </div>
     </header>
+
+
+
+    <script>
+        const button = document.querySelector('.menu__design');
+        const menu = document.querySelector('.menu__items');
+        const closeButton = document.querySelector('.close-button');
+
+        function toggleMenu() {
+            menu.classList.toggle('menu-open');
+        }
+        button.addEventListener('click', toggleMenu);
+        closeButton.addEventListener('click', toggleMenu);
+    </script>
+
     <div class="menu__main">
-        <ul class="menu">
-            <li title="ホーム"><a href="{{ route('show-shop', ['id' => $shop->user_id]) }}" class="home">home</a></li>
-            <li title="出品"><a href="{{ route('show-shop-sell', ['id' => $shop->id]) }}" class="search">search</a></li>
-            <li title="クーポン"><a href="#" class="pencil">pencil</a></li>
-            <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}" class="stuff">about</a></li>
-            <li title="編集"><a href="{{ route('show-shop-edit', ['id' => $shop->id]) }}" class="archive">archive</a>
-            </li>
-            @if(!$userEmail)
-            <li title="戻る"><a href="{{ route('mypage') }}" class="contact">contact</a></li>
-            @endif
-        </ul>
-        <main class="main">
+        <div class="menu__hidden">
+            <ul class="menu">
+                <li title="ホーム"><a href="{{ route('show-shop', ['id' => $shop->user_id]) }}" class="home">ホーム</a>
+                </li>
+                <li title="出品"><a href="{{ route('show-shop-sell', ['id' => $shop->id]) }}" class="search">出品/a>
+                </li>
+                <li title="クーポン"><a href="{{ route('show-coupons', ['id' => $shop->id]) }}" class="pencil">クーポン</a>
+                </li>
+                    <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}" class="stuff">スタッフ</a>
+                    </li>
+                <li title="メール"><a href="{{ route('show-mails', ['id' => $shop->id]) }}" class="email">メール</a>
+                </li>
+                @if (!isset($userStaff))
+                    <li title="編集"><a href="{{ route('show-shop-edit', ['id' => $shop->id]) }}"
+                            class="archive">編集</a>
+                    </li>
+                @endif
+                @if (!isset($userStaff))
+                    <li title="戻る"><a href="{{ route('mypage') }}" class="contact">contact</a></li>
+                @else
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                        @csrf
+                    </form>
+
+                    <li title="ログアウト">
+                        <a href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            class="contact">ログアウト</a>
+                    </li>
+                @endif
+            </ul>
+        </div>
+        <main class="common__main">
             @yield('content')
         </main>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('main').css('overflow-y', 'scroll');
-            $('main').css('max-height', '700px');
-        });
-    </script>
-
 </body>
 
 </html>

@@ -32,7 +32,7 @@ class SellController extends Controller
 
         $request->validate([
             'item_name' => 'required|max:50',
-            'price' => 'required|integer|max:9999999',
+            'price' => 'required|integer|max:9999999|min:300',
             'image' => 'required|file|image',
             'about' => 'required|max:255',
             'category' => [
@@ -59,7 +59,8 @@ class SellController extends Controller
             'image.required' => '画像が選択されていません',
             'category.required' => 'カテゴリーは1つ以上選択する必要があります',
             'price.integer' => '販売価格は半角数字で入力してください',
-            'price.max' => '9999999円以上の商品の出品はできません。'
+            'price.max' => '9999999円以上の商品の出品はできません。',
+            'price.min' => '300円以下の商品の出品はできません。'
         ]);
 
         $item = new Item;

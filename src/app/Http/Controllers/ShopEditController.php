@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\Shop;
+use App\Models\UserStaff;
 
 class ShopEditController extends Controller
 {
@@ -26,10 +27,11 @@ class ShopEditController extends Controller
             $user->icon = Storage::url($user->icon);
         }
 
-        $profile = Profile::where('user_id', $user->id)->first();
+        $shop = Shop::where('id', $id)->first();
 
-        $shop = Shop::where('user_id', $id)->first();
-        return view('shop.shop_edit', compact('profile', 'user','shop'));
+        $userStaff = UserStaff::where('staff_id', Auth::id())->first();
+
+        return view('shop.shop_edit', compact('user','shop','userStaff'));
     }
 
     public function shopEdit(Request $request,$id)
@@ -39,17 +41,15 @@ class ShopEditController extends Controller
         }
 
         $request->validate([
-            'shop_name' => 'required|max:50|unique:shops,shop_name',
+            'shop_name' => 'required|max:50',
             'shop_icon' => 'file|image',
             'about' => 'required|max:255',
         ], [
-            'shop_name.unique' => 'このショップ名は既に使われています',
             'shop_name.max' => 'ショップ名は50文字以内で入力してください',
             'about.max' => '商品の説明は255文字以内で入力してください',
         ]);
 
         $shop = Shop::where('id',$id)->first();
-        $shop->user_id = Auth::id();
         $shop->shop_name = $request->shop_name;
         $shop->about = $request->about;
 
@@ -59,11 +59,13 @@ class ShopEditController extends Controller
             $shop->shop_icon = Storage::url($path);
         }
 
-        $id = $shop->user_id;
-
         $shop->save();
 
-        return redirect()->route('show-shop', compact('id'));
+        $id = $shop->user_id;
+
+        $userStaff = UserStaff::where('staff_id', Auth::id())->first();
+
+        return redirect()->route('show-shop', compact('id','userStaff'));
     }
 
     public function showShop($id)

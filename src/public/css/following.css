@@ -39,3 +39,47 @@
     color: #ff5858;
     border-radius: 8px;
 }
+
+@media screen and (max-width:468px) {
+    .seller__box {
+        border-bottom: solid gray;
+        margin: 100px auto;
+        width: 80%;
+    }
+
+    .seller {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        padding: 5px;
+    }
+
+    .seller__left {
+        display: flex;
+        text-align: left;
+        align-items: left;
+        margin: 0 auto 0 0;
+    }
+
+    .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+
+    }
+
+    .seller__name {
+        color: black;
+        margin: 0 10px;
+    }
+
+    .button {
+        background-color: white;
+        border: #ff5858 solid;
+        width: 130px;
+        height: 30px;
+        color: #ff5858;
+        border-radius: 8px;
+        margin: 0 auto 0 0;
+    }
+}

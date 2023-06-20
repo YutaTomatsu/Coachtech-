@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
+use App\Models\ShopItem;
+use App\Models\Coupon;
+use App\Models\Profile;
 
 class PurchaseController extends Controller
 {
@@ -20,6 +22,14 @@ class PurchaseController extends Controller
 
         $addresses = Profile::where('user_id',Auth::id())->first();
 
-        return view('purchase.purchase', compact('user','item','addresses'));
+        $shopItemId = ShopItem::where('item_id',$id)->first();
+
+        $coupons = null;
+
+        if($shopItemId){
+        $coupons = Coupon::where('shop_id',$shopItemId->shop_id)->get();
+        }
+
+        return view('purchase.purchase', compact('user','item','addresses','coupons'));
     }
 }

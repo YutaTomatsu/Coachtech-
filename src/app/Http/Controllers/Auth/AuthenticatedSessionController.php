@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserEmail;
+use App\Models\UserStaff;
 use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
@@ -35,21 +36,20 @@ class AuthenticatedSessionController extends Controller
             'password' => ['required'],
         ]);
 
-        $userEmail = UserEmail::where('email', $credentials['email'])->first();
-
-        if ($userEmail && Hash::check($credentials['password'], $userEmail->password)) {
-            Auth::login($userEmail->user);
-
-            $shop = Shop::where('user_id', $userEmail->user_id)->first();
-
-            return view('shop.shop_dashboard', compact('shop','userEmail'));
-        }
-        
         $request->authenticate();
 
         $request->session()->regenerate();
 
         $user = $request->user();
+
+        $userStaff =UserStaff::where('staff_id',$user->id)->first();
+
+        if($userStaff){
+
+            $id = UserStaff::where('staff_id',$user->id)->first();
+
+            return redirect()->intended(route('show-shop',['id'=>$id->user_id]));
+        }
 
         if ($user->admin && $user->admin->role === 'admin') {
             return redirect()->intended(route('admin.dashboard'));

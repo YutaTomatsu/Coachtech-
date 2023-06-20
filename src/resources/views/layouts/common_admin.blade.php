@@ -19,12 +19,10 @@
                 <div class="menu">
                     <button class="close-button" type="button">X</button>
                     <div class="menu__all">
-                        <a class="menu__item" href="{{ route('show-sell') }}">出品</a>
                         <form class="logout" action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="menu__item">ログアウト</button>
                         </form>
-                        <a href="{{ route('mypage') }}" class="menu__item">マイページ</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +35,6 @@
                 <div class="menu">
                     <button class="close-button" type="button">X</button>
                     <div class="menu__all">
-                        <a class="menu__item" href="{{ route('show-sell') }}">出品</a>
                         <a href="{{ route('register') }}" class="menu__item">会員登録</a>
                         <a href="{{ route('login') }}" class="menu__item">ログイン</a>
                     </div>
@@ -45,7 +42,7 @@
             </div>
             @endif
             <div class="rogo">
-                <a href="{{ route('home') }}">
+                <a href="">
                     <img class="ct" src="/img/cd_logo.png" alt="CT">
                 </a>
             </div>
@@ -121,7 +118,6 @@
                 <a class="header__item" href="#" onclick="event.preventDefault(); this.closest('form').submit();">ログアウト</a>
             </form>
             <a class="header__item" href="{{ route('admin-show-email') }}">メール送信</a>
-            <a class="sell" href="{{ route('sell') }}">出品</a>
         </div>
 
     </header>

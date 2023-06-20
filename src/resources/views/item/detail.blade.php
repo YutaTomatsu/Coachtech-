@@ -10,28 +10,64 @@
     <div class="detail">
         <div class="detail__left">
             <div class="left__box">
-                <div class="seller__box">
-                    <div class="seller__box__top">
-                        <a href="{{ route('show-seller', ['id' => $item->id]) }}">
-                            <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
-                        </a>
-                        <div class="seller__right">
-                            <div class="seller__name">{{ $seller->name }}</div>
-                            <a class="rating__detail" href="{{ route('show-reviews', ['id' => $seller->id]) }}">
-                                <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
-                                <p class="rating__count">{{ $totalReviews }}</p>
+                @if (!$shop)
+                    <div class="seller__box">
+                        <div class="seller__box__top">
+                            <a href="{{ route('show-seller', ['id' => $item->id]) }}">
+                                <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
                             </a>
+                            <div class="seller__right">
+                                <div class="seller__name">{{ $seller->name }}</div>
+                                <a class="rating__detail" href="{{ route('show-reviews', ['id' => $seller->id]) }}">
+                                    <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
+                                    <p class="rating__count">{{ $totalReviews }}</p>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    @if (Auth::id() !== $item->user_id)
-                        @if (!$reviewed)
-                            <a class="review" href="{{ route('write-review', ['id' => $item->id]) }}">レビューを書く</a>
+                        @if (Auth::id() !== $item->user_id)
+                            @if (!$reviewed)
+                                @if ($purchased === true)
+                                    <a class="review" href="{{ route('write-review', ['id' => $item->id]) }}">レビューを書く</a>
+                                @endif
+                            @endif
                         @endif
-                    @endif
-                    @if (session('error'))
-                        <p>{{ session('error') }}</p>
-                    @endif
-                </div>
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
+                    </div>
+                @else
+                    <div class="seller__box">
+                        <div class="seller__box__top">
+                            <a href="{{ route('shop-toppage', ['id' => $shop->id]) }}">
+                                @if($shop->shop_icon)
+                                <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="icon">
+                                @else
+                                <img class="shop__icon" src="/img/icon_default.svg" alt="icon">
+                                @endif
+                            </a>
+                            <div class="seller__right">
+                                <div class="name__tag">
+                                    <div class="seller__name">{{ $shop->shop_name }}</div>
+                                    <div class="shop__tag">SHOPS</div>
+                                </div>
+                                <a class="rating__detail" href="{{ route('show-shop-reviews', ['id' => $shop->id]) }}">
+                                    <p class="star-rating" data-rate="{{ round($reviewsAvg * 2) / 2 }}"></p>
+                                    <p class="rating__count">{{ $totalReviews }}</p>
+                                </a>
+                            </div>
+                        </div>
+                        @if (Auth::id() !== $item->user_id)
+                            @if (!$shopReviewed)
+                                @if ($purchased === true)
+                                    <a class="review" href="{{ route('write-shop-review', ['id' => $item->id]) }}">レビューを書く</a>
+                                @endif
+                            @endif
+                        @endif
+                        @if (session('error'))
+                            <p>{{ session('error') }}</p>
+                        @endif
+                    </div>
+                @endif
                 <img class="image" src="{{ $item->image }}">
             </div>
         </div>
@@ -67,6 +103,7 @@
                             @endphp
                         </div>
                     </div>
+                @if(!$shop)
                     <div class="comment__box">
                         <a href="{{ route('show-comment', ['id' => $item->id]) }}">
                             <img class="comment" src="/img/comment.svg" alt="comment">
@@ -78,14 +115,18 @@
                             @endphp
                         </div>
                     </div>
+                @endif
                 </div>
                 @if ($item->user_id === Auth::id())
                 @else
                     @if (in_array($item->id, $purchasedItemId))
                     @else
-                        <a class="purchage" href="{{ route('show-purchage', ['id' => $item->id]) }}">
-                            <button class="purchage__button" type="submit">購入する</button>
-                        </a>
+                        @if (isset($myShop, $shop) && $myShop->id === $shop->id)
+                        @else
+                            <a class="purchage" href="{{ route('show-purchage', ['id' => $item->id]) }}">
+                                <button class="purchage__button" type="submit">購入する</button>
+                            </a>
+                        @endif
                     @endif
                 @endif
                 <div class="about__box">

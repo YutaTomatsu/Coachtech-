@@ -68,7 +68,7 @@
                                 @if ($item->user_id === Auth::id())
                                     <form action="{{ route('comment-delete', ['id' => $comment->id]) }}" method="POST">
                                         @csrf
-                                        <a onclick="return confirm('本当に予約を削除しますか？')" type="submit" class="btn btn-danger">
+                                        <a onclick="return confirm('本当にコメントを削除しますか？')" type="submit" class="btn btn-danger">
                                             <img class="comment__delete" src="/img/delete.svg" alt="delete">
                                         </a>
                                     </form>

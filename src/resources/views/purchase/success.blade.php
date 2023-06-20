@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.no_item')
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('css/success.css') }}" rel="stylesheet">
-    <title>Document</title>
 </head>
-<header class="header">
-</header>
+
+@section('content')
 
 <body class="body">
     <div class="thanks__box">
@@ -21,4 +16,5 @@
         </a>
     </div>
 </body>
-</html>
+
+@endsection

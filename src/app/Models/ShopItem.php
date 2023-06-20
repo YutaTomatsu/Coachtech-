@@ -11,7 +11,7 @@ class ShopItem extends Model
 
     protected $fillable = [
         'id',
-        'user_id',
+        'item_id',
         'shop_id',
     ];
 

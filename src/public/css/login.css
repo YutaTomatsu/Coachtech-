@@ -57,6 +57,13 @@ body {
     color: #2196F3;
 }
 
+.forgot__pass{
+    text-decoration:none;
+    color: #2196F3;
+    display:flex;
+    justify-content:center;
+}
+
 @media screen and (max-width: 768px) {
 
     body {

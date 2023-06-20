@@ -19,11 +19,15 @@ use App\Http\Controllers\AdminEmailController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FollowController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserEmailController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShopSellController;
 use App\Http\Controllers\ShopEditController;
+use App\Http\Controllers\ShopItemController;
+use App\Http\Controllers\ShopCommentController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\ShopContactController;
 
 Route::get('/', function () {
     $items = Item::get();
@@ -49,73 +53,159 @@ Route::get('/dashboard', function () {
     $purchasedItemIds = Purchase::pluck('item_id')->toArray();
 
     return view('dashboard', compact('items', 'mylists', 'purchasedItemIds'));
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'check.user.staff'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
 Route::get('/admin', function () {return view('admin.admin_dashboard');})->middleware(['can:admin'])->name('admin.dashboard');
 
-Route::get('/mypage', [MypageController::class, 'showMypage'])->name('mypage');
+Route::get('/mypage', [MypageController::class, 'showMypage'])
+->middleware(['auth', 'check.user.staff'])
+->name('mypage');
 
-Route::get('/mypage/profile', [ProfileController::class, 'create'])->name('profile');
+Route::get('/mypage/profile', [ProfileController::class, 'create'])
+->middleware(['auth', 'check.user.staff'])
+->name('profile');
 
-Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('update-profile');
+Route::post('/mypage/profile', [ProfileController::class, 'update'])
+->middleware(['auth', 'check.user.staff'])
+->name('update-profile');
 
-Route::get('/sell', [SellController::class, 'showSellForm'])->name('show-sell');
+Route::get('/sell', [SellController::class, 'showSellForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('show-sell');
 
-Route::post('/sell', [SellController::class, 'sell'])->name('sell');
+Route::post('/sell', [SellController::class, 'sell'])
+->middleware(['auth', 'check.user.staff'])
+->name('sell');
 
-Route::get('/sell/done', [SellController::class, 'sellDone'])->name('sell-done');
+Route::get('/sell/done', [SellController::class, 'sellDone'])
+->middleware(['auth', 'check.user.staff'])
+->name('sell-done');
 
+Route::get('/item/{id}', [ItemController::class, 'detail'])
+->middleware(['check.user.staff'])
+->name('detail');
 
-Route::get('/item/{id}', [ItemController::class, 'detail'])->name('detail');
+Route::post('/mylist/toggle', [MylistController::class, 'toggle'])
+->middleware(['auth', 'check.user.staff'])
+->name('mylist.toggle');
 
-Route::post('/mylist/toggle', [MylistController::class, 'toggle'])->name('mylist.toggle');
+Route::get('/comment/{id}', [CommentController::class, 'showCommentForm'])
+->middleware(['check.user.staff'])
+->name('show-comment');
 
-Route::get('/comment/{id}', [CommentController::class, 'showCommentForm'])->name('show-comment');
+Route::get('shop/comment/{id}', [ShopCommentController::class, 'showCommentForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-show-comment');
 
-Route::post('/comment/{id}', [CommentController::class, 'comment'])->name('comment');
+Route::post('/comment/{id}', [CommentController::class, 'comment'])->middleware(['auth', 'check.user.staff'])
+->name('comment');
 
-Route::post('comment//delete/{id}', [CommentController::class, 'delete'])->name('comment-delete');
+Route::post('comment//delete/{id}', [CommentController::class, 'delete'])
+->middleware(['auth', 'check.user.staff'])
+->name('comment-delete');
 
 Route::get('/purchage/{id}', [PurchaseController::class, 'showPurchageForm'])
+    ->middleware(['auth', 'check.user.staff'])
     ->name('show-purchage');
 
-Route::get('/card/{id}', [PaymentController::class, 'showCardForm'])->name('card');
+Route::get('/card/{id}', [PaymentController::class, 'showCardForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('card');
 
-Route::get('/bank/{id}', [PaymentController::class, 'showBankForm'])->name('bank');
+Route::get('/bank/{id}', [PaymentController::class, 'showBankForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('bank');
 
-Route::get('/convenience/{id}', [PaymentController::class, 'showConvenienceForm'])->name('convenience');
+Route::get('/convenience/{id}', [PaymentController::class, 'showConvenienceForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('convenience');
 
-Route::match(['get', 'post'], '/payment-success/{id}', [PaymentController::class, 'success'])->name('payment-success');
+Route::match(['get', 'post'], '/payment-success/{id}', [PaymentController::class, 'success'])
+->middleware(['auth', 'check.user.staff'])
+->name('payment-success');
 
+Route::get('/payment/success', [PaymentController::class, 'showSuccessPage'])
+->middleware(['auth', 'check.user.staff'])
+->name('show-success-page');
 
-Route::get('/address/{id}', [AddressController::class, 'showChangeAddressForm'])->name('show-change-address');
+Route::get('/address/{id}', [AddressController::class, 'showChangeAddressForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('show-change-address');
 
-Route::post('/address/{id}', [AddressController::class, 'changeAddress'])->name('change-address');
+Route::post('/address/{id}', [AddressController::class, 'changeAddress'])
+->middleware(['auth', 'check.user.staff'])
+->name('change-address');
 
-Route::get('/search', [SearchController::class,'search'])->name('search');
+Route::get('/search', [SearchController::class,'search'])
+->middleware(['check.user.staff'])
+->name('search');
 
-Route::get('/admins/create-email', [AdminEmailController::class, 'showEmailForm'])->name('admin-show-email');
+Route::get('/admins/create-email', [AdminEmailController::class, 'showEmailForm'])
+->name('admin-show-email');
+
 Route::post('/admins/send-email', [AdminEmailController::class, 'sendEmail'])->name('admins.send-email');
 
-Route::get('/seller/{id}', [SellerController::class, 'showSeller'])->name('show-seller');
+Route::get('/seller/{id}', [SellerController::class, 'showSeller'])
+->middleware(['check.user.staff'])
+->name('show-seller');
 
-Route::get('/review/{id}', [ReviewController::class, 'showReviewForm'])->name('write-review');
+Route::get('/review/{id}', [ReviewController::class, 'showReviewForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('write-review');
 
-Route::post('/review/{id}', [ReviewController::class, 'review'])->name('review');
+Route::get('/review/shop/{id}', [ReviewController::class, 'showShopReviewForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('write-shop-review');
 
-Route::get('/reviews/{id}', [ReviewController::class, 'showReviews'])->name('show-reviews');
+Route::post('/review/{id}', [ReviewController::class, 'review'])
+->middleware(['auth', 'check.user.staff'])
+->name('review');
 
-Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
+Route::post('/review/shop/{id}', [ReviewController::class, 'shopReview'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-review');
 
-Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+Route::get('/reviews/{id}', [ReviewController::class, 'showReviews'])
+->middleware(['check.user.staff'])
+->name('show-reviews');
 
-Route::get('/following/{id}', [FollowController::class, 'showFollowing'])->name('following');
+Route::get('/reviews/shop/{id}', [ReviewController::class, 'showShopReviews'])
+->middleware(['check.user.staff'])
+->name('show-shop-reviews');
 
-Route::get('/follower/{id}', [FollowController::class, 'showFollower'])->name('follower');
+Route::post('/follow', [FollowController::class, 'follow'])
+->middleware(['auth', 'check.user.staff'])
+->name('follow');
 
-Route::get('/following/seller/{id}', [SellerController::class, 'showFollowingSeller'])->name('show-following-seller');
+Route::post('/follow/shop', [FollowController::class, 'shopFollow'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-follow');
+
+Route::post('/unfollow', [FollowController::class, 'unfollow'])
+->middleware(['auth', 'check.user.staff'])
+->name('unfollow');
+
+Route::post('/unfollow/shop', [FollowController::class, 'shopUnfollow'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-unfollow');
+
+Route::get('/following/{id}', [FollowController::class, 'showFollowing'])
+->middleware(['check.user.staff'])
+->name('following');
+
+Route::get('/follower/{id}', [FollowController::class, 'showFollower'])
+->middleware(['check.user.staff'])
+->name('follower');
+
+Route::get('/follower/shop/{id}', [FollowController::class, 'showShopFollower'])
+->middleware(['check.user.staff'])
+->name('shop-follower');
+
+Route::get('/following/seller/{id}', [SellerController::class, 'showFollowingSeller'])
+->middleware(['check.user.staff'])
+->name('show-following-seller');
 
 Route::post('/logout', function () {Auth::logout();return redirect('/');})
 ->name('logout');
@@ -123,22 +213,71 @@ Route::post('/logout', function () {Auth::logout();return redirect('/');})
 Route::get('/staff/{id}', [UserEmailController::class, 'showStaff'])->middleware('auth')
     ->name('show-staff');
 
-
 Route::get('/user-emails/{id}', [UserEmailController::class, 'create'])->middleware('auth')
+->middleware(['auth', 'check.user.staff'])
 ->name('show-create-staff');
 
-Route::post('/user-emails', [UserEmailController::class, 'store'])->middleware('auth');
+Route::delete('/shop/staff/delete/{staff}', [UserEmailController::class, 'staffDestroy'])
+->middleware(['auth', 'check.user.staff'])
+->name('staff-destroy');
 
-Route::get('/shop', [ShopController::class, 'showShopForm'])->name('show-create-shop');
+Route::post('/user-emails', [UserEmailController::class, 'store'])->middleware(['auth', 'check.user.staff']);
 
-Route::post('/shop', [ShopController::class, 'createShop'])->name('create-shop');
+Route::get('/shop/staff/redirect', [UserEmailController::class, 'staffRedirect'])->name('staff-redirect');
 
-Route::get('/shop/dashboard/{id}', [ShopController::class, 'showShop'])->name('show-shop');
+Route::get('/shop', [ShopController::class, 'showShopForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('show-create-shop');
 
-Route::get('/shop/sell/{id}', [ShopSellController::class, 'showShopSellForm'])->name('show-shop-sell');
-
-Route::post('/shop/sell/{id}', [ShopSellController::class, 'shopSell'])->name('shop-sell');
+Route::post('/shop', [ShopController::class, 'createShop'])
+->middleware(['auth', 'check.user.staff'])
+->name('create-shop');
 
 Route::get('/shop/edit/{id}', [ShopEditController::class, 'showShopEditForm'])->name('show-shop-edit');
 
 Route::post('/shop/edit/{id}', [ShopEditController::class, 'shopEdit'])->name('shop-edit');
+
+Route::get('/shop/dashboard/{id}', [ShopController::class, 'showShop'])
+    ->name('show-shop');
+
+Route::get('/shop/sell/{id}', [ShopSellController::class, 'showShopSellForm'])
+    ->name('show-shop-sell');
+
+Route::post('/shop/sell/{id}', [ShopSellController::class, 'shopSell'])
+    ->name('shop-sell');
+
+Route::get('/shop/coupons/{id}', [CouponController::class, 'showCoupons'])->name('show-coupons');
+
+Route::get('/shop/coupon/{id}', [CouponController::class, 'showCouponForm'])->name('show-create-coupon');
+
+Route::post('/shop/coupon/{id}', [CouponController::class, 'createCoupon'])->name('create-coupon');
+
+Route::delete('/shop/coupon/delete/{coupon}', [CouponController::class, 'couponDestroy'])->name('coupon-destroy');
+
+Route::get('/shop/{id}', [ShopController::class, 'showShopToppage'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-toppage');
+
+Route::get('/shop/item/{id}', [ShopItemController::class, 'showShopItem'])->name('shop-item');
+
+Route::delete('/shop/item/delete/{item}', [ShopItemController::class, 'shopItemDestroy'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-item-destroy');
+
+Route::get('/contact/{id}', [ContactController::class, 'showContactForm'])
+->middleware(['auth', 'check.user.staff'])
+->name('contact');
+
+Route::post('/contact/{id}', [ContactController::class, 'sendEmail'])
+->middleware(['auth', 'check.user.staff'])
+->name('shop-send-mail');
+
+Route::post('/shop/contact/{id}', [ShopContactController::class, 'sendEmailToUser'])->name('shop-send-mail-to-user');
+
+Route::get('/shop/contact/{id}', [ShopContactController::class, 'showContact'])->name('show-mails');
+
+Route::get('/shop/contact/user/{id}', [ShopContactController::class, 'showContactForm'])->name('user-contents');
+
+Route::get('/shop/contact/done/{id}', [ShopContactController::class, 'shopContactDone'])->name('contact-done');
+
+Route::get('/items/sale', [ItemController::class, 'getSaleItems']);

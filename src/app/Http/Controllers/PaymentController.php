@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\PurchaseNotification;
 use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
+use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use App\Models\Item;
 use App\Models\User;
@@ -34,12 +35,12 @@ class PaymentController extends Controller
         $request->session()->put('addresses', $addresses);
 
         $paymentIntent = $stripe->paymentIntents->create([
-            'amount' => $items->price,
+            'amount' =>  $request->input('price'),
             'currency' => 'jpy',
             'payment_method_types' => ['konbini'],
         ]);
 
-        return view('purchase.payment', compact('user', 'items', 'addresses'), ['stripe' => $stripe, 'client_secret' => $paymentIntent->client_secret]);
+        return view('purchase.payment', compact('user', 'items','addresses', 'paymentIntent'), ['stripe' => $stripe, 'client_secret' => $paymentIntent->client_secret]);
     }
 
     public function showCardForm(Request $request, $id)
@@ -62,12 +63,12 @@ class PaymentController extends Controller
         $request->session()->put('addresses', $addresses);
 
         $paymentIntent = PaymentIntent::create([
-            'amount' => $items->price,
+            'amount' => $request->input('price'),
             'currency' => 'jpy',
             'payment_method_types' => ['card'],
         ]);
 
-        return view('purchase.payment', compact('user', 'items', 'addresses'), ['client_secret' => $paymentIntent->client_secret]);
+        return view('purchase.payment', compact('user', 'items', 'addresses','paymentIntent'), ['client_secret' => $paymentIntent->client_secret]);
     }
 
 
@@ -91,7 +92,7 @@ class PaymentController extends Controller
         $request->session()->put('addresses', $addresses);
 
         $intent = \Stripe\PaymentIntent::create([
-            'amount' => $items->price,
+            'amount' => $request->input('price'),
             'currency' => 'jpy',
             'customer' => $customer->id,
             'payment_method_types' => ['customer_balance'],
@@ -108,7 +109,7 @@ class PaymentController extends Controller
             ],
         ]);
 
-        return view('purchase.payment', compact('user', 'addresses', 'items'), ['customer' => $customer, 'client_secret' => $intent->client_secret]);
+        return view('purchase.payment', compact('user', 'addresses','items', 'paymentIntent'), ['customer' => $customer, 'client_secret' => $intent->client_secret]);
     }
 
     public function success(Request $request, $id)
@@ -127,11 +128,9 @@ class PaymentController extends Controller
         $purchase->build = $addresses->build;
         $purchase->save();
 
-        // 商品出品者の情報を取得
         $item = Item::where('id', $id)->first();
         $seller = User::where('id', $item->user_id)->first();
 
-        // 出品者にメールを送信
         $data = [
             'seller_name' => $seller->name,
             'item_name' => $item->item_name,
@@ -142,6 +141,11 @@ class PaymentController extends Controller
         ];
         Mail::to($seller->email)->send(new PurchaseNotification($data));
 
+        return redirect()->route('show-success-page');
+    }
+
+    public function showSuccessPage()
+    {
         return view('purchase.success');
     }
 }

@@ -71,9 +71,9 @@ class User extends Authenticatable
         return $this->follows()->where('seller_id', $sellerId)->exists();
     }
 
-    public function emails()
+    public function userstaff()
     {
-        return $this->hasMany(UserEmail::class);
+        return $this->hasMany(UserStaff::class);
     }
 
 }

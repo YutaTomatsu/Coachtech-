@@ -1,48 +1,48 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.logo_only')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+<head>
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+</head>
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+@section('content')
+    <form class="form" method="POST" action="{{ route('password.update') }}">
+        @csrf
 
-            <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        <div class="title">ログイン</div>
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+        <div class="item__box">
+            <x-label class="item__name" for="email" :value="__('メールアドレス')" />
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+            <x-input class="text" id="email" type="email" name="email" :value="old('email', $request->email)" required autofocus />
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-            </div>
+        </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+        <div class="item__box">
+            <x-label class="item__name" for="password" :value="__('パスワード')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
-            </div>
+            <x-input class="text" id="password" type="password" name="password" required
+                autocomplete="current-password" />
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        <div class="item__box">
+            <x-label class="item__name" for="password_confirmation" :value="__('パスワード確認')" />
+
+            <x-input id="password_confirmation" class="text" type="password" name="password_confirmation"
+                required />
+        </div>
+
+        <div class="under__box">
+            <x-button class="button">
+                {{ __('パスワードをリセットする') }}
+            </x-button>
+
+        </div>
+
+        <x-auth-session-status class="status" :status="session('status')" />
+        <x-auth-validation-errors class="error" :errors="$errors" />
+    </form>
+@endsection
+
+

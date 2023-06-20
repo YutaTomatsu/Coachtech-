@@ -51,6 +51,28 @@ class MypageController extends Controller
 
         $haveShop = Shop::where('user_id',Auth::id())->exists();
 
-        return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg','haveShop'));
+        $notReviewItems = Purchase::where('purchases.user_id', Auth::id())
+        ->leftJoin('reviews', function ($join) {
+            $join->on('purchases.item_id', '=', 'reviews.item_id')
+            ->on('purchases.user_id', '=', 'reviews.user_id');
+        })
+            ->whereNull('reviews.item_id')
+            ->whereNull('reviews.user_id')
+            ->select('purchases.item_id', 'purchases.user_id')
+            ->get();
+
+        $notReviews = collect();
+
+        foreach ($notReviewItems as $notReviewItem) {
+            $item = Item::find($notReviewItem->item_id);
+            if ($item) {
+                $notReviews->push($item);
+            }
+        }
+
+
+
+
+        return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg','haveShop', 'notReviews'));
     }
 }

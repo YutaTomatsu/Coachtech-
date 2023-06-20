@@ -1,0 +1,159 @@
+.staff {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {}
+
+.right {}
+
+
+.add__staff {
+    margin: auto 30px;
+    text-decoration: none;
+    background-color: #fc4b4b;
+    border-radius: 10px;
+    color: white;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.shop__detail {
+    margin: 50px;
+    border-top: solid gray;
+}
+
+.staff__none {
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: gray;
+    margin: 130px;
+}
+
+.type__box {
+    display: flex;
+}
+
+.value__box {
+    display: flex;
+}
+
+.coupon__box {
+    border-bottom: solid gray;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    background-color: white;
+    color: #fc4b4b;
+    border: solid;
+    border-radius: 8px;
+}
+
+
+.overlay, .dialog-box {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.dialog-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete__confirm {
+    margin: 10px auto 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.confirm {
+    background-color: #fc4b4b;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.cancel {
+    background-color: white;
+    border: none;
+    color: #fc4b4b;
+    height: 40px;
+}
+
+.dialog-box p {
+    margin-bottom: 10px;
+}
+
+.dialog-box .btn-wrapper {
+    text-align: right;
+}
+
+.dialog-box .btn-wrapper button {
+    margin-left: 10px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+@media screen and (max-width:768px) {
+    .staff {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .add__staff {
+        margin: auto;
+        text-decoration: none;
+        background-color: #fc4b4b;
+        border-radius: 10px;
+        color: white;
+        height: 40px;
+        width: 200px;
+        text-align: center;
+        line-height: 40px;
+    }
+
+    .coupon__box {
+        border-bottom: solid gray;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .delete {
+        background-color: white;
+        color: #fc4b4b;
+        border: solid;
+        border-radius: 8px;
+        margin: 20px 0 0;
+    }
+}

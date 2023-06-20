@@ -63,7 +63,7 @@
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
-                z-index: 1;
+                z-index: 100;
             }
 
             .close-button {
@@ -75,10 +75,12 @@
                 height: 40px;
                 border-radius: 7px;
                 margin: 50px 100px;
+                z-index: 100;
             }
 
             .menu__all {
                 margin: 200px 0;
+                z-index: 100;
             }
 
             .logout {
@@ -96,10 +98,12 @@
                 text-decoration: none;
                 border: none;
                 background-color:#ff000000;
+                z-index: 100;
             }
 
             .menu-open {
                 transform: translateX(0%);
+                z-index: 100;
             }
         </style>
 
@@ -136,7 +140,9 @@
         </div>
         @endif
     </header>
+    <main class="common__main">
     @yield('content')
+    </main>
 </body>
 
 </html>

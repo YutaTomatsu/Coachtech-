@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Purchase;
 use App\Models\Item;
+use App\Models\ShopItem;
+use App\Models\Coupon;
 
 class AddressController extends Controller
 {
@@ -59,6 +61,14 @@ class AddressController extends Controller
         $addresses->address = $request->input('address');
         $addresses->build = $request->input('build');
 
-        return view('purchase.purchase',compact('user','item', 'addresses'))->with('status','発送先が変更されました');
+        $shopItemId = ShopItem::where('item_id', $id)->first();
+
+        $coupons = null;
+
+        if ($shopItemId) {
+            $coupons = Coupon::where('shop_id', $shopItemId->shop_id)->get();
+        }
+
+        return view('purchase.purchase',compact('user','item','addresses', 'coupons'))->with('status','発送先が変更されました');
     }
 }

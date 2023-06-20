@@ -5,14 +5,21 @@
     <head>
         <link href="{{ asset('css/create_shop.css') }}" rel="stylesheet">
     </head>
-    <form class="form" method="POST" action="{{ route('shop-edit',['id'=>$shop->id]) }}" enctype="multipart/form-data">
+    <form class="form" method="POST" action="{{ route('shop-edit', ['id' => $shop->id]) }}" enctype="multipart/form-data">
         @csrf
         <div class="title">ショップ情報の編集</div>
         <div class="top">
             <div class="user">
                 <div class="icon">
-                    <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
-                        style="width: 100px; height: 100px; border-radius: 50%;">
+                    @if ($shop && $shop->shop_icon)
+                        @if ($shop && $shop->icon)
+                            <img class="shop__icon" id="preview" src="{{ $shop->icon }}" alt="プロフィール画像">
+                        @else
+                            <img class="shop__icon" id="preview" src="/img/icon_default.svg">
+                        @endif
+                    @else
+                        <img class="shop__icon" id="preview" src="/img/icon_default.svg" alt="プロフィール画像">
+                    @endif
                 </div>
                 <div class="edit">
                     <label for="shop_icon" class="select-image">画像を選択する</label>
@@ -23,12 +30,12 @@
         </div>
         <div class="item__box">
             <x-label class="item__name" for="shop_name" :value="__('ショップ名')" />
-            <x-input class="text" id="shop_name" type="text" name="shop_name" :value="$user->name" required />
+            <x-input class="text" id="shop_name" type="text" name="shop_name" :value="old('shop_name')" required />
         </div>
 
         <div class="item__box">
             <x-label class="item__name" for="name" :value="__('ショップ説明')" />
-            <textarea class="text" id="about" type="text" name="about" :value="$user - > about" required></textarea>
+            <textarea class="text" id="about" type="text" name="about" required>{{old('about')}}</textarea>
         </div>
 
 

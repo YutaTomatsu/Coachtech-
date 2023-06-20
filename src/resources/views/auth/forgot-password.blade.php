@@ -1,36 +1,28 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.logo_only')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+<head>
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+</head>
+
+@section('content')
+    <form class="form" method="POST" action="{{ route('password.email') }}">
+        @csrf
+
+        <div class="title">パスワード再設定</div>
+
+        <div class="item__box">
+            <x-label class="item__name" for="email" :value="__('メールアドレス')" />
+
+            <x-input class="text" id="email" type="email" name="email" :value="old('email')" required autofocus />
         </div>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <div class="message">パスワードを再設定するアカウントのメールアドレスを記入してください</div>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <div class="under__box">
+            <x-button class="button">メールを送信する</x-button>
+        </div>
 
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        <x-auth-session-status class="status" :status="session('status')" />
+        <x-auth-validation-errors class="error" :errors="$errors" />
+    </form>
+@endsection

@@ -10,8 +10,8 @@
 </head>
 <header class="header">
 </header>
-<body>
+<main class="no__item__main">
     @yield('content')
-</body>
+</main>
 
 </html>

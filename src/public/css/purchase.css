@@ -1,8 +1,8 @@
 .purchage {
     display: flex;
     justify-content: space-between;
-    margin: 30px auto;
-    width:95%;
+    margin: 100px auto;
+    width: 95%;
 }
 
 .purchage__left {
@@ -18,7 +18,7 @@
 .left__top {
     display: flex;
     flex-direction: row;
-    height:150px;
+    height: 150px;
 }
 
 .image {
@@ -61,9 +61,9 @@
 .edit {
     text-decoration: none;
     color: #2196F3;
-    margin:0 auto;
-    display:flex;
-    align-items:center;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .right__top__top {
@@ -93,108 +93,169 @@
     margin: 10px auto;
 }
 
-@media screen and (max-width:768px){
 
-    .purchage {
+.overlay, .dialog-box {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.dialog-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-wrapper {
     display: flex;
-    flex-direction:column;
-    margin: 30px 0;
+    flex-direction: column;
 }
 
-.purchage__left {
-    width: 70%;
-    margin: auto;
-}
-
-.purchage__right {
-    width: 70%;
-    margin: 0 auto;
-}
-
-.left__top {
-    display: flex;
-    flex-direction: column;;
-    height:100%;
-}
-
-.image {
-    margin: 0 auto;
-    height: auto;
-    width: 100%;
-}
-
-.left__top__right {
-}
-
-.name {
-    font-size: 23px;
+.payment__confirm {
+    margin: 10px auto 10px 0;
+    text-align: center;
     font-weight: bold;
-    margin: 20px 0;
 }
 
-.price {
-    font-size: 22px;
+.ok {
+    background-color: #fc4b4b;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    height: 40px;
     margin: 10px 0;
 }
 
-.left__bottom {
-    margin: 30px 0;
+.dialog-box p {
+    margin-bottom: 10px;
 }
 
-.payment__box {
-    display: flex;
-    flex-direction:column;
-    margin: 0 0 10px 0;
+.dialog-box .btn-wrapper {
+    text-align: right;
 }
 
-.edit__box {
-    display: flex;
-    flex-direction:column;
-    margin: 0 0 10px 0;
+.dialog-box .btn-wrapper button {
+    margin-left: 10px;
 }
 
-.edit__name {
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.edit {
-    text-decoration: none;
-    color: #2196F3;
-    display:flex;
-    align-items:center;
-    margin:0;
-}
-
-.right__top {
-    width:100%
-}
-
-.right__top__top {
-    display: flex;
-    margin: 70px 0;
-}
-
-.item__name {
-    width: 200px;
-    margin: 0 0 0 30px;
-}
-
-.right__top__bottom__item {
-    display: flex;
-    margin: 30px 0;
-}
-
-.purchage__button {
-    text-decoration: none;
-    background-color: #ff5858;
-    color: white;
-    font-size: 20px;
-    border-radius: 5px;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 40px;
-    border: none;
-    margin: 10px auto;
-
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
+
+@media screen and (max-width:768px) {
+
+    .purchage {
+        display: flex;
+        flex-direction: column;
+        margin: 100px auto;
+    }
+
+    .purchage__left {
+        width: 70%;
+        margin: auto;
+    }
+
+    .purchage__right {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .left__top {
+        display: flex;
+        flex-direction: column;
+        ;
+        height: 100%;
+    }
+
+    .image {
+        margin: 0 auto;
+        height: auto;
+        width: 100%;
+    }
+
+    .left__top__right {}
+
+    .name {
+        font-size: 23px;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    .price {
+        font-size: 22px;
+        margin: 10px 0;
+    }
+
+    .left__bottom {
+        margin: 30px 0;
+    }
+
+    .payment__box {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 10px 0;
+    }
+
+    .edit__box {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 10px 0;
+    }
+
+    .edit__name {
+        font-size: 21px;
+        font-weight: bold;
+    }
+
+    .edit {
+        text-decoration: none;
+        color: #2196F3;
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    .right__top {
+        width: 100%
+    }
+
+    .right__top__top {
+        display: flex;
+        margin: 70px 0;
+    }
+
+    .item__name {
+        width: 200px;
+        margin: 0 0 0 0;
+    }
+
+    .right__top__bottom__item {
+        display: flex;
+        margin: 30px 0;
+    }
+
+    .purchage__button {
+        text-decoration: none;
+        background-color: #ff5858;
+        color: white;
+        font-size: 20px;
+        border-radius: 5px;
+        width: 100%;
+        height: 40px;
+        border: none;
+        margin: 10px auto;
+
+    }
 }

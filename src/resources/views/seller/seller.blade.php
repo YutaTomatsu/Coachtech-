@@ -30,6 +30,8 @@
 
             <button id="unfollow-button-{{ $user->id }}" class="button"
                 style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
+            @else
+            <a class="button" href="{{route('login')}}">フォロー</a>
             @endif
         </div>
         <div class="follow__box">

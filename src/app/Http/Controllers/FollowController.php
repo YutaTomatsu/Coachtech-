@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Follow;
+use App\Models\ShopFollow;
 
 class FollowController extends Controller
 {
     public function follow(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $user_id = $request->input('user_id');
         $seller_id = $request->input('seller_id');
 
@@ -22,8 +27,29 @@ class FollowController extends Controller
         return response()->json(['status' => 'success', 'message' => 'フォローしました！']);
     }
 
+    public function shopFollow(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $user_id = $request->input('user_id');
+        $shop_id = $request->input('shop_id');
+
+        $follow = new ShopFollow();
+        $follow->user_id = $user_id;
+        $follow->shop_id = $shop_id;
+        $follow->save();
+
+        return response()->json(['status' => 'success', 'message' => 'フォローしました！']);
+    }
+
     public function unfollow(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $user_id = $request->input('user_id');
         $seller_id = $request->input('seller_id');
 
@@ -37,8 +63,28 @@ class FollowController extends Controller
         }
     }
 
+    public function shopUnfollow(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $user_id = $request->input('user_id');
+        $shop_id = $request->input('shop_id');
+
+        $follow = ShopFollow::where('user_id', $user_id)->where('shop_id', $shop_id)->first();
+
+        if ($follow) {
+            $follow->delete();
+            return response()->json(['status' => 'success', 'message' => 'フォローを解除しました！']);
+        } else {
+            return response()->json(['status' => 'error', 'messag' => 'フォローが見つかりませんでした。']);
+        }
+    }
+
     public function showFollowing ($id)
     {
+
         $following = Follow::with('user')->where('user_id', $id)->get();
         $isFollowing = null;
 
@@ -82,5 +128,28 @@ class FollowController extends Controller
         }
 
         return view('follow.follower',compact('followers','isFollowing'));
+    }
+
+    public function showShopFollower($id)
+    {
+        $followers = ShopFollow::with('user')->where('shop_id', $id)->get();
+        $isFollowing = null;
+
+        foreach ($followers as $follower) {
+            if (!$follower->user->icon) {
+                $follower->user->icon = 'icon/icon_user_2.svg';
+            }
+
+            if ($follower->user->icon === 'icon/icon_user_2.svg') {
+                $follower->user->icon = Storage::url($follower->user->icon);
+            }
+
+            if (Auth::check()) {
+                $isFollowing = Follow::where('user_id', Auth::id())
+                    ->where('seller_id', $follower->user_id)->exists();
+            }
+        }
+
+        return view('follow.shop_follower', compact('followers', 'isFollowing'));
     }
 }

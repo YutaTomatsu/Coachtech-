@@ -36,7 +36,7 @@
   border-radius: 5px;
   padding: 3px 20px;
   margin: auto 0;
-  background-color:white;
+  background-color: white;
 }
 
 .image {
@@ -185,7 +185,7 @@
 
   .user {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 30px 0;
   }
 
@@ -197,6 +197,11 @@
     border-radius: 5px;
     padding: 3px 20px;
     width: 150px;
+  }
+
+  .button {
+    width: 180px;
+    text-align: center;
   }
 
   .change__button {

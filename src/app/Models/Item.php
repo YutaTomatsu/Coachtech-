@@ -29,4 +29,14 @@ class Item extends Model
         return $this->belongsToMany(Category::class, 'items_categories', 'item_id', 'category_id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

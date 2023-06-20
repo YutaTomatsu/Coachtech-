@@ -12,6 +12,7 @@ use App\Models\ItemCondition;
 use App\Models\Item;
 use App\Models\ShopItem;
 use App\Models\Shop;
+use App\Models\UserStaff;
 
 class ShopSellController extends Controller
 {
@@ -25,7 +26,9 @@ class ShopSellController extends Controller
 
         $shop = Shop::where('id',$id)->first();
 
-        return view('shop.shop_sell', compact('categories', 'conditions','shop'));
+        $userStaff = UserStaff::where('staff_id', Auth::id())->first();
+
+        return view('shop.shop_sell', compact('categories', 'conditions','shop','userStaff'));
     }
 
     public function shopSell(Request $request,$id)
@@ -101,15 +104,7 @@ class ShopSellController extends Controller
         $shopItem->shop_id = $id;
         $shopItem->save();
 
-        return redirect()->route('sell-done');
+        return redirect()->back()->with('success','商品を出品しました！');
     }
 
-    public function sellDone()
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-        return view('sell.sell_done');
-    }
 }

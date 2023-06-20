@@ -40,7 +40,7 @@
                                     @csrf
                                     <div class="form-group row">
                                         <label for="rating"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('評価') }}</label>
+                                            class="col-md-4 col-form-label text-md-right">{{ __(' 5段階評価') }}</label>
                                         <input type="hidden" name="" value="">
                                         <div class="rate-form">
                                             <input id="star5" type="radio" name="rating" value="5">
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="form-group row mb-0">
                                         <div class="button__group">
-                                            <button class="review-button" type="submit" class="btn btn-primary">
+                                            <button class="review-button" type="submit">
                                                 {{ __('送信する') }}
                                             </button>
                                         </div>
