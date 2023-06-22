@@ -8,8 +8,12 @@
     <div class="top">
         <div class="user">
             <a class="icon" href="{{ route('shop-toppage', ['id' => $shop->id]) }}">
-                <img id="preview" src="{{ asset($shop->shop_icon) }}" alt="プロフィール画像"
-                    style="width: 100px; height: 100px; border-radius: 50%;">
+                @if($shop->shop_icon)
+                <img id="preview" src="{{ asset($shop->shop_icon) }}" alt="プロフィール画"
+                    class="shop__icon">
+                @else
+                <img class="shop__icon" src="/img/icon_default.svg" alt="icon">
+                @endif
             </a>
 
             <div class="user__right">
@@ -24,6 +28,10 @@
 
     <div class="reviews__title" id="recommendTrigger">評価一覧</div>
 
+<main class="review__main">
+@if($reviews->count() === 0)
+<div class="review__none">まだレビューがありません</div>
+@else
     @foreach ($reviews as $review)
         <div class="review">
             <img class="buyer__icon" src="{{ asset($review->user->icon) }}">
@@ -33,4 +41,6 @@
             </div>
         </div>
     @endforeach
+@endif
+</main>
 @endsection

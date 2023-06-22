@@ -1,46 +1,47 @@
 @extends('layouts.common_admin')
 
 @section('content')
-<form class="form" method="POST" action="{{ route('admins.send-email') }}">
-    @csrf
 
-    <div class="center">
-        <div class="item">
-            <div class="column">
+    <head>
+        <link href="{{ asset('css/admin_email.css') }}" rel="stylesheet">
+    </head>
 
-                <div class="title">メール一斉送信</div>
 
-                <div class="item__all">
+    <div class="title">メール一斉送信</div>
 
-                    <div class="line">
-                        <label class="item__name" for="subject">Subject</label>
-                        <input class="shop__name__text" type="text" name="subject" id="subject" value="{{ old('subject') }}" required>
-                    </div>
+<div class="form__box">
+    <form class="form" method="POST" action="{{ route('admins.send-email') }}">
+        @csrf
 
-                    @error('subject')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
+        <div class="item__all">
 
-                    <div class="about">
-                        <label class="about__name" for="message">Message</label>
-                        <textarea name="message" id="message" required>{{ old('message') }}</textarea>
-                    </div>
-
-                    @error('message')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-
-                </div>
+            <div class="subject__box">
+                <label class="subject__name" for="subject">件名</label>
+                <input class="subject__text" type="text" name="subject" id="subject" value="{{ old('subject') }}" required>
             </div>
+
+            @error('subject')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
+
+            <div class="about__box">
+                <label class="about__name" for="message">本文</label>
+                <textarea class="about__text" name="message" id="message" required>{{ old('message') }}</textarea>
+            </div>
+
+            @error('message')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
+
         </div>
-    </div>
 
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <button class="button" type="submit">Send Email</button>
-</form>
+        <button class="button" type="submit">メールを送信する</button>
+    </form>
+</div>
 @endsection

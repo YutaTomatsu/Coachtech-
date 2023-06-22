@@ -68,7 +68,7 @@
                     @endif
                     <div class="right__top__bottom__item">
                         <div class="item__name">支払い金額</div>
-                        <div id="total-price" class="item">¥{{ $item->price }}</div>
+                        <div id="total-price" class="item">¥{{ floor($item->price) }}</div>
                     </div>
                     <div class="right__top__bottom__item">
                         <div class="item__name">支払い方法</div>
@@ -91,8 +91,6 @@
     </div>
 
     <div id="dialog-overlay" class="overlay"></div>
-
-    <!-- ダイアログボックス -->
     <div id="dialog-box" class="dialog-box">
         <p id="dialog-message"></p>
         <div class="btn-wrapper">
@@ -101,61 +99,61 @@
     </div>
 
     <script>
-            document.getElementById('payment-form').addEventListener('submit', function(e) {
-        var paymentMethod = document.getElementById('payment-method').value;
-        var itemPrice = {{ $item->price }};
-        var dialogBox = document.getElementById('dialog-box');
-        var dialogMessage = document.getElementById('dialog-message');
-        var dialogOverlay = document.getElementById('dialog-overlay');
-        var dialogOkButton = document.getElementById('dialog-ok');
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            var paymentMethod = document.getElementById('payment-method').value;
+            var itemPrice = {{ $item->price }};
+            var dialogBox = document.getElementById('dialog-box');
+            var dialogMessage = document.getElementById('dialog-message');
+            var dialogOverlay = document.getElementById('dialog-overlay');
+            var dialogOkButton = document.getElementById('dialog-ok');
 
-        if (paymentMethod === '') {
-            e.preventDefault();
-            dialogMessage.textContent = '支払い方法を選択して下さい';
+            if (paymentMethod === '') {
+                e.preventDefault();
+                dialogMessage.textContent = '支払い方法を選択して下さい';
 
-            dialogBox.style.opacity = 1;
-            dialogBox.style.visibility = 'visible';
-            dialogOverlay.style.opacity = 1;
-            dialogOverlay.style.visibility = 'visible';
+                dialogBox.style.opacity = 1;
+                dialogBox.style.visibility = 'visible';
+                dialogOverlay.style.opacity = 1;
+                dialogOverlay.style.visibility = 'visible';
 
-            dialogOkButton.addEventListener('click', function() {
-                dialogBox.style.opacity = 0;
-                dialogBox.style.visibility = 'hidden';
-                dialogOverlay.style.opacity = 0;
-                dialogOverlay.style.visibility = 'hidden';
-            });
+                dialogOkButton.addEventListener('click', function() {
+                    dialogBox.style.opacity = 0;
+                    dialogBox.style.visibility = 'hidden';
+                    dialogOverlay.style.opacity = 0;
+                    dialogOverlay.style.visibility = 'hidden';
+                });
 
-        } else if (paymentMethod === 'convenience_store' && itemPrice >= 300000) {
-            e.preventDefault();
-            var errorMessage = document.getElementById('error-message');
-            errorMessage.textContent = '300000円以上の商品を購入する場合は、クレジットカード払いか銀行振り込みを選択してください。';
-        }
-    });
+            } else if (paymentMethod === 'convenience_store' && itemPrice >= 300000) {
+                e.preventDefault();
+                var errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = '300000円以上の商品を購入する場合は、クレジットカード払いか銀行振り込みを選択してください。';
+            }
+        });
 
-    document.getElementById('payment-form').addEventListener('submit', function(event) {
-        var addresses = {!! json_encode($addresses) !!};
-        var dialogBox = document.getElementById('dialog-box');
-        var dialogMessage = document.getElementById('dialog-message');
-        var dialogOverlay = document.getElementById('dialog-overlay');
-        var dialogOkButton = document.getElementById('dialog-ok');
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            var addresses = {!! json_encode($addresses) !!};
+            var dialogBox = document.getElementById('dialog-box');
+            var dialogMessage = document.getElementById('dialog-message');
+            var dialogOverlay = document.getElementById('dialog-overlay');
+            var dialogOkButton = document.getElementById('dialog-ok');
 
-        if (!addresses) {
-            event.preventDefault();
-            dialogMessage.textContent = '配送先が指定されていません';
+            if (!addresses) {
+                event.preventDefault();
+                dialogMessage.textContent = '配送先が指定されていません';
 
-            dialogBox.style.opacity = 1;
-            dialogBox.style.visibility = 'visible';
-            dialogOverlay.style.opacity = 1;
-            dialogOverlay.style.visibility = 'visible';
+                dialogBox.style.opacity = 1;
+                dialogBox.style.visibility = 'visible';
+                dialogOverlay.style.opacity = 1;
+                dialogOverlay.style.visibility = 'visible';
 
-            dialogOkButton.addEventListener('click', function() {
-                dialogBox.style.opacity = 0;
-                dialogBox.style.visibility = 'hidden';
-                dialogOverlay.style.opacity = 0;
-                dialogOverlay.style.visibility = 'hidden';
-            });
-        }
-    });
+                dialogOkButton.addEventListener('click', function() {
+                    dialogBox.style.opacity = 0;
+                    dialogBox.style.visibility = 'hidden';
+                    dialogOverlay.style.opacity = 0;
+                    dialogOverlay.style.visibility = 'hidden';
+                });
+            }
+        });
         document.getElementById('payment-method').addEventListener('change', function(e) {
             var paymentMethod = e.target.value;
             var selectedPaymentMethod = document.getElementById('selected-payment-method');
@@ -186,15 +184,12 @@
                     break;
             }
 
-            // ダイアログを表示
             dialogBox.style.opacity = 1;
             dialogBox.style.visibility = 'visible';
             dialogOverlay.style.opacity = 1;
             dialogOverlay.style.visibility = 'visible';
 
-            // OKボタンがクリックされた時の挙動
             dialogOkButton.addEventListener('click', function() {
-                // ダイアログを非表示にする
                 dialogBox.style.opacity = 0;
                 dialogBox.style.visibility = 'hidden';
                 dialogOverlay.style.opacity = 0;
@@ -214,12 +209,13 @@
             const discountValue = parseInt(selectedOption.getAttribute('data-discount-value'), 10);
 
             if (discountType === 'percentage') {
-                finalPrice = itemPrice - ((itemPrice * discountValue) / 100);
+                finalPrice = Math.floor(itemPrice - ((itemPrice * discountValue) / 100));
             } else if (discountType === 'fixed_amount') {
-                finalPrice = itemPrice - discountValue;
+                finalPrice = Math.floor(itemPrice - discountValue);
             } else {
                 finalPrice = itemPrice;
             }
+
 
             totalPriceElement.textContent = `¥${finalPrice}`;
         });

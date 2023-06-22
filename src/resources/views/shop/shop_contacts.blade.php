@@ -19,34 +19,42 @@
 
         <div class="main">
             <div class="users__box" id="recommendItems">
-                @foreach ($uniqueUsers->sortByDesc('created_at') as $user)
-                    <div class="user__box">
-                        <a class="icon__name" href="{{ route('user-contents', ['id' => $user->id]) }}">
-                            @if ($user->user->icon)
-                                <img class="icon" src="{{ $user->user->icon }}">
-                            @else
-                                <img class="icon" src="/img/icon_user_2.svg">
-                            @endif
-                            <div class="user__name">{{ $user->user->name }}</div>
-                        </a>
-                    </div>
-                @endforeach
+                @if ($uniqueUsers->count() === 0)
+                    <div class="user__none">現在未対応のユーザーはいません</div>
+                @else
+                    @foreach ($uniqueUsers->sortByDesc('created_at') as $user)
+                        <div class="user__box">
+                            <a class="icon__name" href="{{ route('user-contents', ['id' => $user->id]) }}">
+                                @if ($user->user->icon)
+                                    <img class="icon" src="{{ $user->user->icon }}">
+                                @else
+                                    <img class="icon" src="/img/icon_user_2.svg">
+                                @endif
+                                <div class="user__name">{{ $user->user->name }}</div>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif
             </div>
 
             <div class="mylist">
                 <div class="users__box" id="mylistItems" style="display: none;">
-                    @foreach ($uniquedoneContactUsers->sortByDesc('created_at') as $doneContactUser)
-                        <div class="user__box">
-                            <a class="icon__name" href="{{ route('user-contents', ['id' => $doneContactUser->id]) }}">
-                                @if ($doneContactUser->user->icon)
-                                    <img class="icon" src="{{ $doneContactUser->user->icon }}">
-                                @else
-                                    <img class="icon" src="/img/icon_user_2.svg">
-                                @endif
-                                <div class="user__name">{{ $doneContactUser->user->name }}</div>
-                            </a>
-                        </div>
-                    @endforeach
+                    @if ($uniquedoneContactUsers->count() === 0)
+                        <div class="user__none">現在対応済みのユーザーはいません</div>
+                    @else
+                        @foreach ($uniquedoneContactUsers->sortByDesc('created_at') as $doneContactUser)
+                            <div class="user__box">
+                                <a class="icon__name" href="{{ route('user-contents', ['id' => $doneContactUser->id]) }}">
+                                    @if ($doneContactUser->user->icon)
+                                        <img class="icon" src="{{ $doneContactUser->user->icon }}">
+                                    @else
+                                        <img class="icon" src="/img/icon_user_2.svg">
+                                    @endif
+                                    <div class="user__name">{{ $doneContactUser->user->name }}</div>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

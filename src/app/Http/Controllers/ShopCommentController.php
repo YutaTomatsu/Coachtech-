@@ -38,7 +38,7 @@ class ShopCommentController extends Controller
         $comments = Comment::where('item_id', $id)->get();
 
         foreach ($comments as $comment) {
-            $user = User::select('users.name','icon')->where('users.id', $comment->user_id)->first();
+            $user = User::select('users.name', 'icon')->where('users.id', $comment->user_id)->first();
             $comment->user_name = $user->name;
             if ($user) {
                 $comment->user_icon = $user->icon ? $user->icon : 'icon/icon_user_2.svg';
@@ -54,7 +54,7 @@ class ShopCommentController extends Controller
 
         $purchasedItemId = Purchase::pluck('item_id')->toArray();
 
-        return view('shop.shop_comment', compact('item', 'mylist_items', 'comments', 'purchasedItemId','shop'));
+        return view('shop.shop_comment', compact('item', 'mylist_items', 'comments', 'purchasedItemId', 'shop'));
     }
 
     public function comment(Request $request, $id)
@@ -76,11 +76,9 @@ class ShopCommentController extends Controller
         $item = Item::find($id);
         $seller = User::find($item->user_id);
         $sellerEmail = $seller->email;
-
-        // コメントをしたユーザーのメールアドレスを取得
         $comments = Comment::where('item_id', $id)->get();
 
-        $sentEmails = []; // 送信済みのメールアドレスを記録する配列
+        $sentEmails = [];
 
         $data = [
             'item_name' => $item->item_name,
@@ -91,15 +89,14 @@ class ShopCommentController extends Controller
             $commentUser = User::find($comment->user_id);
             $commentUserEmail = $commentUser->email;
 
-            // 既にメールを送信したユーザーでない場合のみメールを送信する
             if (Auth::id() !== $commentUser->id && !in_array($commentUserEmail, $sentEmails)) {
-                dispatch(new SendCommentNotificationJob($comment->id, $commentUserEmail,$data));
-                $sentEmails[] = $commentUserEmail; // 送信済みのメールアドレスを記録する
+                dispatch(new SendCommentNotificationJob($comment->id, $commentUserEmail, $data));
+                $sentEmails[] = $commentUserEmail;
             }
         }
 
         if (Auth::id() !== $seller->id && !in_array($sellerEmail, $sentEmails)) {
-            dispatch(new SendCommentNotificationJob($comment->id, $sellerEmail,$data));
+            dispatch(new SendCommentNotificationJob($comment->id, $sellerEmail, $data));
         }
 
         return redirect()->back()->with('success', 'コメントが送信されました');

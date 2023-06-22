@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function create()
+    public function showProfileForm()
     {
         if (!Auth::check()) {
             return redirect()->route('login');
@@ -31,7 +31,7 @@ class ProfileController extends Controller
         return view('mypage.profile', compact('profile', 'user'));
     }
 
-    public function update(Request $request)
+    public function updateProfile(Request $request)
     {
         if (!Auth::check()) {
             return redirect()->route('login');

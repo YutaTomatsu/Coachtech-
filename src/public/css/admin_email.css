@@ -1,0 +1,56 @@
+.title {
+    margin: 100px 0 0 0;
+    color: gray;
+    font-size: 20px;
+}
+
+.form__box {
+    border-top: solid gray;
+}
+
+.form {
+    width: 70%;
+    margin: 50px auto;
+}
+
+.subject__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.subject__text {
+    border-radius: 5px;
+    border: solid gray 0.7px;
+    height: 20px;
+}
+
+.subject__name {
+    font-weight: bold;
+
+}
+
+.about__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.about__name {
+    font-weight: bold;
+}
+
+.about__text {
+    height: 200px;
+    border-radius: 5px;
+    border: solid gray 0.7px;
+}
+
+.button {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    height: 30px;
+    color: white;
+    background-color: #fc4b4b;
+    border-radius: 7px;
+
+}

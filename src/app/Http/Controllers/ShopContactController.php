@@ -33,7 +33,6 @@ class ShopContactController extends Controller
         $doneContactUserIds = [];
         foreach ($allShopEmails as $key => $shopEmail) {
             if (in_array($shopEmail->id, $doneContactIds)) {
-                // Add to doneContactUsers and remove from users
                 $doneContactUserIds[] = $shopEmail->user_id;
                 unset($users[$key]);
             }

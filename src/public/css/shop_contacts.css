@@ -1,9 +1,10 @@
 .users__box {
-    margin: 000px 10px;
+    margin: 0 10px;
 }
 
 .user__box {
     border-bottom: solid gray;
+    padding: 10px;
 }
 
 .icon__name {
@@ -13,13 +14,14 @@
 }
 
 .icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
 .user__name {
     color: black;
+    margin: 0 15px;
 }
 
 .change__button {
@@ -38,6 +40,14 @@
 
 .main {
     border-top: #c4c3c3 solid 3px;
+}
+
+.user__none {
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: gray;
+    margin: 130px 0;
 }
 
 @media screen and (max-width: 768px) {

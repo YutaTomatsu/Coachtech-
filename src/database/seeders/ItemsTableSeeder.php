@@ -45,7 +45,7 @@ class ItemsTableSeeder extends Seeder
                 [
                     'user_id' => rand(1,10),
                     'item_name' => 'ポルシェ',
-                    'price' => 20000000,
+                    'price' => 9999999,
                     'image' => '/storage/items/car.jpg',
                     'about' => 'ポルシェです。嘘じゃないです。値下げ交渉、返品は受け付けません。',
                     'categories' => [9],

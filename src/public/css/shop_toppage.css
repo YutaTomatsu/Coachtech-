@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 50px auto 0;
+  margin: 100px auto 0;
 }
 
 .user {
@@ -23,14 +23,14 @@
   border-radius: 50%;
 }
 
-.shop__icon{
-  width:90px;
-  height:90px;
-  border-radius:20px;
+.shop__icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
 }
 
-.name__tag{
-  display:flex;
+.name__tag {
+  display: flex;
 }
 
 .username {
@@ -38,14 +38,14 @@
   font-weight: bold;
 }
 
-.shop__tag{
-  border:solid;
-  border-radius:10px;
-  width:80px;
-  text-align:center;
-  font-weight:bold;
-  margin:0 10px;
-  
+.shop__tag {
+  border: solid;
+  border-radius: 10px;
+  width: 80px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 10px;
+
 }
 
 .button {
@@ -55,7 +55,7 @@
   border-radius: 5px;
   padding: 3px 20px;
   margin: auto 0;
-  background-color:white;
+  background-color: white;
 }
 
 .image {
@@ -65,23 +65,27 @@
 }
 
 .follow__box {
-  display:flex;
-  align-items:center
+  display: flex;
+  align-items: center
 }
 
-.shop{
+.follow__responsive__contact {
+  display: none;
+}
+
+.shop {
   text-decoration: none;
   color: #0063ff;
   border: 1px solid;
   border-radius: 5px;
   padding: 3px 20px;
-  margin:0 0 0 auto;
-  height:30px;
-  line-height:30px;
+  margin: 0 0 0 auto;
+  height: 30px;
+  line-height: 30px;
 }
 
-.shop__edit{
-display:none;
+.shop__edit {
+  display: none;
 }
 
 .following {
@@ -218,36 +222,45 @@ display:none;
     margin: 0 0 0 10%;
   }
 
-  .shop{
-    display:none;
-}
-
-  .shop__tag{
-    margin:0 auto 3px 0;
+  .follow__contact {
+    display: none;
   }
 
-.name__tag{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
+  .shop__tag {
+    margin: 0 auto 3px 0;
+  }
 
-.follow__box{
-  display:flex;
-  flex-direction:row;
-}
-  
-.shop__edit{
-  display:flex;
-  text-decoration: none;
-  color: #0063ff;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 3px 10px;
-  margin:0 0 0 10%;
-  height:25px;
-  line-height:25px;
-}
+  .name__tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .follow__box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .follower {
+    margin: 0 auto 0 0;
+  }
+
+  .follow__responsive__contact {
+    display: inline-block;
+    margin: 0 auto 0 0;
+  }
+
+  .shop__edit {
+    display: flex;
+    text-decoration: none;
+    color: #0063ff;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 3px 10px;
+    margin: 0 0 0 10%;
+    height: 25px;
+    line-height: 25px;
+  }
 
   .user {
     display: flex;

@@ -12,20 +12,25 @@ class AdminEmailController extends Controller
         return view('admin.admin_email');
     }
 
-    public function sendEmail(Request $request,$id)
+    public function sendEmail(Request $request)
     {
         $validatedData = $request->validate([
-            'message' => 'required',
+            'subject' => 'required|max:255',
+            'message' => 'required|max:10000',
+
         ], [
-            'message.required' => 'メッセージを入力してください。',
+            'subject.required' => '件名を入力してください',
+            'subject.max' => '件名は255文字以下で入力してください',
+            'message.required' => 'メッセージを入力してください',
+            'message.max' => '本文は10000文字以下で入力してください',
         ]);
 
-        $Contact = ShopEmail
-
+        $subject = $validatedData['subject'];
         $message = $validatedData['message'];
 
-        SendEmailJob::dispatch($message);
+        SendEmailJob::dispatch($subject, $message);
 
         return redirect()->back()->with('success', 'メールが送信されました。');
     }
+
 }

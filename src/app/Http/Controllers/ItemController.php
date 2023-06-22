@@ -75,13 +75,8 @@ class ItemController extends Controller
 
     public function getSaleItems(Request $request)
     {
-        // 全てのアイテムを取得
         $items = Item::all();
-
-        // purchasesテーブルに存在するitem_idのリストを取得
         $purchasedItemIds = Purchase::pluck('item_id');
-
-        // 各アイテムが購入済みかどうかを判定
         $items = $items->map(function ($item) use ($purchasedItemIds) {
             $item['purchased'] = $purchasedItemIds->contains($item->id);
             return $item;

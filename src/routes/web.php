@@ -3,6 +3,7 @@
 use App\Models\Item;
 use App\Models\Mylist;
 use App\Models\Purchase;
+use App\Models\Shop;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MypageController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminEmailController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ReviewController;
@@ -57,17 +59,21 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/admin', function () {return view('admin.admin_dashboard');})->middleware(['can:admin'])->name('admin.dashboard');
+Route::get('/admin', function () {
+
+    $shops = Shop::all();
+
+    return view('admin.admin_dashboard',compact('shops'));})->middleware(['can:admin'])->name('admin.dashboard');
 
 Route::get('/mypage', [MypageController::class, 'showMypage'])
 ->middleware(['auth', 'check.user.staff'])
 ->name('mypage');
 
-Route::get('/mypage/profile', [ProfileController::class, 'create'])
+Route::get('/mypage/profile', [ProfileController::class, 'showProfileForm'])
 ->middleware(['auth', 'check.user.staff'])
 ->name('profile');
 
-Route::post('/mypage/profile', [ProfileController::class, 'update'])
+Route::post('/mypage/profile', [ProfileController::class, 'updateProfile'])
 ->middleware(['auth', 'check.user.staff'])
 ->name('update-profile');
 
@@ -95,20 +101,29 @@ Route::get('/comment/{id}', [CommentController::class, 'showCommentForm'])
 ->middleware(['check.user.staff'])
 ->name('show-comment');
 
+Route::post('/comment/{id}', [CommentController::class, 'comment'])->middleware(['auth', 'check.user.staff'])
+    ->name('comment');
+
+Route::post('comment//delete/{id}', [CommentController::class, 'delete'])
+    ->middleware(['auth', 'check.user.staff'])
+    ->name('comment-delete');
+
+
 Route::get('shop/comment/{id}', [ShopCommentController::class, 'showCommentForm'])
 ->middleware(['auth', 'check.user.staff'])
 ->name('shop-show-comment');
 
-Route::post('/comment/{id}', [CommentController::class, 'comment'])->middleware(['auth', 'check.user.staff'])
-->name('comment');
-
-Route::post('comment//delete/{id}', [CommentController::class, 'delete'])
-->middleware(['auth', 'check.user.staff'])
-->name('comment-delete');
-
 Route::get('/purchage/{id}', [PurchaseController::class, 'showPurchageForm'])
     ->middleware(['auth', 'check.user.staff'])
     ->name('show-purchage');
+
+
+
+
+
+
+
+    
 
 Route::get('/card/{id}', [PaymentController::class, 'showCardForm'])
 ->middleware(['auth', 'check.user.staff'])
@@ -141,6 +156,12 @@ Route::post('/address/{id}', [AddressController::class, 'changeAddress'])
 Route::get('/search', [SearchController::class,'search'])
 ->middleware(['check.user.staff'])
 ->name('search');
+
+Route::get('/admin/shop/contacts/{id}', [AdminController::class, 'showShopContacts'])
+->name('admin-show-shop-contacts');
+
+Route::get('/admin/shop/user/contact/{id}', [AdminController::class, 'showShopUserContact'])
+->name('admin-shop-user-content');
 
 Route::get('/admins/create-email', [AdminEmailController::class, 'showEmailForm'])
 ->name('admin-show-email');

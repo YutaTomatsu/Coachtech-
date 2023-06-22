@@ -68,7 +68,7 @@
                                         <label for="comment"
                                             class="col-md-4 col-form-label text-md-right">{{ __('コメント') }}</label>
                                         <div class="col-md-6">
-                                            <textarea class="comment__text" name="comment" id="comment" class="form-control" required>{{ old('comment') }}</textarea>
+                                            <textarea class="comment__text" name="comment" id="comment" class="form-control">{{ old('comment') }}</textarea>
 
                                             @error('comment')
                                                 <span class="invalid-feedback" role="alert">

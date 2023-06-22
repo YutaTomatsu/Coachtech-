@@ -19,6 +19,7 @@
                 <div class="menu">
                     <button class="close-button" type="button">X</button>
                     <div class="menu__all">
+                        <a class="menu__item" href="{{ route('admin-show-email') }}">メール送信</a>
                         <form class="logout" action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="menu__item">ログアウト</button>
@@ -42,7 +43,7 @@
             </div>
             @endif
             <div class="rogo">
-                <a href="">
+                <a href="{{route('admin.dashboard')}}">
                     <img class="ct" src="/img/cd_logo.png" alt="CT">
                 </a>
             </div>
@@ -121,7 +122,9 @@
         </div>
 
     </header>
+    <main class="common__main">
     @yield('content')
+    </main>
 </body>
 
 </html>

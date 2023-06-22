@@ -4,17 +4,17 @@
 
 }
 
-.delete__box{
-    display:flex;
-    flex-direction:row-reverse;
+.delete__box {
+    display: flex;
+    flex-direction: row-reverse;
 }
 
-.delete{
-    text-decoration:none;
-    background-color:white;
-    color:#ff5858;
-    border:solid;
-    border-radius:8px;
+.delete {
+    text-decoration: none;
+    background-color: white;
+    color: #ff5858;
+    border: solid;
+    border-radius: 8px;
 }
 
 .detail__left {
@@ -51,18 +51,18 @@
 
 }
 
-.name__tag{
-  display:flex;
+.name__tag {
+    display: flex;
 }
 
-.shop__tag{
-  border:solid;
-  border-radius:10px;
-  width:80px;
-  text-align:center;
-  font-weight:bold;
-  margin:0 10px;
-  
+.shop__tag {
+    border: solid;
+    border-radius: 10px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 10px;
+
 }
 
 .seller__icon {
@@ -70,7 +70,8 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    margin: auto 20px;;
+    margin: auto 20px;
+    ;
 }
 
 .shop__icon {
@@ -78,7 +79,8 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    margin: auto 20px;;
+    margin: auto 20px;
+    ;
 }
 
 .seller__right {
@@ -88,7 +90,7 @@
 
 
 .seller__name {
-    font-weight:bold;
+    font-weight: bold;
     font-size: 18px;
 }
 
@@ -103,9 +105,9 @@
 .center {
     width: 70%;
     margin: 100px auto 0 auto;
-        border:solid #c3c3c3;
-    border-radius:20px;
-    padding:10px;
+    border: solid #c3c3c3;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 .image {
@@ -299,6 +301,74 @@
     width: 90px;
 }
 
+
+.overlay, .dialog-box {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.dialog-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete__confirm {
+    margin: 10px auto 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.confirm {
+    background-color: #fc4b4b;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.cancel {
+    background-color: white;
+    border: none;
+    color: #fc4b4b;
+    height: 40px;
+}
+
+.dialog-box p {
+    margin-bottom: 10px;
+}
+
+.dialog-box .btn-wrapper {
+    text-align: right;
+}
+
+.dialog-box .btn-wrapper button {
+    margin-left: 10px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 @media screen and (max-width:768px) {
 
     .detail {
@@ -311,9 +381,9 @@
     }
 
     .left__box {
-    width: 70%;
-    margin: 100px auto 0;
-}
+        width: 70%;
+        margin: 100px auto 0;
+    }
 
     .detail__right {
         width: 100%;

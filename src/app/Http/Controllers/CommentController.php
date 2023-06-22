@@ -72,12 +72,8 @@ class CommentController extends Controller
         $item = Item::find($id);
         $seller = User::find($item->user_id);
         $sellerEmail = $seller->email;
-
-        // コメントをしたユーザーのメールアドレスを取得
         $comments = Comment::where('item_id', $id)->get();
-
-        $sentEmails = []; // 送信済みのメールアドレスを記録する配列
-
+        $sentEmails = [];
         $data = [
             'item_name' => $item->item_name,
             'buyer_name' => Auth::user()->name,
@@ -87,10 +83,9 @@ class CommentController extends Controller
             $commentUser = User::find($comment->user_id);
             $commentUserEmail = $commentUser->email;
 
-            // 既にメールを送信したユーザーでない場合のみメールを送信する
             if (Auth::id() !== $commentUser->id && !in_array($commentUserEmail, $sentEmails)) {
                 dispatch(new SendCommentNotificationJob($comment->id, $commentUserEmail,$data));
-                $sentEmails[] = $commentUserEmail; // 送信済みのメールアドレスを記録する
+                $sentEmails[] = $commentUserEmail;
             }
         }
 

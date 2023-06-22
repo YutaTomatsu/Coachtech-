@@ -21,8 +21,7 @@
                 <div class="under__line"></div>
                 <div class="menu__items">
                     <ul class="menu">
-                        <li title="閉じる"><a href="#"
-                                class="close-button">閉じる</a></li>
+                        <li title="閉じる"><a href="#" class="close-button">閉じる</a></li>
                         <li title="ホーム"><a href="{{ route('show-shop', ['id' => $shop->user_id]) }}"
                                 class="home">ホーム</a></li>
                         <li title="出品"><a href="{{ route('show-shop-sell', ['id' => $shop->id]) }}"
@@ -31,9 +30,9 @@
                         <li title="クーポン"><a href="{{ route('show-coupons', ['id' => $shop->id]) }}"
                                 class="pencil">クーポン</a>
                         </li>
-                            <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}"
-                                    class="stuff">スタッフ</a>
-                            </li>
+                        <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}"
+                                class="stuff">スタッフ</a>
+                        </li>
                         <li title="メール"><a href="{{ route('show-mails', ['id' => $shop->id]) }}"
                                 class="email">メール</a></li>
                         @if (!isset($userStaff))
@@ -65,8 +64,6 @@
             <div class="rogo__name">SHOP</div>
         </div>
         <div class="header__right">
-            <div class="profit">今月の利益 0円
-            </div>
         </div>
     </header>
 
@@ -93,8 +90,8 @@
                 </li>
                 <li title="クーポン"><a href="{{ route('show-coupons', ['id' => $shop->id]) }}" class="pencil">クーポン</a>
                 </li>
-                    <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}" class="stuff">スタッフ</a>
-                    </li>
+                <li title="スタッフ"><a href="{{ route('show-staff', ['id' => $shop->id]) }}" class="stuff">スタッフ</a>
+                </li>
                 <li title="メール"><a href="{{ route('show-mails', ['id' => $shop->id]) }}" class="email">メール</a>
                 </li>
                 @if (!isset($userStaff))
@@ -103,7 +100,7 @@
                     </li>
                 @endif
                 @if (!isset($userStaff))
-                    <li title="戻る"><a href="{{ route('mypage') }}" class="contact">contact</a></li>
+                    <li title="戻る"><a href="{{ route('mypage') }}" class="contact">戻る</a></li>
                 @else
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
                         @csrf

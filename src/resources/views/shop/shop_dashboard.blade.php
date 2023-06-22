@@ -34,8 +34,8 @@
                 <div class="recommend">
                     <div class="item__box" id="recommendItems">
                         @foreach ($sellingItems as $sellingItem)
-                            <a class="item" href="{{route('shop-item',['id'=>$sellingItem->id])}}">
-                                    <img class="image" src="{{ $sellingItem->image }}" alt="Item Image">
+                            <a class="item" href="{{ route('shop-item', ['id' => $sellingItem->id]) }}">
+                                <img class="image" src="{{ $sellingItem->image }}" alt="Item Image">
                             </a>
                         @endforeach
                     </div>
@@ -44,12 +44,9 @@
                 <div class="mylist">
                     <div class="item__box" id="mylistItems" style="display: none;">
                         @foreach ($purchasedItems as $purchasedItem)
-                            <a class="item" href="{{route('shop-item',['id'=>$purchasedItem->id])}}">
+                            <a class="item" href="{{ route('shop-item', ['id' => $purchasedItem->id]) }}">
                                 <div class="image-container">
                                     <img class="image" src="{{ $purchasedItem->image }}" alt="Item Image">
-                                    <span class="sold-label">
-                                        <div class="sold">sold</div>
-                                    </span>
                                 </div>
                             </a>
                         @endforeach

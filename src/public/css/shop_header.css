@@ -131,8 +131,8 @@ main {
   color: #ff5c62;
   background: #fff4f5;
   position: relative;
-  border-bottom: 1px solid #ffe2e3;
   transition: background 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .menu li a:before {
@@ -176,17 +176,17 @@ main {
 }
 
 .menu li a:hover {
-  background: #ff5c62a1;
+  background: #ff5c62;
   color: #fff;
 }
 
 .menu li.current a {
-  background: #ff5c62a1;
+  background: #ff5c621;
   color: #fff;
 }
 
 .menu li a.active {
-  background: #ff5c62a1;
+  background: #ff5c62;
   color: #fff;
 }
 
@@ -202,25 +202,29 @@ main {
 
 .menu li {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 5em;
+  /* ここでは 5em としていますが、あなたのレイアウトに合わせて変更してください */
 }
+
 
 .menu li:after {
   content: attr(title);
-  position: absolute;
-  left: 5em;
-  top: 0;
-  height: 5em;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-transform: uppercase;
-  background: #ff5c62a1;
-  padding: 2em;
   transition: all 0.3s ease-in-out;
   visibility: hidden;
   opacity: 0;
-  width: 150px;
+  color: black;
+  width: 100%;
+  text-align: center;
+  background: #ff5c62;
+  color: white;
 }
+
+
 
 .menu li:hover:after {
   visibility: visible;

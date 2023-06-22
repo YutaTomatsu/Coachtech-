@@ -11,10 +11,10 @@
         <div class="user">
             <div class="icon__name__box">
                 <div class="icon">
-                    @if($shop->shop_icon)
-                    <img class="shop__icon" src="{{ asset($shop->shop_icon) }}" alt="プロフィール画像">
+                    @if ($shop->shop_icon)
+                        <img class="shop__icon" src="{{ asset($shop->shop_icon) }}" alt="プロフィール画像">
                     @else
-                    <img class="shop__icon" src="/img/icon_default.svg" alt="プロフィール画像">
+                        <img class="shop__icon" src="/img/icon_default.svg" alt="プロフィール画像">
                     @endif
                 </div>
 
@@ -52,7 +52,23 @@
             <a class="follower" href="{{ route('shop-follower', ['id' => $shop->id]) }}">
                 {{ $follower }} フォロワー
             </a>
-            <a class="shop__edit" href="{{ route('show-shop', ['id' => Auth::id()]) }}">ショップ管理</a>
+            @if ($shop->user_id === Auth::id())
+                <a class="shop__edit" href="{{ route('show-shop', ['id' => Auth::id()]) }}">ショップ管理</a>
+            @else
+                <div class="follow__responsive__contact">
+                    @if (Auth::check())
+                        <button id="follow-button-{{ $shop->id }}" class="button"
+                            style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
+
+                        <button id="unfollow-button-{{ $shop->id }}" class="button"
+                            style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
+                    @else
+                        <a class="button" href="{{ route('login') }}">フォロー</a>
+                    @endif
+
+                    <a class="shop" href="{{ route('contact', ['id' => $shop->id]) }}">お問い合わせ</a>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -77,8 +93,6 @@
             event.preventDefault();
             var button = this;
             var shopId = "{{ $shop->id }}";
-
-            // フォローの非同期リクエストを送信
             fetch('{{ route('shop-follow') }}', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -91,12 +105,10 @@
                 }
             }).then(function(response) {
                 if (response.ok) {
-                    // 成功した場合の処理
                     console.log('フォローしました！');
                     button.style.display = 'none';
                     document.getElementById('unfollow-button-' + shopId).style.display = 'inline-block';
                 } else {
-                    // エラーが発生した場合の処理
                     console.error('フォローできませんでした。');
                 }
             }).catch(function(error) {
@@ -108,8 +120,6 @@
             event.preventDefault();
             var button = this;
             var shopId = "{{ $shop->id }}";
-
-            // フォロー解除の非同期リクエストを送信
             fetch('{{ route('shop-unfollow') }}', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -122,12 +132,10 @@
                 }
             }).then(function(response) {
                 if (response.ok) {
-                    // 成功した場合の処理
                     console.log('フォローを解除しました！');
                     button.style.display = 'none';
                     document.getElementById('follow-button-' + shopId).style.display = 'inline-block';
                 } else {
-                    // エラーが発生した場合の処理
                     console.error('フォロー解除できませんでした。');
                 }
             }).catch(function(error) {

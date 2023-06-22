@@ -133,11 +133,10 @@ class ReviewController extends Controller
         $validatedData = $request->validate(
             [
                 'rating' => 'required',
-                'comment' => 'required|string|max:255',
+                'comment' => 'string|max:255',
             ],
             [
                 'rating.required' => '評価は必須項目です。',
-                'comment.required' => 'コメントは必須項目です。',
                 'comment.string' => 'コメントは文字列で入力してください。',
                 'comment.max' => 'コメントは255文字以内で入力してください。',
             ]
@@ -166,11 +165,10 @@ class ReviewController extends Controller
         $validatedData = $request->validate(
             [
                 'rating' => 'required',
-                'comment' => 'required|string|max:255',
+                'comment' => 'string|max:255',
             ],
             [
                 'rating.required' => '評価は必須項目です。',
-                'comment.required' => 'コメントは必須項目です。',
                 'comment.string' => 'コメントは文字列で入力してください。',
                 'comment.max' => 'コメントは255文字以内で入力してください。',
             ]

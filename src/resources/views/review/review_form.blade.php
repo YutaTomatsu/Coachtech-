@@ -36,7 +36,8 @@
                         <div class="review__box">
                             <div class="review__title">{{ __('レビューを書く') }}</div>
                             <div class="review__body">
-                                <form class="review__form" method="POST" action="{{ route('review', ['id' => $item->id]) }}">
+                                <form class="review__form" method="POST"
+                                    action="{{ route('review', ['id' => $item->id]) }}">
                                     @csrf
                                     <div class="form-group row">
                                         <label for="rating"
@@ -64,7 +65,7 @@
                                         <label for="comment"
                                             class="col-md-4 col-form-label text-md-right">{{ __('コメント') }}</label>
                                         <div class="col-md-6">
-                                            <textarea class="comment__text" name="comment" id="comment" class="form-control" required>{{ old('comment') }}</textarea>
+                                            <textarea class="comment__text" name="comment" id="comment" class="form-control">{{ old('comment') }}</textarea>
 
                                             @error('comment')
                                                 <span class="invalid-feedback" role="alert">

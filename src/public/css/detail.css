@@ -48,8 +48,8 @@
     width: 80px;
     text-align: center;
     font-weight: bold;
-    margin: 0 10px;
-
+    margin: 5px 10px;
+    height: 25px;
 }
 
 .seller__icon {
@@ -64,7 +64,7 @@
 .shop__icon {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 20px;
     object-fit: cover;
     margin: auto 20px;
     ;
@@ -101,6 +101,7 @@
 .item__name {
     font-size: 23px;
     font-weight: bold;
+    word-wrap: break-word;
 }
 
 .price {
@@ -284,6 +285,7 @@
 .star-rating[data-rate="5"]::after {
     width: 90px;
 }
+
 
 @media screen and (max-width:768px) {
 

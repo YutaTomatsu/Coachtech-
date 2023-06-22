@@ -17,8 +17,7 @@
             <div class="center">
                 @if(!$purchasedItem)
                 <div class="delete__box">
-                    <form action="{{ route('shop-item-destroy', $item) }}" method="POST"
-                        onsubmit="return confirm('本当に削除しますか？')">
+                    <form action="{{ route('shop-item-destroy', $item) }}" method="POST" class="item__delete">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="delete">削除する</button>
@@ -60,6 +59,50 @@
                     </div>
                 </div>
             </div>
+
+                            <div class="overlay"></div>
+                <div class="dialog-box">
+                    <p class="delete__confirm">本当に削除しますか？</p>
+                    <div class="btn-wrapper">
+                        <button class="confirm">削除する</button>
+                        <button class="cancel">閉じる</button>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const deleteForms = document.querySelectorAll('.item__delete');
+                        const overlay = document.querySelector('.overlay');
+                        const dialogBox = document.querySelector('.dialog-box');
+                        const confirmButton = dialogBox.querySelector('.confirm');
+                        const cancelButton = dialogBox.querySelector('.cancel');
+
+                        deleteForms.forEach(function(form) {
+                            form.addEventListener('submit', function(e) {
+                                e.preventDefault();
+                                overlay.style.visibility = 'visible';
+                                overlay.style.opacity = '1';
+                                dialogBox.style.visibility = 'visible';
+                                dialogBox.style.opacity = '1';
+                            });
+                        });
+
+                        cancelButton.addEventListener('click', function() {
+                            overlay.style.opacity = '0';
+                            dialogBox.style.opacity = '0';
+                            setTimeout(function() {
+                                overlay.style.visibility = 'hidden';
+                                dialogBox.style.visibility = 'hidden';
+                            }, 500);
+                        });
+
+                        confirmButton.addEventListener('click', function() {
+                            deleteForms.forEach(function(form) {
+                                form.submit();
+                            });
+                        });
+                    });
+                </script>
             <script>
                 $(document).on('click', '.toggle_img', function(e) {
                     e.preventDefault();
