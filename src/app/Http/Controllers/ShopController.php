@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\Shop;
-use App\Models\Userstaff;
+use App\Models\UserStaff;
 use App\Models\Item;
 use App\Models\ShopItem;
 use App\Models\User;
