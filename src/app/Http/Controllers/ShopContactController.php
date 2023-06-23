@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use App\Mail\ShopMail;
 use App\Models\User;
 use App\Models\Shop;
@@ -29,6 +30,17 @@ class ShopContactController extends Controller
         $allShopEmails = ShopEmail::with('user')->whereIn('id', $allUserIds)->get();
 
         $users = clone $allShopEmails;
+
+        foreach ($users as $user) {
+
+                    if (!$user->user->icon) {
+            $user->user->icon = 'user_icon/icon_user_5.png';
+        }
+
+        if ($user->user->icon === 'user_icon/icon_user_5.png') {
+            $user->user->icon = Storage::disk('s3')->url($user->user->icon);
+        }
+        }
 
         $doneContactUserIds = [];
         foreach ($allShopEmails as $key => $shopEmail) {
@@ -66,6 +78,14 @@ class ShopContactController extends Controller
         $shop = Shop::where('id', $shopEmail->shop_id)->first();
 
         $user = User::where('id', $shopEmail->user_id)->first();
+
+        if (!$user->icon) {
+            $user->icon = 'user_icon/icon_user_5.png';
+        }
+
+        if ($user->icon === 'user_icon/icon_user_5.png') {
+            $user->icon = Storage::disk('s3')->url($user->icon);
+        }
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 

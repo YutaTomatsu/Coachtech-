@@ -71,8 +71,8 @@ class SellController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $path = $image->store('public/items');
-            $item->image = Storage::url($path);
+            $path = Storage::disk('s3')->putFile('items_image', $image);
+            $item->image = Storage::disk('s3')->url($path);
         }
 
         $item->save();

@@ -19,15 +19,15 @@ class ShopEditController extends Controller
 
         $user = Auth::user();
 
-        if (!$user->icon) {
-            $user->icon = 'icon/icon_user_2.svg';
-        }
-
-        if ($user->icon === 'icon/icon_user_2.svg') {
-            $user->icon = Storage::url($user->icon);
-        }
-
         $shop = Shop::where('id', $id)->first();
+
+        if (!$shop->shop_icon) {
+            $shop->shop_icon = 'shops_icon/icon_default.svg';
+        }
+
+        if ($shop->shop_icon === 'shops_icon/icon_default.svg') {
+            $shop->shop_icon = Storage::disk('s3')->url($shop->shop_icon);
+        }
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
@@ -55,8 +55,8 @@ class ShopEditController extends Controller
 
         if ($request->hasFile('shop_icon')) {
             $icon = $request->file('shop_icon');
-            $path = $icon->store('public/shops_icon');
-            $shop->shop_icon = Storage::url($path);
+            $path = Storage::disk('s3')->putFile('shops_icon', $icon);
+            $shop->shop_icon = Storage::disk('s3')->url($path);
         }
 
         $shop->save();

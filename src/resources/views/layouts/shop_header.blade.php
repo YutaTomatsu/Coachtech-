@@ -58,7 +58,7 @@
             </div>
             <div class="rogo">
                 <a href="{{ route('show-shop', ['id' => $shop->user_id]) }}">
-                    <img class="ct" src="/img/cd_logo.png" alt="CT">
+                    <img class="ct" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/etc/cd_logo.png" alt="CT">
                 </a>
             </div>
             <div class="rogo__name">SHOP</div>

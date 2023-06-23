@@ -30,7 +30,7 @@ class ShopController extends Controller
         }
 
         if ($user->icon === 'shops_icon/icon_default.svg') {
-            $user->icon = Storage::url($user->icon);
+            $user->icon = Storage::disk('s3')->url($user->icon);
         }
 
         $profile = Profile::where('user_id', $user->id)->first();
@@ -50,6 +50,7 @@ class ShopController extends Controller
         ], [
             'shop_name.unique' => 'このショップ名は既に使われています',
             'shop_name.max' => 'ショップ名は50文字以内で入力してください',
+            'shop_icon.image' =>'画像の形式が正しくありません',
             'about.max' => '商品の説明は255文字以内で入力してください',
         ]);
 
@@ -60,8 +61,8 @@ class ShopController extends Controller
 
         if ($request->hasFile('shop_icon')) {
             $icon = $request->file('shop_icon');
-            $path = $icon->store('public/shops_icon');
-            $shop->shop_icon = Storage::url($path);
+            $path = Storage::disk('s3')->putFile('shops_icon', $icon);
+            $shop->shop_icon = Storage::disk('s3')->url($path);
         }
 
         $id = $shop->user_id;

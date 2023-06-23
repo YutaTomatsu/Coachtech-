@@ -37,13 +37,13 @@ class CommentController extends Controller
             $user = User::select('users.name','icon')->where('users.id', $comment->user_id)->first();
             $comment->user_name = $user->name;
             if ($user) {
-                $comment->user_icon = $user->icon ? $user->icon : 'icon/icon_user_2.svg';
+                $comment->user_icon = $user->icon ? $user->icon : 'user_icon/icon_user_5.png';
             } else {
-                $comment->user_icon = 'icon/icon_user_2.svg';
+                $comment->user_icon = 'user_icon/icon_user_5.png';
             }
 
-            if ($comment->user_icon === 'icon/icon_user_2.svg') {
-                $comment->user_icon = Storage::url($comment->user_icon);
+            if ($comment->user_icon === 'user_icon/icon_user_5.png') {
+                $comment->user_icon = Storage::disk('s3')->url($comment->user_icon);
             }
             $comment->is_seller = ($comment->user_id === $item->user_id);
         }

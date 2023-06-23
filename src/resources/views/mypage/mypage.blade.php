@@ -151,7 +151,7 @@
         <div class="user">
             <div class="icon__name__box">
                 <div class="icon">
-                    <img class="user__icon" id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像">
+                    <img class="user__icon" id="preview" src="{{ $user->icon }}" alt="プロフィール画像">
                 </div>
                 <div class="user__left__right">
                     <div class="username">{{ $user->name }}</div>

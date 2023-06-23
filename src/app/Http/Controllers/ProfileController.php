@@ -19,11 +19,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!$user->icon) {
-            $user->icon = 'icon/icon_user_2.svg';
+            $user->icon = 'user_icon/icon_user_5.png';
         }
 
-        if ($user->icon === 'icon/icon_user_2.svg') {
-            $user->icon = Storage::url($user->icon);
+        if ($user->icon === 'user_icon/icon_user_5.png') {
+            $user->icon = Storage::disk('s3')->url($user->icon);
         }
 
         $profile = Profile::where('user_id', $user->id)->first();
@@ -60,8 +60,8 @@ class ProfileController extends Controller
 
         if ($request->hasFile('icon')) {
             $uploadedFile = $request->file('icon');
-            $path = $uploadedFile->store('public/profiles');
-            $user->icon = Storage::url($path);
+            $path = Storage::disk('s3')->putFile('user_icon', $uploadedFile);
+            $user->icon = Storage::disk('s3')->url($path);
         }
 
         $user->save();

@@ -14,7 +14,7 @@
         <div class="header__left">
             <div class="rogo">
                 <a href="{{ route('home') }}">
-                    <img class="ct" src="/img/cd_logo.png" alt="CT">
+                    <img class="ct" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/etc/cd_logo.png" alt="CT">
                 </a>
             </div>
             <div class="rogo__name">COATCHTECH</div>

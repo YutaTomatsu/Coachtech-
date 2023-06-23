@@ -16,7 +16,7 @@
                         @if ($contact->user->icon)
                             <img class="user__icon" src="{{ $contact->user->icon }}" alt="プロフィール画像">
                         @else
-                            <img class="user__icon" src="/img/icon_user_2.svg" alt="プロフィール画像">
+                            <img class="user__icon" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/user_icon/icon_user_5.png" alt="プロフィール画像">
                         @endif
                         <div class="user__name">{{ $contact->user->name }}</div>
                     </div>

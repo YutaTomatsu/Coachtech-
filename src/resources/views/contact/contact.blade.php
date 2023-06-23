@@ -14,11 +14,7 @@
                     </div>
                 @else
                     <div class="icon__name">
-                        @if ($shop->icon)
-                            <img class="user__icon" src="{{ $shop->shop_icon }}" alt="プロフィール画像">
-                        @else
-                            <img class="user__icon" src="/img/icon_user_2.svg" alt="プロフィール画像">
-                        @endif
+                            <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="プロフィール画像">
                         <div class="user__name">{{ $shop->shop_name }}</div>
                     </div>
                     <div class="user__content-wrapper">
@@ -32,7 +28,6 @@
             @csrf
             <textarea class="contact__form" name="content" id="content" required>{{ old('content') }}</textarea>
             @error('content')
-                <!-- バリデーションエラーメッセージの表示 -->
                 <p class="text-danger">{{ $message }}</p>
             @enderror
             <button class="button" type="submit">送信</button>

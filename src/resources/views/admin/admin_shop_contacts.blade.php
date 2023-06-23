@@ -27,7 +27,7 @@
                                 @if ($user->user->icon)
                                     <img class="icon" src="{{ $user->user->icon }}">
                                 @else
-                                    <img class="icon" src="/img/icon_user_2.svg">
+                                    <img class="icon" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/user_icon/icon_user_5.png">
                                 @endif
                                 <div class="user__name">{{ $user->user->name }}</div>
                             </a>

@@ -22,6 +22,14 @@ class ContactController extends Controller
 
         $shop = Shop::where('id',$id)->first();
 
+        if (!$shop->shop_icon) {
+            $shop->shop_icon = 'shops_icon/icon_default.svg';
+        }
+
+        if ($shop->shop_icon === 'shops_icon/icon_default.svg') {
+            $shop->shop_icon = Storage::disk('s3')->url($shop->shop_icon);
+        }
+
         $user = Auth::id();
 
         $contacts = ShopEmail::where('user_id', Auth::id())->where('shop_id', $id)->get();

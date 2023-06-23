@@ -46,11 +46,11 @@ class ItemController extends Controller
         $seller = User::where('id',$item->user_id)->first();
 
         if (!$seller->icon) {
-            $seller->icon = 'icon/icon_user_2.svg';
+            $seller->icon = 'user_icon/icon_user_5.png';
         }
 
-        if ($seller->icon === 'icon/icon_user_2.svg') {
-            $seller->icon = Storage::url($seller->icon);
+        if ($seller->icon === 'user_icon/icon_user_5.png') {
+            $seller->icon = Storage::disk('s3')->url($seller->icon);
         }
 
         $totalReviews = Review::where('seller_id',  $seller->id)->count();

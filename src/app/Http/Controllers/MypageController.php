@@ -21,11 +21,11 @@ class MypageController extends Controller
         $user = Auth::user();
 
         if (!$user->icon) {
-            $user->icon = 'icon/icon_user_2.svg';
+            $user->icon = 'user_icon/icon_user_5.png';
         }
 
-        if ($user->icon === 'icon/icon_user_2.svg') {
-            $user->icon = Storage::url($user->icon);
+        if ($user->icon === 'user_icon/icon_user_5.png') {
+            $user->icon = Storage::disk('s3')->url($user->icon);
         }
 
         $items = Item::where('items.user_id', Auth::id())

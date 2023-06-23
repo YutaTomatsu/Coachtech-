@@ -28,6 +28,12 @@
     margin: 0 0 0 20px;
 }
 
+.shop__icon{
+    width:50px;
+    height:50px;
+    border-radius:20px;
+}
+
 .user__name {
     margin: 0 10px;
 }
