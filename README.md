@@ -5,7 +5,7 @@
 管理者はショップとユーザーのやり取りの確認、また、全ユーザーに対してメールを一斉送信することができる。
 
 
-![アプリトップ画像](https://github.com/YutaTomatsu/Rese-re/blob/main/Readme%E7%94%A8%E7%94%BB%E5%83%8F/%E3%82%A2%E3%83%97%E3%83%AA%E3%83%88%E3%83%83%E3%83%97%E7%94%BB%E5%83%8F.png?raw=true)
+![アプリトップ画像]([https://github.com/YutaTomatsu/Rese-re/blob/main/Readme%E7%94%A8%E7%94%BB%E5%83%8F/%E3%82%A2%E3%83%97%E3%83%AA%E3%83%88%E3%83%83%E3%83%97%E7%94%BB%E5%83%8F.png?raw=true](https://github.com/YutaTomatsu/Coachtech-flea-market/blob/main/%E3%82%A2%E3%83%95%E3%82%9A%E3%83%AA%E3%83%88%E3%83%83%E3%83%95%E3%82%9A%E7%94%BB%E5%83%8F.png))
 
 ## 作成した目的  
 
