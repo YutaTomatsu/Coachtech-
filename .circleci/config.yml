@@ -10,11 +10,21 @@ jobs:
       - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - restore_cache:
           keys:
-            - composer-v1-{{ checksum "src/composer.json" }}
+            - composer-v1-{{ checksum "src/composer.json" }} 
             - composer-v1-
-      - run: cd src && composer install -n --prefer-dist
+      - run: cd src && composer install -n --prefer-dist 
       - save_cache:
-          key: composer-v1-{{ checksum "src/composer.json" }}
+          key: composer-v1-{{ checksum "src/composer.json" }} 
           paths:
             - vendor
       - run: cd src && php artisan test
+      - run:
+          name: Conditionally Pull From Git
+          command: |
+            TEST_RESULT=$(cd src && php artisan test) 
+            if [ $? -eq 0 ]
+            then
+              git pull origin main
+            else
+              echo "Tests failed. Not pulling from git."
+            fi
