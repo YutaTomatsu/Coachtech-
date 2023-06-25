@@ -99,33 +99,35 @@ Docker version 20.10.22, build 3a2c30b
 
 #### 2,リポジトリのクローン  
 
-Reseプロジェクトを作成したいディレクトリに移動し、以下のコマンドを実行してgitからアプリをcloneします。
+Coachtechフリマプロジェクトを作成したいディレクトリに移動し、以下のコマンドを実行してgitからアプリをcloneします。
 
-git clone https://github.com/YutaTomatsu/Rese-re.git
+git clone https://github.com/YutaTomatsu/Coachtech-flea-market.git
 
 #### 3,プロジェクトのディレクトリに移動してビルド  
 
-以下のコマンドを実行してReseプロジェクト内に移動します。
+以下のコマンドを実行してCoachtech-flea-market内に移動します。
 
-cd Rese-re  
+cd Coachtech-flea-market 
 
 デスクトップからdockerを起動した後に以下のコマンドを実行してdocker内にコンテナをbuildします。
 
 docker-compose up -d --build  
 
-dockerのコンテナ内にRese-reというコンテナが作成されていたら成功です。
+dockerのコンテナ内にCoachtech-flea-marketというコンテナが作成されていたら成功です。
 
 #### 4,コンテナに移動し必要な依存関係のインストール  
 
-Reseプロジェクトのコンテナ内に移動し、composer installを実行します。  
+Coachtech-flea-marketのコンテナ内に移動し、composer installを実行します。  
 
 docker-compose exec php bash（以降コンテナに移動するときはプロジェクトディレクトリからこのコマンドを実行して下さい）  
 composer install
 
 #### 5,環境設定ファイルの作成  
 
-プロジェクトのルートディレクトリ内にある.env.exampleの記述を.envにコピーします。
+プロジェクトのルートディレクトリ内に移動し、.env.exampleの記述を.envにコピーします。
 
+exit
+cd src
 cp .env.example .env
 
 #### 6,.envファイルを編集して、データベース接続情報を設定  
@@ -142,13 +144,14 @@ DB_PASSWORD=laravel_pass
 #### 7,アプリケーションキーの生成
 
 アプリケーションキーを作成します。
-.envのAPP_KEYにキーが作成されていたら成功です。
 
 php artisan key:generate
 
+.envのAPP_KEYにキーが作成されていたら成功です。
+
 #### 8,データベースのマイグレーション実行  
 
-以下のコマンドを実行してデータベース内にテーブルを作成します。
+以下のコマンドをコンテナ内で実行してデータベース内にテーブルを作成します。
 
 php artisan migrate
 
@@ -166,13 +169,12 @@ php artisan serve
 
 必要に応じて、以下のコマンドを実行してあらかじめ作成されたダミーのデータを作成することができます。
 
+php artisan migrate:fresh (エラーが出る場合があるため念のためdb内をfresh)
 php artisan db:seed
-
-これにより、ダミーのショップやユーザーアカウント、管理者アカウント、店舗代表者アカウントなどが作成されます。  
 
 #### -（ダミーで作成されるアカウント）-
 
-また、ダミーアカウントを利用する場合は以下のアカウントからそれぞれの権限にログインすることができます。
+ダミーアカウントを利用する場合は以下のアカウントからそれぞれの権限にログインすることができます。
 
 ・ユーザーアカウント
 
@@ -184,12 +186,6 @@ password:12345678
 
 name:管理者  
 email:admin@example.com  
-password:12345678  
-
-・店舗代表者アカウント
-
-name:店舗代表者  
-email:owner@example.com  
 password:12345678  
 
 次に、アプリケーション内の設定をしていきます。
