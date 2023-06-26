@@ -45,8 +45,6 @@
   object-fit: contain;
 }
 
-.follow__box {}
-
 .following {
   text-decoration: none;
   border-left: solid gray;
@@ -60,8 +58,6 @@
   color: #ff5858;
   padding: 0 10px;
 }
-
-.price {}
 
 .item {
   flex-basis: calc(17%);
@@ -81,7 +77,6 @@
   flex-direction: row;
   align-items: stretch;
   flex-wrap: wrap;
-
 }
 
 .change__button {
@@ -96,7 +91,6 @@
 .main {
   border-top: #c4c3c3 solid 3px;
 }
-
 
 .rating__detail {
   display: flex;
@@ -173,7 +167,6 @@
   width: 90px;
 }
 
-
 @media screen and (max-width: 768px) {
 
   .top {
@@ -211,7 +204,6 @@
     font-weight: bold;
     font-size: 20px;
     margin: 60px 0 0 0px;
-
   }
 
   .item {
@@ -244,7 +236,6 @@
     flex-direction: row;
     align-items: stretch;
     flex-wrap: wrap;
-
   }
 
   .change__button {

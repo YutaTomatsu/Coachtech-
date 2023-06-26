@@ -15,7 +15,6 @@
     border-radius: 7px;
     text-align: center;
     line-height: 30px;
-
 }
 
 @media screen and (max-width:768px) {
@@ -37,6 +36,5 @@
         border-radius: 7px;
         text-align: center;
         line-height: 30px;
-
     }
 }

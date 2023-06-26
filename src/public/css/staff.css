@@ -3,7 +3,6 @@
     justify-content: space-between;
 }
 
-
 .add__staff {
     margin: auto 30px;
     text-decoration: none;
@@ -53,7 +52,6 @@
 .email__box {
     display: flex;
 }
-
 
 .staff__name {
     font-weight: bold;
@@ -175,7 +173,6 @@
         display: flex;
         flex-direction: column;
         word-wrap: break-word;
-
     }
 
     form {
@@ -183,5 +180,4 @@
         flex-direction: row-reverse;
         margin: 10px 0 0 0;
     }
-
 }

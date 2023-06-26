@@ -1,7 +1,6 @@
 .detail {
     display: flex;
     justify-content: space-between;
-
 }
 
 .detail__left {
@@ -35,7 +34,6 @@
     padding: 3px 20px;
     margin: 0 0 20px 0;
     text-align: center;
-
 }
 
 .name__tag {
@@ -75,15 +73,10 @@
     flex-direction: column;
 }
 
-
 .seller__name {
     font-weight: bold;
     font-size: 18px;
 }
-
-.review {}
-
-
 
 .detail__right {
     width: 50%;
@@ -135,9 +128,6 @@
     text-align: center;
 }
 
-
-.purchage {}
-
 .purchage__button {
     text-decoration: none;
     background-color: #ff5858;
@@ -151,17 +141,11 @@
 
 }
 
-.about__box {}
-
 .about__title {
     font-size: 20px;
     font-weight: bold;
     margin: 10px 0;
 }
-
-.about {}
-
-.information__box {}
 
 .information__title {
     font-size: 20px;
@@ -207,9 +191,6 @@
     font-weight: bold;
     margin: 0 30px 0 0;
 }
-
-.condition {}
-
 
 .rating__detail {
     display: flex;
@@ -286,7 +267,6 @@
     width: 90px;
 }
 
-
 @media screen and (max-width:768px) {
 
     .detail {
@@ -315,7 +295,6 @@
         text-align: center;
         font-weight: bold;
         margin: 0 0 3px 0;
-
     }
 
     .detail__right {
@@ -331,7 +310,7 @@
         width: 60%;
         margin: 50px auto;
         display: flex;
-        justify-content: spaace-between;
+        justify-content: space-between;
     }
 
     .item__name {
@@ -368,9 +347,6 @@
         text-align: center;
     }
 
-
-    .purchage {}
-
     .purchage__button {
         text-decoration: none;
         background-color: #ff5858;
@@ -381,20 +357,13 @@
         height: 40px;
         border: none;
         margin: 10px auto;
-
     }
-
-    .about__box {}
 
     .about__title {
         font-size: 20px;
         font-weight: bold;
         margin: 10px 0;
     }
-
-    .about {}
-
-    .information__box {}
 
     .information__title {
         font-size: 20px;
@@ -417,7 +386,6 @@
     .category__item__box {
         margin: 10px 0;
         display: flex;
-
     }
 
     .category {
@@ -439,7 +407,4 @@
         font-weight: bold;
         margin: 0 30px 0 0;
     }
-
-    .condition {}
-
 }

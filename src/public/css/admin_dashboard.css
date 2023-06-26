@@ -19,16 +19,15 @@
     align-items: center;
 }
 
-    .shop__icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 20px;
-    }
+.shop__icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+}
 
-    .shop__name {
-        color: black;
-        font-weight: bold;
-        font-size: 20px;
-        margin: 0 20px;
-
-    }
+.shop__name {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 20px;
+}

@@ -23,7 +23,6 @@
 .item__name {
     font-weight: bold;
     font-size: 17px;
-
 }
 
 .text {
@@ -58,5 +57,4 @@
     body {
         width: 768px;
     }
-
 }

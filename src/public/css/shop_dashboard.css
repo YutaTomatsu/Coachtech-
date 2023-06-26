@@ -22,8 +22,6 @@
   font-weight: bold;
 }
 
-.about__box {}
-
 .about__title {
   margin: 0 50px;
 }
@@ -31,8 +29,6 @@
 .about {
   margin: 20px 50px;
 }
-
-.shop_edit {}
 
 .item {
   flex-basis: calc(17%);
@@ -72,8 +68,6 @@
   font-weight: bold;
 }
 
-.about__box {}
-
 .about__title {
   margin: 0 50px;
 }
@@ -81,8 +75,6 @@
 .about {
   margin: 20px 50px;
 }
-
-.shop_edit {}
 
 .item {
   flex-basis: calc(17%);
@@ -103,7 +95,6 @@
   flex-direction: row;
   align-items: stretch;
   flex-wrap: wrap;
-
 }
 
 .image {
@@ -123,7 +114,6 @@
 
 .active {
   color: #ff5858;
-  ;
 }
 
 .main {
@@ -158,13 +148,11 @@
     flex-direction: row;
     align-items: stretch;
     flex-wrap: wrap;
-
   }
 
   .list {
     display: flex;
     justify-content: space-between;
-
   }
 
   .change__button {
@@ -178,7 +166,5 @@
 
   .active {
     color: #ff5858;
-    ;
   }
-
 }

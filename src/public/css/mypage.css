@@ -33,7 +33,6 @@ main {
 .icon__name__box {
   display: flex;
   align-items: center;
-
 }
 
 .user__icon {
@@ -63,8 +62,6 @@ main {
   object-fit: contain;
 }
 
-.follow__box {}
-
 .following {
   text-decoration: none;
   border-left: solid gray;
@@ -78,8 +75,6 @@ main {
   color: #ff5858;
   padding: 0 10px;
 }
-
-.price {}
 
 .item {
   flex-basis: calc(17%);
@@ -99,7 +94,6 @@ main {
   flex-direction: row;
   align-items: stretch;
   flex-wrap: wrap;
-
 }
 
 .change__button {
@@ -198,13 +192,11 @@ main {
 
 .active {
   color: #ff5858;
-  ;
 }
 
 .buttton__box {
   display: flex;
 }
-
 
 .sell__button {
   width: 33%;
@@ -268,7 +260,6 @@ main {
     flex-direction: row;
     align-items: stretch;
     flex-wrap: wrap;
-
   }
 
   .main {
@@ -318,18 +309,15 @@ main {
   .button__buttom {
     width: 100%;
     display: flex;
-
   }
 
   .sell__button {
     margin: 0;
     border-bottom: solid #c4c3c3 3px;
     width: 100%;
-
   }
 
   .active {
     color: #ff5858;
-    ;
   }
 }

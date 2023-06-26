@@ -34,7 +34,8 @@ class PaymentTest extends TestCase
 
         $response = $this->post('/payment-success/' . $item->first()->id);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect(route('show-success-page'));
     }
 
 

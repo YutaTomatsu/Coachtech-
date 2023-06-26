@@ -45,7 +45,6 @@
   text-align: center;
   font-weight: bold;
   margin: 0 10px;
-
 }
 
 .button {
@@ -120,7 +119,6 @@
   flex-direction: row;
   align-items: stretch;
   flex-wrap: wrap;
-
 }
 
 .change__button {
@@ -285,7 +283,6 @@
     font-weight: bold;
     font-size: 20px;
     margin: 60px 0 0 0px;
-
   }
 
   .item {
@@ -318,7 +315,6 @@
     flex-direction: row;
     align-items: stretch;
     flex-wrap: wrap;
-
   }
 
   .change__button {

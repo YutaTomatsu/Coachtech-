@@ -61,8 +61,6 @@
   object-fit: contain;
 }
 
-.price {}
-
 .item {
   flex-basis: calc(17%);
   margin: 20px 11px;

@@ -59,7 +59,6 @@ header {
   height: 50px;
 }
 
-
 .rogo {
   width: 40px;
   color: white;
@@ -73,7 +72,6 @@ header {
 
 }
 
-
 .rogo__name {
   font-size: 26px;
   font-weight: bold;
@@ -81,12 +79,9 @@ header {
   color: white;
 }
 
-
 .header__left {
   display: flex;
 }
-
-.logo {}
 
 .header__right {
   display: flex;
@@ -105,7 +100,6 @@ header {
 
 main {
   margin: 50px 0 0 90px;
-
 }
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
@@ -207,9 +201,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 5em;
-  /* ここでは 5em としていますが、あなたのレイアウトに合わせて変更してください */
 }
-
 
 .menu li:after {
   content: attr(title);
@@ -224,8 +216,6 @@ main {
   color: white;
 }
 
-
-
 .menu li:hover:after {
   visibility: visible;
   opacity: 1;
@@ -237,14 +227,12 @@ main {
   }
 }
 
-
 @media screen and (max-width:768px) {
 
   .common__main {
     margin: 50px auto;
     width: 100%;
   }
-
 
   .header__menu {
     display: flex;
@@ -397,5 +385,4 @@ main {
   .menu-open {
     transform: translateX(0%);
   }
-
 }

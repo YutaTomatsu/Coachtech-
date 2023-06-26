@@ -46,7 +46,7 @@ class PurchageTest extends TestCase
 
         $item = Item::factory(5)->create(['user_id' => $users->first()->id]);
 
-        $response = $this->get('/card/' . $item->first()->id);
+        $response = $this->get('/card/' . $item->first()->id . '?price=1000&postcode=123-4567&address=東京都港区1-2-3&build=test');
 
         $response->assertStatus(200);
     }
@@ -58,7 +58,7 @@ class PurchageTest extends TestCase
 
         $item = Item::factory(5)->create(['user_id' => $users->first()->id]);
 
-        $response = $this->get('/bank/' . $item->first()->id);
+        $response = $this->get('/bank/' . $item->first()->id . '?price=1000&postcode=123-4567&address=東京都港区1-2-3&build=test');
 
         $response->assertStatus(200);
     }
@@ -70,7 +70,7 @@ class PurchageTest extends TestCase
 
         $item = Item::factory(5)->create(['user_id' => $users->first()->id]);
 
-        $response = $this->get('/convenience/' . $item->first()->id);
+        $response = $this->get('/convenience/' . $item->first()->id . '?price=1000&postcode=123-4567&address=東京都港区1-2-3&build=test');
 
         $response->assertStatus(200);
     }

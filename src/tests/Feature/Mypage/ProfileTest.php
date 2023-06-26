@@ -49,10 +49,10 @@ class ProfileTest extends TestCase
         $this->actingAs($user);
 
         $invalidData = [
-            'name' => '', // Invalid name (required)
-            'postcode' => '1234567', // Invalid postcode (size: 8)
-            'address' => '', // Invalid address (required)
-            'build' => str_repeat('a', 256), // Invalid build (max: 255)
+            'name' => '',
+            'postcode' => '1234567',
+            'address' => '',
+            'build' => str_repeat('a', 256),
         ];
 
         $response = $this->post('/mypage/profile', $invalidData);

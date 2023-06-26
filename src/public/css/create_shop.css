@@ -80,7 +80,6 @@
 .item__name {
     font-weight: bold;
     font-size: 17px;
-
 }
 
 .text {
@@ -110,10 +109,6 @@
     color: #2196F3;
 }
 
-.error {}
-
-.status {}
-
 @media screen and (max-width:768px) {
 
     .top {
@@ -127,8 +122,6 @@
         flex-direction: column;
         margin: auto auto auto 0;
     }
-
-
 
     .username {
         margin: auto 0 auto 20px;
@@ -164,7 +157,6 @@
     .item__name {
         font-weight: bold;
         font-size: 17px;
-
     }
 
     .text {
@@ -193,8 +185,4 @@
         text-decoration: none;
         color: #2196F3;
     }
-
-    .error {}
-
-    .status {}
 }
