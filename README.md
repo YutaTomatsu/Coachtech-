@@ -73,7 +73,7 @@ Laravel 8.83.27
 
 ## 環境構築
 
-### Reseプロジェクトの環境構築
+### Coachtechフリマプロジェクトの環境構築
 
 このドキュメントでは、Reseプロジェクトのローカル環境をセットアップする方法を説明します。
 
@@ -122,40 +122,13 @@ Coachtech-flea-marketのコンテナ内に移動し、composer installを実行�
 docker-compose exec php bash（以降コンテナに移動するときはプロジェクトディレクトリからこのコマンドを実行して下さい）  
 composer install
 
-#### 5,環境設定ファイルの作成  
-
-プロジェクトのルートディレクトリ内に移動し、.env.exampleの記述を.envにコピーします。
-
-exit
-cd src
-cp .env.example .env
-
-#### 6,.envファイルを編集して、データベース接続情報を設定  
-
-.env内のデータベースに関する記述を以下のように修正して下さい。
-
-DB_CONNECTION=mysql  
-DB_HOST=mysql  
-DB_PORT=3306  
-DB_DATABASE=laravel_db  
-DB_USERNAME=laravel_user  
-DB_PASSWORD=laravel_pass
-
-#### 7,アプリケーションキーの生成
-
-アプリケーションキーを作成します。
-
-php artisan key:generate
-
-.envのAPP_KEYにキーが作成されていたら成功です。
-
-#### 8,データベースのマイグレーション実行  
+#### 5,データベースのマイグレーション実行  
 
 以下のコマンドをコンテナ内で実行してデータベース内にテーブルを作成します。
 
 php artisan migrate
 
-#### 9,アプリケーションの起動
+#### 6,アプリケーションの起動
 
 php artisan serve
 
@@ -165,7 +138,7 @@ php artisan serve
 ※アプリが重くなっているため、ローカル環境でページを移動する際にお使いの環境によってはサーバーエラーが発生する場合があります。
 その場合、ページを再読み込みする、もしくはアクションを再度実行していただくことで解決できます。
 
-### 10, ダミーデータの作成
+### 7, ダミーデータの作成
 
 必要に応じて、以下のコマンドを実行してあらかじめ作成されたダミーのデータを作成することができます。
 
@@ -190,166 +163,23 @@ password:12345678
 
 次に、アプリケーション内の設定をしていきます。
 
-#### 1,.envの編集
 
-以下の例を参考に、自身の環境に合わせて.envを作成して下さい。
 
-（例）
+#### 1,queueの実行
 
-APP_NAME=Rese　※Reseに変更  
-APP_ENV=local  
-APP_KEY=（php artisan key:generateで作成されたキー）  
-APP_DEBUG=true  
-APP_URL=http://localhost
-
-LOG_CHANNEL=stack  
-LOG_DEPRECATIONS_CHANNEL=null  
-LOG_LEVEL=debug
-
-DB_CONNECTION=mysql  
-DB_HOST=mysql  
-DB_PORT=3306  
-DB_DATABASE=laravel_db  
-DB_USERNAME=laravel_user  
-DB_PASSWORD=laravel_pass
-
-BROADCAST_DRIVER=log  
-CACHE_DRIVER=file  
-FILESYSTEM_DRIVER=local  
-QUEUE_CONNECTION=database ※databaseに変更  
-SESSION_DRIVER=database  
-SESSION_LIFETIME=120
-
-MEMCACHED_HOST=127.0.0.1
-
-REDIS_HOST=127.0.0.1  
-REDIS_PASSWORD=null  
-REDIS_PORT=6379
-
-MAIL_DRIVER=smtp  
-MAIL_HOST=smtp.gmail.com  
-MAIL_PORT=587  
-MAIL_USERNAME=example@gmail.com(認証に利用するメールアドレス）  
-MAIL_PASSWORD=****************(２段階認証プロセスのアプリパスワードを入力）  
-MAIL_ENCRYPTION=tls MAIL_FROM_ADDRSS=example@gmail.com(認証に利用するメールアドレス）  
-MAIL_FROM_NAME="Rese"
-
-＊例ではgmailを用いて認証していますが自身環境に合わせて変更して下さい
-
-AWS_ACCESS_KEY_ID=*********************  
-AWS_SECRET_ACCESS_KEY=*********************  
-AWS_DEFAULT_REGION=us-east-1  
-AWS_BUCKET=rese-bucket  
-AWS_USE_PATH_STYLE_ENDPOINT=false
-
-※用意したs３の情報を入力
-
-PUSHER_APP_ID=  
-PUSHER_APP_KEY=  
-PUSHER_APP_SECRET=  
-PUSHER_APP_CLUSTER=mt1
-
-MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"  
-MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-
-STRIPE_PUBLIC_KEY=*************************************  
-STRIPE_SECRET_KEY=*************************************
-
-※STRIPEの記述はデフォルトでは存在しないため、新たに書き足して下さい  
-※パブリックキーとシークレットキーは決済機能を提供するサービスであるstripeでアカウントを作成し、テストモードのパブリックキーとシークレットきーを貼り付けて下さい。
-
-#### ２,マルチログインの設定
-
-laravelのルートディレクトリ/vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.phpのstore functionを以下のように修正します。
-
-use Laravel\Fortify\Http\Requests\LoginRequest;　※use宣言を追加
-
-    public function store(LoginRequest $request)
- 
-    { return $this->loginPipeline($request)->then(function ($request) { $user = $request->user();
-
-    if ($user->hasVerifiedEmail()) {
-        $role = $user->admin ? $user->admin->role : 'user';
-
-        if ($role == 'admin') {
-            return redirect()->route('admin');
-        } elseif ($role == 'owner') {
-            return redirect()->route('owner');
-        } else {
-            return redirect()->route('dashboard');
-        }
-    } else {
-        return redirect()->route('verification.notice');
-    }
-    });
- 
-    }
-
-これにより、adminsテーブルに保存されているroleと紐付けられているuser_idによってログインしたユーザーのロールを識別し、ロールに対応したアクセス先にアクセスされるようになります。
-
-また、laravelのルートディレクトリ/vendor/laravel/fortify/src/Http/Controllers/VerifyEmailController.phpの__invoke　functionを以下のように修正します。
-
-　　　use Illuminate\Auth\Events\Verified;　※use宣言を追加
-
-    public function __invoke(VerifyEmailRequest $request)
-    {
-    if ($request->user()->hasVerifiedEmail()) {
-        return redirect()->route('dashboard');
-    }
-
-    if ($request->user()->markEmailAsVerified()) {
-        event(new Verified($request->user()));
-    }
-
-    // Check the user's role and redirect accordingly
-    $role = $request->user()->admin ? $request->user()->admin->role : 'user';
-
-    if ($role == 'owner') {
-        return redirect()->route('owner');
-    } else {
-        return redirect()->route('dashboard');
-    }
-}
-
-これにより、メール認証時にロールに対応したアクセス先にアクセスされるようになります。
-
-#### 3,queueとscheduleの実行
-
-以下のコマンドを実行してqueueとscheduleを起動します。 
+以下のコマンドを実行してqueueを起動します。 
 
 php artisan queue:work  
 
-queueを実行することで管理者のメール一斉送信を非同期化し、  
+queueを実行することで非同期で実行される管理者の一斉メール送信やコメント通知メールが送信されるようになります。
 
-### 4,scheduleの実行
+#### 2,環境切り替え
 
-scheduleを実行することでユーザーの予約に対するリマインダーメール機能を起動することができます。
+コンテナ内で以下のコマンドを実行することで、本番環境のデータベースをmigrateし、ダミーデータを作成することができます。
 
-php artisan schedule:work
-
-また、デフォルトでは予約当日の午前9時にメールが送信されるようになっていますが、  
-app/Console/Kernel.phpのschedule fuction内の->dailyAt('09:00');という記述を変更することで送信日時を変更することができます。
-
-#### 5,環境切り替え
-
-環境切り分け用の.envとして、.env.productionをlaravelプロジェクトのルートディレクトリに作成し、本番環境で利用している.envをコピー＆ペーストして下さい。
-そして、APP_ENVを以下のようにproductionに変更して下さい。
-
-APP_ENV=production
-
-次に、コンテナ内で以下のコマンドを実行して下さい。
-
-php artisan config:clear 
+php artisan config:clear
 
 php artisan migrate --seed --env=production (本番環境のmigrateとダミーデータの作成を同時に実行）
-
-※利用しているRDSのパブリックアクセスが有効であり、セキュリティグループのインバウンドルールで外部からの接続が有効になっていないとRDSに接続ができないため注意して下さい。
-RDSが接続されているVPCセキュリティグループのインバウンドルールに以下のようなルールを追加することで、外部からのアクセスを有効にするルールを追加することができます。
-
-タイプ：MYSQL/Aurora  
-プロトコル：TCP  
-ポート範囲:3306  
-ソース:0.0.0.0/0
 
 これにより、ローカル環境から本番環境で利用しているデータベースにアクセスが可能になります。
 
