@@ -102,8 +102,6 @@ class ShopCommentController extends Controller
         return redirect()->back()->with('success', 'コメントが送信されました');
     }
 
-
-
     public function delete($id)
     {
         if (!Auth::check()) {
@@ -111,7 +109,6 @@ class ShopCommentController extends Controller
         }
 
         $comment_id = $id;
-
         $comment = Comment::where('id', $comment_id)->first();
 
         if ($comment) {

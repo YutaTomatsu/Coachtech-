@@ -78,7 +78,6 @@
                     @endforeach
                 </div>
 
-
                 @if (in_array($item->id, $purchasedItemId))
                     <div class="sold" type="submit">売り切れのためコメントできません</div>
                 @else

@@ -71,16 +71,13 @@
             @endif
         </div>
     </div>
-
-    </div>
-
     <button class="change__button active" id="recommendTrigger">出品した商品</button>
 
     <div class="main">
         <div class="recommend">
             <div class="item__box" id="recommendItems">
                 @foreach ($shopItems as $shopItem)
-                    <a class="item" href="{{ route('detail', ['id' => $shopItem->id]) }}">
+                    <a class="item" href="{{ route('detail', ['id' => $shopItem->item_id]) }}">
                         <img class="image" src="{{ $shopItem->item->image }}" alt="Item Image">
                     </a>
                 @endforeach

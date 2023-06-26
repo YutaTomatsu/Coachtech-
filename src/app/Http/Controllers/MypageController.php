@@ -70,9 +70,6 @@ class MypageController extends Controller
             }
         }
 
-
-
-
         return view('mypage.mypage', compact('user', 'items','purchaseItems', 'following', 'follower','totalReviews','reviewsAvg','haveShop', 'notReviews'));
     }
 }

@@ -21,15 +21,12 @@
                 <div class="about">{{ $shop->about }}</div>
             </div>
         </div>
-
         <div class="items__box">
             <h2 class="title">出品履歴</h2>
-
             <div class="list">
                 <button class="change__button active" id="recommendTrigger">出品中の商品</button>
                 <button class="change__button" id="mylistTrigger">購入された商品</button>
             </div>
-
             <div class="main">
                 <div class="recommend">
                     <div class="item__box" id="recommendItems">
@@ -40,7 +37,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 <div class="mylist">
                     <div class="item__box" id="mylistItems" style="display: none;">
                         @foreach ($purchasedItems as $purchasedItem)

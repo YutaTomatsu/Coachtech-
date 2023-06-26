@@ -18,7 +18,6 @@
 
 .shop__detail {
     margin: 50px;
-    border-top: solid gray;
 }
 
 .staff__none {
@@ -30,10 +29,14 @@
 }
 
 .staff__box {
-    border-bottom: solid gray;
+    border-radius: 10px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
+}
+
+.staff__box:hover {
+    background-color: #f0f0f0;
 }
 
 .delete {
@@ -136,7 +139,6 @@
     }
 
     .staff__box {
-        border-bottom: solid gray;
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -165,7 +167,7 @@
     .name__box {
         display: flex;
         flex-direction: column;
-        border-bottom: solid gray;
+        border-bottom: solid #d2d2d2;
         word-wrap: break-word;
     }
 

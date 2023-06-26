@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ShopMail;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\ShopEmail;
@@ -13,7 +10,8 @@ use App\Models\UserStaff;
 
 class AdminController extends Controller
 {
-    public function showShopContacts($id){
+    public function showShopContacts($id)
+    {
 
         if (!Auth::check()) {
             return redirect()->route('login');
@@ -44,7 +42,8 @@ class AdminController extends Controller
         return view('admin.admin_shop_contacts', compact('shop', 'users', 'doneContactUsers', 'userStaff'));
     }
 
-    public function showShopUserContact($id) {
+    public function showShopUserContact($id)
+    {
         if (!Auth::check()) {
             return redirect()->route('login');
         }

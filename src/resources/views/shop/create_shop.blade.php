@@ -25,13 +25,10 @@
             <x-label class="item__name" for="shop_name" :value="__('ショップ名')" />
             <x-input class="text" id="shop_name" type="text" name="shop_name" :value="old('shop_name')" required />
         </div>
-
         <div class="item__box">
             <x-label class="item__name" for="name" :value="__('ショップ説明')" />
-            <textarea class="text" id="about" type="text" name="about">{{old('about')}}</textarea>
+            <textarea class="text" id="about" type="text" name="about">{{ old('about') }}</textarea>
         </div>
-
-
         <div class="under__box">
             <x-button class="button">
                 {{ __('ショップを作成する') }}

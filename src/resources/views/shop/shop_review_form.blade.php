@@ -17,11 +17,11 @@
         <div class="detail__left">
             <div class="left__box">
                 <div class="seller__box">
-                    <a href="{{ route('shop-toppage', ['id' => $shop->id]) }}">
-                        @if($shop->shop_icon)
-                        <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="icon">
+                    <a class="icon__link" href="{{ route('shop-toppage', ['id' => $shop->id]) }}">
+                        @if ($shop->shop_icon)
+                            <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="icon">
                         @else
-                        <img class="shop__icon" src="/img/icon_default.svg" alt="icon">
+                            <img class="shop__icon" src="/img/icon_default.svg" alt="icon">
                         @endif
                     </a>
                     <div class="seller__right">
@@ -40,7 +40,8 @@
                         <div class="review__box">
                             <div class="review__title">{{ __('レビューを書く') }}</div>
                             <div class="review__body">
-                                <form class="review__form" method="POST" action="{{ route('shop-review', ['id' => $item->id]) }}">
+                                <form class="review__form" method="POST"
+                                    action="{{ route('shop-review', ['id' => $item->id]) }}">
                                     @csrf
                                     <div class="form-group row">
                                         <label for="rating"

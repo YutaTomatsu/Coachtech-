@@ -27,7 +27,8 @@
                                 @if ($user->user->icon)
                                     <img class="icon" src="{{ $user->user->icon }}">
                                 @else
-                                    <img class="icon" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/user_icon/icon_user_5.png">
+                                    <img class="icon"
+                                        src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/user_icon/icon_user_5.png">
                                 @endif
                                 <div class="user__name">{{ $user->user->name }}</div>
                             </a>
@@ -43,7 +44,8 @@
                     @else
                         @foreach ($uniquedoneContactUsers->sortByDesc('created_at') as $doneContactUser)
                             <div class="user__box">
-                                <a class="icon__name" href="{{ route('admin-shop-user-content', ['id' => $doneContactUser->id]) }}">
+                                <a class="icon__name"
+                                    href="{{ route('admin-shop-user-content', ['id' => $doneContactUser->id]) }}">
                                     @if ($doneContactUser->user->icon)
                                         <img class="icon" src="{{ $doneContactUser->user->icon }}">
                                     @else

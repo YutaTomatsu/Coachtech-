@@ -12,7 +12,6 @@
     <title>Document</title>
 </head>
 
-
 <body>
     <header>
         <div class="header__left">
@@ -67,8 +66,6 @@
         </div>
     </header>
 
-
-
     <script>
         const button = document.querySelector('.menu__design');
         const menu = document.querySelector('.menu__items');
@@ -105,7 +102,6 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
                         @csrf
                     </form>
-
                     <li title="ログアウト">
                         <a href="#"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

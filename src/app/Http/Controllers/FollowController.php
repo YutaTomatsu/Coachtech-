@@ -82,28 +82,29 @@ class FollowController extends Controller
         }
     }
 
-    public function showFollowing ($id)
+    public function showFollowing($id)
     {
 
         $following = Follow::with('user')->where('user_id', $id)->get();
         $isFollowing = null;
 
 
-        foreach($following as $follow) {
-        if (!$follow->seller->icon) {
-            $follow->seller->icon = 'icon/icon_user_2.svg';
-        }
-
-        if ($follow->seller->icon === 'icon/icon_user_2.svg') {
-            $follow->seller->icon = Storage::url($follow->seller->icon);
-        }
-            if (Auth::check()) {
-            $isFollowing = Follow::where('user_id', Auth::id())
-                ->where('seller_id', $follow->seller_id)->get();
+        foreach ($following as $follow) {
+            if (!$follow->seller->icon) {
+                $follow->seller->icon = 'user_icon/icon_user_5.png';
             }
-    }
 
-        return view('follow.following',compact('following','isFollowing'));
+            if ($follow->seller->icon === 'user_icon/icon_user_5.png') {
+                $follow->seller->icon = Storage::disk('s3')->url($follow->seller->icon);
+            }
+
+            if (Auth::check()) {
+                $isFollowing = Follow::where('user_id', Auth::id())
+                    ->where('seller_id', $follow->seller_id)->get();
+            }
+        }
+
+        return view('follow.following', compact('following', 'isFollowing'));
     }
 
     public function showFollower($id)
@@ -113,21 +114,20 @@ class FollowController extends Controller
 
         foreach ($followers as $follower) {
             if (!$follower->user->icon) {
-                $follower->user->icon = 'icon/icon_user_2.svg';
+                $follower->user->icon = 'user_icon/icon_user_5.png';
             }
 
-            if ($follower->user->icon === 'icon/icon_user_2.svg') {
-                $follower->user->icon = Storage::url($follower->user->icon);
+            if ($follower->user->icon === 'user_icon/icon_user_5.png') {
+                $follower->user->icon = Storage::disk('s3')->url($follower->user->icon);
             }
 
-            if(Auth::check()){
-            $isFollowing = Follow::where('user_id', Auth::id())
-                ->where('seller_id', $follower->user_id)->exists();
+            if (Auth::check()) {
+                $isFollowing = Follow::where('user_id', Auth::id())
+                    ->where('seller_id', $follower->user_id)->exists();
             }
-
         }
 
-        return view('follow.follower',compact('followers','isFollowing'));
+        return view('follow.follower', compact('followers', 'isFollowing'));
     }
 
     public function showShopFollower($id)
@@ -137,11 +137,11 @@ class FollowController extends Controller
 
         foreach ($followers as $follower) {
             if (!$follower->user->icon) {
-                $follower->user->icon = 'icon/icon_user_2.svg';
+                $follower->user->icon = 'user_icon/icon_user_5.png';
             }
 
-            if ($follower->user->icon === 'icon/icon_user_2.svg') {
-                $follower->user->icon = Storage::url($follower->user->icon);
+            if ($follower->user->icon === 'user_icon/icon_user_5.png') {
+                $follower->user->icon = Storage::disk('s3')->url($follower->user->icon);
             }
 
             if (Auth::check()) {

@@ -17,7 +17,7 @@
         <div class="detail__left">
             <div class="left__box">
                 <div class="seller__box">
-                    <a href="{{ route('show-seller', ['id' => $item->id]) }}">
+                    <a class="icon__link" href="{{ route('show-seller', ['id' => $item->id]) }}">
                         <img class="seller__icon" src="{{ $seller->icon }}" alt="icon">
                     </a>
                     <div class="seller__right">

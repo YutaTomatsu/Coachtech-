@@ -41,7 +41,6 @@
                     </div>
                 @endforeach
 
-
                 <div class="overlay"></div>
                 <div class="dialog-box">
                     <p class="delete__confirm">本当に削除しますか？</p>

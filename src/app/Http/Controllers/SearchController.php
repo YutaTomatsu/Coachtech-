@@ -66,7 +66,6 @@ class SearchController extends Controller
         }
 
         $items = $itemQuery->get();
-
         $user_id = Auth::id();
         $mylists = Mylist::select('mylists.id', 'mylists.user_id', 'mylists.item_id', 'items.price', 'items.image')
             ->leftJoin('items', 'items.id', '=', 'mylists.item_id')

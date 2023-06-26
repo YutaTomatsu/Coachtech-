@@ -4,7 +4,7 @@
     <link href="{{ asset('css/shop_contact.css') }}" rel="stylesheet">
 </head>
 @section('content')
-<p class="title">ショップへの質問</p>
+    <p class="title">ショップへの質問</p>
     <div class="contact__box">
         <div class="contents">
             @foreach ($contacts as $contact)
@@ -14,7 +14,7 @@
                     </div>
                 @else
                     <div class="icon__name">
-                            <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="プロフィール画像">
+                        <img class="shop__icon" src="{{ $shop->shop_icon }}" alt="プロフィール画像">
                         <div class="user__name">{{ $shop->shop_name }}</div>
                     </div>
                     <div class="user__content-wrapper">

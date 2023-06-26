@@ -57,18 +57,13 @@
         const discountValueInput = document.querySelector('#discount-value');
         let errorMsg;
 
-        // エラーメッセージを表示する要素を作成
         errorMsg = document.createElement("p");
         errorMsg.style.color = "red";
         errorMsg.id = "error-msg";
         discountValueInput.parentNode.appendChild(errorMsg);
-
-        // 割引タイプの選択肢が変更されたときにエラーメッセージをクリア
         discountTypeSelect.addEventListener('change', function() {
             errorMsg.textContent = "";
         });
-
-        // 割引料の入力値が変更されたときに範囲チェックを実行
         discountValueInput.addEventListener('input', function() {
             if(discountTypeSelect.value === 'percentage') {
                 if(this.value < 5 || this.value > 90) {
@@ -78,8 +73,6 @@
                 }
             }
         });
-
-        // フォームの送信をハンドリング
         couponForm.addEventListener('submit', function(e) {
             if(discountTypeSelect.value === 'percentage' && (discountValueInput.value < 5 || discountValueInput.value > 90)) {
                 e.preventDefault();

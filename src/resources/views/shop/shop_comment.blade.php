@@ -55,7 +55,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="comments__box">
                     @foreach ($comments as $comment)
                         <div class="comments {{ $comment->is_seller ? 'seller-comment' : 'buyer-comment' }}">
@@ -77,8 +76,6 @@
                         </div>
                     @endforeach
                 </div>
-
-
                 @if (in_array($item->id, $purchasedItemId))
                     <div class="sold" type="submit">売り切れのためコメントできません</div>
                 @else

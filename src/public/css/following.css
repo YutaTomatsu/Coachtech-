@@ -1,5 +1,5 @@
 .seller__box {
-    border-bottom: solid gray;
+    border-bottom: solid #bdbdbd;
     margin: 100px auto;
     width: 80%;
 }
@@ -8,10 +8,14 @@
     display: flex;
     justify-content: space-between;
     text-decoration: none;
-    border-top: solid gray;
+    border-top: solid #bdbdbd;
     align-items: center;
     height: 80px;
     margin: 0 auto;
+}
+
+.seller:hover {
+    background-color: #f0f0f0;
 }
 
 .seller__left {

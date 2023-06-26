@@ -33,13 +33,13 @@ class ShopContactController extends Controller
 
         foreach ($users as $user) {
 
-                    if (!$user->user->icon) {
-            $user->user->icon = 'user_icon/icon_user_5.png';
-        }
+            if (!$user->user->icon) {
+                $user->user->icon = 'user_icon/icon_user_5.png';
+            }
 
-        if ($user->user->icon === 'user_icon/icon_user_5.png') {
-            $user->user->icon = Storage::disk('s3')->url($user->user->icon);
-        }
+            if ($user->user->icon === 'user_icon/icon_user_5.png') {
+                $user->user->icon = Storage::disk('s3')->url($user->user->icon);
+            }
         }
 
         $doneContactUserIds = [];
@@ -54,7 +54,7 @@ class ShopContactController extends Controller
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
-        return view('shop.shop_contacts', compact('shop', 'users', 'doneContactUsers','userStaff'));
+        return view('shop.shop_contacts', compact('shop', 'users', 'doneContactUsers', 'userStaff'));
     }
 
 
@@ -67,13 +67,13 @@ class ShopContactController extends Controller
             return redirect()->route('login');
         }
 
-        $shopEmail = ShopEmail::where('id',$id)->first();
+        $shopEmail = ShopEmail::where('id', $id)->first();
 
-        $contacts = ShopEmail::where('user_id',$shopEmail->user_id)->where('shop_id',$shopEmail->shop_id)->get();
+        $contacts = ShopEmail::where('user_id', $shopEmail->user_id)->where('shop_id', $shopEmail->shop_id)->get();
 
         $contactNotDone = ShopEmail::where('user_id', $shopEmail->user_id)->where('shop_id', $shopEmail->shop_id)->whereNull('status')->exists();
 
-        $contact = ShopEmail::where('user_id',$shopEmail->user_id)->where('shop_id',$shopEmail->shop_id)->first();
+        $contact = ShopEmail::where('user_id', $shopEmail->user_id)->where('shop_id', $shopEmail->shop_id)->first();
 
         $shop = Shop::where('id', $shopEmail->shop_id)->first();
 
@@ -89,7 +89,7 @@ class ShopContactController extends Controller
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
-        return view('shop.shop_contact', compact('contacts','contact','contactNotDone','shop', 'user','userStaff'));
+        return view('shop.shop_contact', compact('contacts', 'contact', 'contactNotDone', 'shop', 'user', 'userStaff'));
     }
 
     public function sendEmailToUser(Request $request, $id)
@@ -104,10 +104,10 @@ class ShopContactController extends Controller
             'content.required' => 'メッセージを入力してください。',
         ]);
 
-        $userEmail = ShopEmail::where('id',$id)->first();
+        $userEmail = ShopEmail::where('id', $id)->first();
 
-        $shop = Shop::where('id',$userEmail->shop_id)->first();
-        $user = User::where('Id',$userEmail->user_id)->first();
+        $shop = Shop::where('id', $userEmail->shop_id)->first();
+        $user = User::where('Id', $userEmail->user_id)->first();
 
         $shops_email = new ShopEmail;
         $shops_email->user_id = $user->id;
@@ -139,5 +139,4 @@ class ShopContactController extends Controller
 
         return redirect()->route('show-mails', ['id' => $shopId]);
     }
-
 }

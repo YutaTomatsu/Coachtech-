@@ -67,9 +67,11 @@ class ShopItemController extends Controller
 
         $shop = Shop::where('id', $shopId->shop_id)->first();
 
-        $purchasedItem = Purchase::where('item_id',$id)->exists();
+        $purchasedItem = Purchase::where('item_id', $id)->exists();
 
-        return view('shop.shop_item_detail', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'purchased', 'seller', 'totalReviews', 'reviewsAvg', 'reviewed', 'shop', 'shopReviewed', 'purchasedItem'));
+        $userStaff = UserStaff::where('staff_id', Auth::id())->first();
+
+        return view('shop.shop_item_detail', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'purchased', 'seller', 'totalReviews', 'reviewsAvg', 'reviewed', 'shop', 'shopReviewed', 'purchasedItem', 'userStaff'));
     }
 
     public function shopItemDestroy(Item $item)
@@ -87,6 +89,6 @@ class ShopItemController extends Controller
 
         $item->delete();
 
-        return redirect()->route('show-shop',compact('id'));
+        return redirect()->route('show-shop', compact('id'));
     }
 }

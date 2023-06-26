@@ -17,7 +17,6 @@
 
 .shop__detail {
     margin: 50px;
-    border-top: solid gray;
 }
 
 .staff__none {
@@ -37,11 +36,16 @@
 }
 
 .coupon__box {
-    border-bottom: solid gray;
     padding: 20px;
     display: flex;
     justify-content: space-between;
+    border-radius: 10px;
 }
+
+.coupon__box:hover {
+    background-color: #f0f0f0;
+}
+
 
 .delete {
     background-color: white;
@@ -137,7 +141,6 @@
     }
 
     .coupon__box {
-        border-bottom: solid gray;
         padding: 20px;
         display: flex;
         flex-direction: column;

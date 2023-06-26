@@ -10,7 +10,6 @@
             <h2 class="title">クーポン一覧</h2>
             <a class="add__staff" href="{{ route('show-create-coupon', ['id' => $shop->id]) }}">クーポンを作成する</a>
         </div>
-
         @if ($coupons->count() === 0)
             <div class="staff__none">まだクーポンがありません</div>
         @else
@@ -46,8 +45,6 @@
                     </div>
                 @endforeach
             </div>
-
-
             <div class="overlay"></div>
             <div class="dialog-box">
                 <p class="delete__confirm">本当に削除しますか？</p>
@@ -74,7 +71,6 @@
                             dialogBox.style.opacity = '1';
                         });
                     });
-
                     cancelButton.addEventListener('click', function() {
                         overlay.style.opacity = '0';
                         dialogBox.style.opacity = '0';
@@ -83,7 +79,6 @@
                             dialogBox.style.visibility = 'hidden';
                         }, 500);
                     });
-
                     confirmButton.addEventListener('click', function() {
                         deleteForms.forEach(function(form) {
                             form.submit();

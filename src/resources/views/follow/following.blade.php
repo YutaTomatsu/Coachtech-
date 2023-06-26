@@ -28,12 +28,10 @@
                 </a>
 
                 <script>
-                    document.getElementById('follow-button-{{  $follow->seller->id }}').addEventListener('click', function(event) {
+                    document.getElementById('follow-button-{{ $follow->seller->id }}').addEventListener('click', function(event) {
                         event.preventDefault();
                         var button = this;
-                        var sellerId = "{{  $follow->seller->id }}";
-
-                        // フォローの非同期リクエストを送信
+                        var sellerId = "{{ $follow->seller->id }}";
                         fetch('{{ route('follow') }}', {
                             method: 'POST',
                             body: JSON.stringify({
@@ -46,12 +44,10 @@
                             }
                         }).then(function(response) {
                             if (response.ok) {
-                                // 成功した場合の処理
                                 console.log('フォローしました！');
                                 button.style.display = 'none';
                                 document.getElementById('unfollow-button-' + sellerId).style.display = 'inline-block';
                             } else {
-                                // エラーが発生した場合の処理
                                 console.error('フォローできませんでした。');
                             }
                         }).catch(function(error) {
@@ -59,12 +55,10 @@
                         });
                     });
 
-                    document.getElementById('unfollow-button-{{  $follow->seller->id }}').addEventListener('click', function(event) {
+                    document.getElementById('unfollow-button-{{ $follow->seller->id }}').addEventListener('click', function(event) {
                         event.preventDefault();
                         var button = this;
-                        var sellerId = "{{  $follow->seller->id }}";
-
-                        // フォロー解除の非同期リクエストを送信
+                        var sellerId = "{{ $follow->seller->id }}";
                         fetch('{{ route('unfollow') }}', {
                             method: 'POST',
                             body: JSON.stringify({
@@ -77,12 +71,10 @@
                             }
                         }).then(function(response) {
                             if (response.ok) {
-                                // 成功した場合の処理
                                 console.log('フォローを解除しました！');
                                 button.style.display = 'none';
                                 document.getElementById('follow-button-' + sellerId).style.display = 'inline-block';
                             } else {
-                                // エラーが発生した場合の処理
                                 console.error('フォロー解除できませんでした。');
                             }
                         }).catch(function(error) {

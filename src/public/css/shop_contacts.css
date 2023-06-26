@@ -1,10 +1,15 @@
 .users__box {
     margin: 0 10px;
+    padding: 10px;
 }
 
 .user__box {
-    border-bottom: solid gray;
     padding: 10px;
+    border-radius: 10px;
+}
+
+.user__box:hover {
+    background-color: #f0f0f0;
 }
 
 .icon__name {

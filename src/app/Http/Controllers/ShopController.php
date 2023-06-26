@@ -50,7 +50,7 @@ class ShopController extends Controller
         ], [
             'shop_name.unique' => 'このショップ名は既に使われています',
             'shop_name.max' => 'ショップ名は50文字以内で入力してください',
-            'shop_icon.image' =>'画像の形式が正しくありません',
+            'shop_icon.image' => '画像の形式が正しくありません',
             'about.max' => '商品の説明は255文字以内で入力してください',
         ]);
 
@@ -69,7 +69,7 @@ class ShopController extends Controller
 
         $shop->save();
 
-        return redirect()->route('show-shop',compact('id'));
+        return redirect()->route('show-shop', compact('id'));
     }
 
     public function showShop($id)
@@ -78,7 +78,7 @@ class ShopController extends Controller
             return redirect()->route('login');
         }
 
-        $shop =Shop::where('user_id',$id)->first();
+        $shop = Shop::where('user_id', $id)->first();
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
@@ -92,11 +92,11 @@ class ShopController extends Controller
 
         $sellingItemIds = array_diff($shopItemIds, $purchasedItemsIds);
 
-        $purchasedItems = Item::wherein('id',$purchasedItemsIds)->get();
+        $purchasedItems = Item::wherein('id', $purchasedItemsIds)->get();
 
         $sellingItems = Item::wherein('id', $sellingItemIds)->get();
 
-        return view('shop.shop_dashboard',compact('shop','userStaff','shopItems', 'purchasedItemIds', 'purchasedItems','sellingItems'));
+        return view('shop.shop_dashboard', compact('shop', 'userStaff', 'shopItems', 'purchasedItemIds', 'purchasedItems', 'sellingItems'));
     }
 
     public function showShopToppage($id)
@@ -104,7 +104,7 @@ class ShopController extends Controller
 
         $item = Item::where('id', $id)->first();
 
-        $shop = Shop::where('id',$id)->first();
+        $shop = Shop::where('id', $id)->first();
 
         $shopItems = ShopItem::where('shop_id', $id)->get();
 
@@ -143,6 +143,6 @@ class ShopController extends Controller
         $reviewsAvg = Review::where('seller_id',  $user->id)->avg('rating');
 
 
-        return view('shop.shop_toppage', compact('user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews', 'isFollowing', 'follower','shop','shopItems', 'purchasedItemIds'));
+        return view('shop.shop_toppage', compact('user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews', 'isFollowing', 'follower', 'shop', 'shopItems', 'purchasedItemIds'));
     }
 }

@@ -10,7 +10,7 @@ use App\Models\Shop;
 use App\Models\ShopEmail;
 use App\Models\User;
 use App\Models\UserStaff;
-
+use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {

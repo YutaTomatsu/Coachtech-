@@ -5,7 +5,7 @@
 </head>
 
 @section('content')
-<h2 class="title">ショップ一覧</h2>
+    <h2 class="title">ショップ一覧</h2>
     <div class="shops__box">
         @foreach ($shops as $shop)
             <a href="{{ route('admin-show-shop-contacts', ['id' => $shop->id]) }}" class="shop__box">

@@ -13,38 +13,39 @@
     <header class="header">
         <div class="header__left">
             @if (Auth::check())
-            <div class="header__menu">
-                <button class="menu__design" type="button"></button>
-                <div class="under__line"></div>
-                <div class="menu">
-                    <button class="close-button" type="button">X</button>
-                    <div class="menu__all">
-                        <a class="menu__item" href="{{ route('admin-show-email') }}">メール送信</a>
-                        <form class="logout" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="menu__item">ログアウト</button>
-                        </form>
+                <div class="header__menu">
+                    <button class="menu__design" type="button"></button>
+                    <div class="under__line"></div>
+                    <div class="menu">
+                        <button class="close-button" type="button">X</button>
+                        <div class="menu__all">
+                            <a class="menu__item" href="{{ route('admin-show-email') }}">メール送信</a>
+                            <form class="logout" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="menu__item">ログアウト</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             @else
-            <div class="header__menu">
-                <button class="menu__design" type="button">
-                    <div class="third-line"></div>
-                </button>
-                <div class="under__line"></div>
-                <div class="menu">
-                    <button class="close-button" type="button">X</button>
-                    <div class="menu__all">
-                        <a href="{{ route('register') }}" class="menu__item">会員登録</a>
-                        <a href="{{ route('login') }}" class="menu__item">ログイン</a>
+                <div class="header__menu">
+                    <button class="menu__design" type="button">
+                        <div class="third-line"></div>
+                    </button>
+                    <div class="under__line"></div>
+                    <div class="menu">
+                        <button class="close-button" type="button">X</button>
+                        <div class="menu__all">
+                            <a href="{{ route('register') }}" class="menu__item">会員登録</a>
+                            <a href="{{ route('login') }}" class="menu__item">ログイン</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
             <div class="rogo">
-                <a href="{{route('admin.dashboard')}}">
-                    <img class="ct" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/etc/cd_logo.png" alt="CT">
+                <a href="{{ route('admin.dashboard') }}">
+                    <img class="ct" src="https://flea-market-bucket.s3.ap-northeast-1.amazonaws.com/etc/cd_logo.png"
+                        alt="CT">
                 </a>
             </div>
             <div class="rogo__name">COATCHTECH</div>
@@ -116,14 +117,15 @@
         <div class="header__right">
             <form class="logout" method="POST" action="{{ route('logout') }}">
                 @csrf
-                <a class="header__item" href="#" onclick="event.preventDefault(); this.closest('form').submit();">ログアウト</a>
+                <a class="header__item" href="#"
+                    onclick="event.preventDefault(); this.closest('form').submit();">ログアウト</a>
             </form>
             <a class="header__item" href="{{ route('admin-show-email') }}">メール送信</a>
         </div>
 
     </header>
     <main class="common__main">
-    @yield('content')
+        @yield('content')
     </main>
 </body>
 

@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Item;
-use App\Models\Mylist;
-use App\Models\Purchase;
-use App\Models\Shop;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MypageController;
@@ -30,6 +26,10 @@ use App\Http\Controllers\ShopItemController;
 use App\Http\Controllers\ShopCommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ShopContactController;
+use App\Models\Item;
+use App\Models\Mylist;
+use App\Models\Purchase;
+use App\Models\Shop;
 
 Route::get('/', function () {
     $items = Item::get();
@@ -116,14 +116,6 @@ Route::get('shop/comment/{id}', [ShopCommentController::class, 'showCommentForm'
 Route::get('/purchage/{id}', [PurchaseController::class, 'showPurchageForm'])
     ->middleware(['auth', 'check.user.staff'])
     ->name('show-purchage');
-
-
-
-
-
-
-
-    
 
 Route::get('/card/{id}', [PaymentController::class, 'showCardForm'])
 ->middleware(['auth', 'check.user.staff'])

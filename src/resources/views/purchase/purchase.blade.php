@@ -207,7 +207,6 @@
             const selectedOption = this.options[this.selectedIndex];
             const discountType = selectedOption.getAttribute('data-discount-type');
             const discountValue = parseInt(selectedOption.getAttribute('data-discount-value'), 10);
-
             if (discountType === 'percentage') {
                 finalPrice = Math.floor(itemPrice - ((itemPrice * discountValue) / 100));
             } else if (discountType === 'fixed_amount') {
@@ -215,11 +214,8 @@
             } else {
                 finalPrice = itemPrice;
             }
-
-
             totalPriceElement.textContent = `¥${finalPrice}`;
         });
-
         document.getElementById('payment-form').addEventListener('submit', function(e) {
             const priceField = this.elements['price'];
             if (priceField) {
@@ -227,6 +223,4 @@
             }
         });
     </script>
-
-
 @endsection

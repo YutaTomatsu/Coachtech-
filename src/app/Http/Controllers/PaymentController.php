@@ -7,12 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\PurchaseNotification;
 use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
-use App\Models\Profile;
 
 class PaymentController extends Controller
 {
@@ -71,7 +69,6 @@ class PaymentController extends Controller
         return view('purchase.payment', compact('user', 'items', 'addresses','paymentIntent'), ['client_secret' => $paymentIntent->client_secret]);
     }
 
-
     public function showBankForm(Request $request, $id)
     {
         if (!Auth::check()) {
@@ -107,6 +104,12 @@ class PaymentController extends Controller
                     ],
                 ],
             ],
+        ]);
+
+        $paymentIntent = PaymentIntent::create([
+            'amount' => $request->input('price'),
+            'currency' => 'jpy',
+            'payment_method_types' => ['card'],
         ]);
 
         return view('purchase.payment', compact('user', 'addresses','items', 'paymentIntent'), ['customer' => $customer, 'client_secret' => $intent->client_secret]);

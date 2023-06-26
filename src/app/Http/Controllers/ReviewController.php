@@ -20,17 +20,17 @@ class ReviewController extends Controller
     public function showReviewForm($id)
     {
         $item = Item::select('items.id', 'items.user_id', 'items.item_name', 'items.price', 'items.image', 'items.about', 'conditions.condition')
-        ->leftJoin('items_categories', 'items.id', '=', 'items_categories.item_id')
-        ->leftJoin('categories', 'items_categories.category_id', '=', 'categories.id')
-        ->leftJoin('items_conditions', 'items.id', '=', 'items_conditions.item_id')
-        ->leftJoin('conditions', 'items_conditions.condition_id', '=', 'conditions.id')
-        ->where('items.id', $id)
+            ->leftJoin('items_categories', 'items.id', '=', 'items_categories.item_id')
+            ->leftJoin('categories', 'items_categories.category_id', '=', 'categories.id')
+            ->leftJoin('items_conditions', 'items.id', '=', 'items_conditions.item_id')
+            ->leftJoin('conditions', 'items_conditions.condition_id', '=', 'conditions.id')
+            ->where('items.id', $id)
             ->first();
 
         $categories = Category::whereIn('id', function ($query) use ($id) {
             $query->select('category_id')
-            ->from('items_categories')
-            ->where('item_id', $id);
+                ->from('items_categories')
+                ->where('item_id', $id);
         })->get();
 
         $mylist_items = array();
@@ -46,61 +46,11 @@ class ReviewController extends Controller
         $seller = User::where('id', $item->user_id)->first();
 
         if (!$seller->icon) {
-            $seller->icon = 'icon/icon_user_2.svg';
+            $user->icon = 'user_icon/icon_user_5.png';
         }
 
-        if ($seller->icon === 'icon/icon_user_2.svg') {
-            $seller->icon = Storage::url($seller->icon);
-        }
-
-        $purchased = Purchase::where('user_id', Auth::id())
-        ->where('item_id', $id)
-        ->exists();
-
-        $error_message = "購入後にレビューができます";
-
-        if (!$purchased) {
-            return redirect()->back()->with('error', '購入後にレビューができます');
-        }
-
-        
-        return view('review.review_form', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'seller'));
-    }
-
-    public function showShopReviewForm($id)
-    {
-        $item = Item::select('items.id', 'items.user_id', 'items.item_name', 'items.price', 'items.image', 'items.about', 'conditions.condition')
-        ->leftJoin('items_categories', 'items.id', '=', 'items_categories.item_id')
-        ->leftJoin('categories', 'items_categories.category_id', '=', 'categories.id')
-        ->leftJoin('items_conditions', 'items.id', '=', 'items_conditions.item_id')
-        ->leftJoin('conditions', 'items_conditions.condition_id', '=', 'conditions.id')
-        ->where('items.id', $id)
-            ->first();
-
-        $categories = Category::whereIn('id', function ($query) use ($id) {
-            $query->select('category_id')
-            ->from('items_categories')
-            ->where('item_id', $id);
-        })->get();
-
-        $mylist_items = array();
-        if (Auth::check()) {
-            $mylist_items = Auth::user()->mylists()->pluck('item_id')->toArray();
-        }
-
-        $comments = Comment::where('item_id', $id)->get();
-
-
-        $purchasedItemId = Purchase::pluck('item_id')->toArray();
-
-        $seller = User::where('id', $item->user_id)->first();
-
-        if (!$seller->icon) {
-            $seller->icon = 'icon/icon_user_2.svg';
-        }
-
-        if ($seller->icon === 'icon/icon_user_2.svg') {
-            $seller->icon = Storage::url($seller->icon);
+        if ($seller->icon === 'user_icon/icon_user_5.png') {
+            $seller->icon = Storage::disk('s3')->url($seller->icon);
         }
 
         $purchased = Purchase::where('user_id', Auth::id())
@@ -113,16 +63,62 @@ class ReviewController extends Controller
             return redirect()->back()->with('error', '購入後にレビューができます');
         }
 
-        $shopId = ShopItem::where('item_id',$id)->first();
-
-        $shop = Shop::where('id',$shopId->shop_id)->first();
-
-
-        return view('shop.shop_review_form', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'seller','shop'));
+        return view('review.review_form', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'seller'));
     }
 
+    public function showShopReviewForm($id)
+    {
+        $item = Item::select('items.id', 'items.user_id', 'items.item_name', 'items.price', 'items.image', 'items.about', 'conditions.condition')
+            ->leftJoin('items_categories', 'items.id', '=', 'items_categories.item_id')
+            ->leftJoin('categories', 'items_categories.category_id', '=', 'categories.id')
+            ->leftJoin('items_conditions', 'items.id', '=', 'items_conditions.item_id')
+            ->leftJoin('conditions', 'items_conditions.condition_id', '=', 'conditions.id')
+            ->where('items.id', $id)
+            ->first();
+
+        $categories = Category::whereIn('id', function ($query) use ($id) {
+            $query->select('category_id')
+                ->from('items_categories')
+                ->where('item_id', $id);
+        })->get();
+
+        $mylist_items = array();
+        if (Auth::check()) {
+            $mylist_items = Auth::user()->mylists()->pluck('item_id')->toArray();
+        }
+
+        $comments = Comment::where('item_id', $id)->get();
 
 
+        $purchasedItemId = Purchase::pluck('item_id')->toArray();
+
+        $seller = User::where('id', $item->user_id)->first();
+
+        if (!$seller->icon) {
+            $seller->icon = 'user_icon/icon_user_5.png';
+        }
+
+        if ($seller->icon === 'user_icon/icon_user_5.png') {
+            $seller->icon = Storage::disk('s3')->url($seller->icon);
+        }
+
+        $purchased = Purchase::where('user_id', Auth::id())
+            ->where('item_id', $id)
+            ->exists();
+
+        $error_message = "購入後にレビューができます";
+
+        if (!$purchased) {
+            return redirect()->back()->with('error', '購入後にレビューができます');
+        }
+
+        $shopId = ShopItem::where('item_id', $id)->first();
+
+        $shop = Shop::where('id', $shopId->shop_id)->first();
+
+
+        return view('shop.shop_review_form', compact('item', 'categories', 'mylist_items', 'comments', 'purchasedItemId', 'seller', 'shop'));
+    }
 
     public function review(Request $request, $id)
     {
@@ -155,7 +151,6 @@ class ReviewController extends Controller
         return view('review.review_done')->with('success', 'レビューを投稿しました');
     }
 
-
     public function shopReview(Request $request, $id)
     {
         if (!Auth::user()) {
@@ -174,7 +169,7 @@ class ReviewController extends Controller
             ]
         );
 
-        $shopId = ShopItem::where('item_id',$id)->first();
+        $shopId = ShopItem::where('item_id', $id)->first();
         $shop = Shop::where('id', $shopId->shop_id)->first();
         $review = new ShopReview();
         $review->user_id = Auth::id();
@@ -189,7 +184,7 @@ class ReviewController extends Controller
 
     public function showReviews($id)
     {
-        $reviews = Review::with('user')->where('seller_id',$id)->get();
+        $reviews = Review::with('user')->where('seller_id', $id)->get();
 
         $item = Item::where('id', $id)->first();
 
@@ -198,11 +193,11 @@ class ReviewController extends Controller
         $items = Item::where('items.user_id', $user->id)->get();
 
         if (!$user->icon) {
-            $user->icon = 'icon/icon_user_2.svg';
+            $user->icon = 'user_icon/icon_user_5.png';
         }
 
-        if ($user->icon === 'icon/icon_user_2.svg') {
-            $user->icon = Storage::url($user->icon);
+        if ($user->icon === 'user_icon/icon_user_5.png') {
+            $user->icon = Storage::disk('s3')->url($user->icon);
         }
 
         $purchases = Purchase::where('user_id', $user->id)->get();
@@ -231,13 +226,13 @@ class ReviewController extends Controller
             }
         }
 
-        return view('review.reviews', compact('reviews', 'user', 'items', 'purchaseItems','reviewsAvg','totalReviews'));
+        return view('review.reviews', compact('reviews', 'user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews'));
     }
 
     public function showShopReviews($id)
     {
 
-        $shop = Shop::where('id',$id)->first();
+        $shop = Shop::where('id', $id)->first();
 
         $reviews = ShopReview::with('user')->where('shop_id', $shop->id)->get();
 
@@ -247,12 +242,14 @@ class ReviewController extends Controller
 
         $items = Item::where('items.user_id', $user->id)->get();
 
-        if (!$user->icon) {
-            $user->icon = 'icon/icon_user_2.svg';
-        }
+        foreach ($reviews as $review) {
+            if (!$review->user->icon) {
+                $review->user->icon = 'user_icon/icon_user_5.png';
+            }
 
-        if ($user->icon === 'icon/icon_user_2.svg') {
-            $user->icon = Storage::url($user->icon);
+            if ($review->user->icon === 'user_icon/icon_user_5.png') {
+                $review->user->icon = Storage::disk('s3')->url($review->user->icon);
+            }
         }
 
         $purchases = Purchase::where('user_id', $user->id)->get();
@@ -266,9 +263,6 @@ class ReviewController extends Controller
                 $purchaseItems->push($purchaseItem);
             }
         }
-
-
-        
 
         $totalReviews = Review::where('seller_id',  $shop->id)->count();
         $reviewsAvg = Review::where('seller_id',  $shop->id)->avg('rating');
@@ -284,7 +278,6 @@ class ReviewController extends Controller
             }
         }
 
-        return view('shop.shop_review', compact('reviews', 'user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews','shop'));
+        return view('shop.shop_review', compact('reviews', 'user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews', 'shop'));
     }
-    }
-
+}

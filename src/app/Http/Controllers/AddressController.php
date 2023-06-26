@@ -22,9 +22,6 @@ class AddressController extends Controller
         return view('purchase.change_address', compact('item'));
     }
 
-
-
-
     public function changeAddress(Request $request,$id)
     {
         if (!Auth::check()) {

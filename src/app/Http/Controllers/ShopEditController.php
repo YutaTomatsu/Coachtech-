@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Profile;
 use App\Models\Shop;
 use App\Models\UserStaff;
 
@@ -31,10 +30,10 @@ class ShopEditController extends Controller
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
-        return view('shop.shop_edit', compact('user','shop','userStaff'));
+        return view('shop.shop_edit', compact('user', 'shop', 'userStaff'));
     }
 
-    public function shopEdit(Request $request,$id)
+    public function shopEdit(Request $request, $id)
     {
         if (!Auth::check()) {
             return redirect()->route('login');
@@ -49,7 +48,7 @@ class ShopEditController extends Controller
             'about.max' => '商品の説明は255文字以内で入力してください',
         ]);
 
-        $shop = Shop::where('id',$id)->first();
+        $shop = Shop::where('id', $id)->first();
         $shop->shop_name = $request->shop_name;
         $shop->about = $request->about;
 
@@ -65,7 +64,7 @@ class ShopEditController extends Controller
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
-        return redirect()->route('show-shop', compact('id','userStaff'));
+        return redirect()->route('show-shop', compact('id', 'userStaff'));
     }
 
     public function showShop($id)

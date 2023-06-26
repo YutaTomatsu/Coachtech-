@@ -98,8 +98,6 @@
             }
         });
     </script>
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var recommendTrigger = document.getElementById('recommendTrigger');

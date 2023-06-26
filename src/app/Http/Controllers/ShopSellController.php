@@ -24,14 +24,14 @@ class ShopSellController extends Controller
         $categories = Category::all();
         $conditions = Condition::all();
 
-        $shop = Shop::where('id',$id)->first();
+        $shop = Shop::where('id', $id)->first();
 
         $userStaff = UserStaff::where('staff_id', Auth::id())->first();
 
-        return view('shop.shop_sell', compact('categories', 'conditions','shop','userStaff'));
+        return view('shop.shop_sell', compact('categories', 'conditions', 'shop', 'userStaff'));
     }
 
-    public function shopSell(Request $request,$id)
+    public function shopSell(Request $request, $id)
     {
         if (!Auth::check()) {
             return redirect()->route('login');
@@ -104,7 +104,6 @@ class ShopSellController extends Controller
         $shopItem->shop_id = $id;
         $shopItem->save();
 
-        return redirect()->back()->with('success','商品を出品しました！');
+        return redirect()->back()->with('success', '商品を出品しました！');
     }
-
 }

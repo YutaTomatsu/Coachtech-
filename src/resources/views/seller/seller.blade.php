@@ -25,13 +25,13 @@
             </div>
 
             @if (Auth::check())
-            <button id="follow-button-{{ $user->id }}" class="button"
-                style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
+                <button id="follow-button-{{ $user->id }}" class="button"
+                    style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
 
-            <button id="unfollow-button-{{ $user->id }}" class="button"
-                style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
+                <button id="unfollow-button-{{ $user->id }}" class="button"
+                    style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
             @else
-            <a class="button" href="{{route('login')}}">フォロー</a>
+                <a class="button" href="{{ route('login') }}">フォロー</a>
             @endif
         </div>
         <div class="follow__box">
@@ -66,7 +66,6 @@
             var button = this;
             var sellerId = "{{ $user->id }}";
 
-            // フォローの非同期リクエストを送信
             fetch('{{ route('follow') }}', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -79,12 +78,10 @@
                 }
             }).then(function(response) {
                 if (response.ok) {
-                    // 成功した場合の処理
                     console.log('フォローしました！');
                     button.style.display = 'none';
                     document.getElementById('unfollow-button-' + sellerId).style.display = 'inline-block';
                 } else {
-                    // エラーが発生した場合の処理
                     console.error('フォローできませんでした。');
                 }
             }).catch(function(error) {
@@ -97,7 +94,6 @@
             var button = this;
             var sellerId = "{{ $user->id }}";
 
-            // フォロー解除の非同期リクエストを送信
             fetch('{{ route('unfollow') }}', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -110,12 +106,10 @@
                 }
             }).then(function(response) {
                 if (response.ok) {
-                    // 成功した場合の処理
                     console.log('フォローを解除しました！');
                     button.style.display = 'none';
                     document.getElementById('follow-button-' + sellerId).style.display = 'inline-block';
                 } else {
-                    // エラーが発生した場合の処理
                     console.error('フォロー解除できませんでした。');
                 }
             }).catch(function(error) {

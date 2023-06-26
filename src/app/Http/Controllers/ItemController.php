@@ -72,7 +72,6 @@ class ItemController extends Controller
         return view('item.detail', compact('item', 'categories', 'mylist_items','comments', 'purchasedItemId','purchased','seller', 'totalReviews', 'reviewsAvg','reviewed','shop','myShop','shopReviewed'));
     }
 
-
     public function getSaleItems(Request $request)
     {
         $items = Item::all();

@@ -8,15 +8,12 @@
         $uniqueUsers = $users->unique('user_id');
         $uniquedoneContactUsers = $doneContactUsers->unique('user_id');
     @endphp
-
     <div class="items__box">
         <h2 class="title">出品履歴</h2>
-
         <div class="list">
             <button class="change__button active" id="recommendTrigger">未対応</button>
             <button class="change__button" id="mylistTrigger">対応済み</button>
         </div>
-
         <div class="main">
             <div class="users__box" id="recommendItems">
                 @if ($uniqueUsers->count() === 0)
@@ -36,7 +33,6 @@
                     @endforeach
                 @endif
             </div>
-
             <div class="mylist">
                 <div class="users__box" id="mylistItems" style="display: none;">
                     @if ($uniquedoneContactUsers->count() === 0)

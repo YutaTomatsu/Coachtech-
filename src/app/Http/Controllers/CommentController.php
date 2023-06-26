@@ -9,8 +9,6 @@ use App\Models\User;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\CommentNotification;
-use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendCommentNotificationJob;
 
 
@@ -95,8 +93,6 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'コメントが送信されました');
     }
-
-
 
     public function delete($id)
     {

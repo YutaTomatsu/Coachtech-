@@ -17,11 +17,13 @@
             <div class="center">
                 @if(!$purchasedItem)
                 <div class="delete__box">
+                    @if(!$userStaff)
                     <form action="{{ route('shop-item-destroy', $item) }}" method="POST" class="item__delete">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="delete">削除する</button>
                     </form>
+                    @endif
                 </div>
                 @endif
                 <div class="item__name">{{ $item->item_name }}</div>

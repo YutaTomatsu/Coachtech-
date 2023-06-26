@@ -14,21 +14,21 @@
                     <img class="icon" src="{{ asset($follower->user->icon) }}" alt="User Icon">
                     <div class="seller__name">{{ $follower->user->name }}</div>
                 </div>
-            </a>
-            @if (Auth::user())
-                @if (Auth::id() != $follower->user_id)
-                    @php
-                        $isFollowing = \App\Models\Follow::where('user_id', \Auth::id())
-                            ->where('seller_id', $follower->user_id)
-                            ->exists();
-                    @endphp
-                    <button class="button" id="follow-button-{{ $follower->user->id }}"
-                        style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
+                @if (Auth::user())
+                    @if (Auth::id() != $follower->user_id)
+                        @php
+                            $isFollowing = \App\Models\Follow::where('user_id', \Auth::id())
+                                ->where('seller_id', $follower->user_id)
+                                ->exists();
+                        @endphp
+                        <button class="button" id="follow-button-{{ $follower->user->id }}"
+                            style="{{ $isFollowing ? 'display: none;' : '' }}">フォロー</button>
 
-                    <button class="button" id="unfollow-button-{{ $follower->user->id }}"
-                        style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
+                        <button class="button" id="unfollow-button-{{ $follower->user->id }}"
+                            style="{{ $isFollowing ? '' : 'display: none;' }}">フォロー解除</button>
+                    @endif
                 @endif
-            @endif
+            </a>
 
             <script>
                 function updateFollowStatus(sellerId, isFollowing) {
@@ -48,8 +48,6 @@
                     event.preventDefault();
                     var button = this;
                     var sellerId = "{{ $follower->user->id }}";
-
-                    // フォローの非同期リクエストを送信
                     fetch('{{ route('follow') }}', {
                         method: 'POST',
                         body: JSON.stringify({
@@ -62,11 +60,9 @@
                         }
                     }).then(function(response) {
                         if (response.ok) {
-                            // 成功した場合の処理
                             console.log('フォローしました！');
                             updateFollowStatus(sellerId, true);
                         } else {
-                            // エラーが発生した場合の処理
                             console.error('フォローできませんでした。');
                         }
                     }).catch(function(error) {
@@ -78,8 +74,6 @@
                     event.preventDefault();
                     var button = this;
                     var sellerId = "{{ $follower->user->id }}";
-
-                    // フォロー解除の非同期リクエストを送信
                     fetch('{{ route('unfollow') }}', {
                         method: 'POST',
                         body: JSON.stringify({
@@ -92,11 +86,9 @@
                         }
                     }).then(function(response) {
                         if (response.ok) {
-                            // 成功した場合の処理
                             console.log('フォローを解除しました！');
                             updateFollowStatus(sellerId, false);
                         } else {
-                            // エラーが発生した場合の処理
                             console.error('フォロー解除できませんでした。');
                         }
                     }).catch(function(error) {
