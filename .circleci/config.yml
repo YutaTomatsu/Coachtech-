@@ -8,6 +8,9 @@ jobs:
       - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run: sudo apt update && sudo apt install -y unzip
       - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - run:
+          name: Install MySQL driver
+          command: sudo docker-php-ext-install pdo_mysql
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "src/composer.json" }} 
@@ -18,22 +21,5 @@ jobs:
           paths:
             - vendor
       - run: 
-          name: Run tests
-          environment:
-            DB_CONNECTION: mysql
-            DB_HOST: flea-market-db.ceh47k2cc8fn.ap-northeast-1.rds.amazonaws.com
-            DB_PORT: 3306
-            DB_DATABASE: flea_market
-            DB_USERNAME: admin
-            DB_PASSWORD: Disney313
-          command: cd src && php artisan test
-      - run:
-          name: Conditionally Pull From Git
-          command: |
-            TEST_RESULT=$(cd src && php artisan test) 
-            if [ $? -eq 0 ]
-            then
-              git pull origin main
-            else
-              echo "Tests failed. Not pulling from git."
-            fi
+          name: Run tests and conditionally pull from git
+          command: cd src && php artisan test && git pull origin main
