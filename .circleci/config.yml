@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: circleci/php:7.4-node-browsers
     steps:
+          - run:
+          name: Install PDO MySQL driver
+          command: sudo apt-get install php7.4-mysql
       - checkout
       - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run: sudo apt update && sudo apt install -y unzip
@@ -17,8 +20,6 @@ jobs:
           key: composer-v1-{{ checksum "src/composer.json" }} 
           paths:
             - vendor
-      - run: cp .env.production src/.env
-      - run: cd src && php artisan migrate --seed --force
       - run: cd src && php artisan test
       - run:
           name: Conditionally Pull From Git
