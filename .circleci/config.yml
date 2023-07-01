@@ -5,8 +5,9 @@ jobs:
       - image: circleci/php:7.4-node-browsers
     steps:
       - checkout
+      - run: sudo apt update && sudo apt install -y unzip libmysqlclient-dev
+      - run: sudo docker-php-ext-install pdo_mysql
       - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-      - run: sudo apt update && sudo apt install -y unzip
       - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - restore_cache:
           keys:
