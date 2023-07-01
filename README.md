@@ -128,22 +128,18 @@ composer install
 
 php artisan migrate
 
-#### 6,アプリケーションの起動
-
-php artisan serve
-
 アプリケーションが正常に起動すると、[http://localhost:10000](http://localhost:10000) からアプリのホーム画面にアクセスできるようになります。  
 また、データベースは[http://localhost:8080](http://localhost:8080) からアクセスすることができます。
 
 ※アプリが重くなっているため、ローカル環境でページを移動する際にお使いの環境によってはサーバーエラーが発生する場合があります。
 その場合、ページを再読み込みする、もしくはアクションを再度実行していただくことで解決できます。
 
-### 7, ダミーデータの作成
+### 6, ダミーデータの作成
 
 必要に応じて、以下のコマンドを実行してあらかじめ作成されたダミーのデータを作成することができます。
 
-php artisan migrate:fresh (エラーが出る場合があるため念のためdb内をfresh)
-php artisan db:seed
+php artisan migrate:fresh (エラーが出る場合があるため念のためdb内をfresh)  
+php artisan db:seed  
 
 #### -（ダミーで作成されるアカウント）-
 
