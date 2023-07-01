@@ -183,4 +183,16 @@ php artisan migrate --seed --env=production (本番環境のmigrateとダミー�
 
 これにより、ローカル環境から本番環境で利用しているデータベースにアクセスが可能になります。
 
+#### 3,自動テストと自動デプロイ
+
+coachtech-flea-marketディレクトリに移動し、以下のコマンドを実行してgithubにpushします。
+
+git add -A
+git commit -m "コミット名"
+git branch -M main
+git push -u origin main
+
+上記のコマンドを実行することで、git push -u origin mainを実行した時に自動テストが実行され、テストに通った場合に本番環境への自動デプロイが実行されます。
+
+
 以上の工程を実行することで、ローカルの環境構築が完了します。
