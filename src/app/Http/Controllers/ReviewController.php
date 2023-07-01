@@ -46,7 +46,7 @@ class ReviewController extends Controller
         $seller = User::where('id', $item->user_id)->first();
 
         if (!$seller->icon) {
-            $user->icon = 'user_icon/icon_user_5.png';
+            $seller->icon = 'user_icon/icon_user_5.png';
         }
 
         if ($seller->icon === 'user_icon/icon_user_5.png') {
@@ -186,11 +186,9 @@ class ReviewController extends Controller
     {
         $reviews = Review::with('user')->where('seller_id', $id)->get();
 
-        $item = Item::where('id', $id)->first();
+        $item = Item::where('user_id', $id)->first();
 
-        $user = User::where('users.id', $item->user_id)->first();
-
-        $items = Item::where('items.user_id', $user->id)->get();
+        $user = User::where('users.id', $id)->first();
 
         if (!$user->icon) {
             $user->icon = 'user_icon/icon_user_5.png';
@@ -218,15 +216,15 @@ class ReviewController extends Controller
         foreach ($reviews as $review) {
 
             if (!$review->user->icon) {
-                $review->user->icon = 'icon/icon_user_2.svg';
+                $review->user->icon = 'user_icon/icon_user_5.png';
             }
 
-            if ($review->user->icon === 'icon/icon_user_2.svg') {
-                $review->user->icon = Storage::url($review->user->icon);
+            if ($review->user->icon === 'user_icon/icon_user_5.png') {
+                $review->user->icon = Storage::disk('s3')->url($review->user->icon);
             }
         }
 
-        return view('review.reviews', compact('reviews', 'user', 'items', 'purchaseItems', 'reviewsAvg', 'totalReviews'));
+        return view('review.reviews', compact('reviews', 'user', 'item', 'purchaseItems', 'reviewsAvg', 'totalReviews'));
     }
 
     public function showShopReviews($id)

@@ -7,7 +7,7 @@
 @section('content')
     <div class="top">
         <div class="user">
-            <a class="icon" href="{{ route('show-seller', ['id' => $user->id]) }}">
+            <a class="icon" href="{{ route('show-seller', ['id' => $item->id]) }}">
                 <img id="preview" src="{{ asset($user->icon) }}" alt="プロフィール画像"
                     style="width: 100px; height: 100px; border-radius: 50%;">
             </a>
@@ -30,7 +30,9 @@
         @else
             @foreach ($reviews as $review)
                 <div class="review">
-                    <img class="buyer__icon" src="{{ asset($review->user->icon) }}">
+                    <a href="{{ route('show-seller', ['id' => $review->user->id]) }}">
+                        <img class="buyer__icon" src="{{ asset($review->user->icon) }}">
+                    </a>
                     <div class="review__right">
                         <div>{{ $review->user->name }}</div>
                         <div class="comment">{{ $review->comment }}</div>
