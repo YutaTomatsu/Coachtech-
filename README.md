@@ -184,7 +184,7 @@ php artisan migrate --seed --env=production (本番環境のmigrateとダミー�
 
 #### 3,自動テストと自動デプロイ
 
-coachtech-flea-marketディレクトリに移動し、以下のコマンドを実行してgithubにpushします。
+Coachtech-flea-marketディレクトリに移動し、以下のコマンドを実行してgithubにpushします。
 
 git add -A
 git commit -m "コミット名"
