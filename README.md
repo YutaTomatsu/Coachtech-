@@ -26,6 +26,7 @@
 商品お気に入り追加機能
 商品お気に入り削除機能
 コメント機能
+出品者によるコメント削除機能
 プロフィール登録機能
 プロフィール編集機能
 配送先変更機能
@@ -128,22 +129,18 @@ composer install
 
 php artisan migrate
 
-#### 6,アプリケーションの起動
-
-php artisan serve
-
 アプリケーションが正常に起動すると、[http://localhost:10000](http://localhost:10000) からアプリのホーム画面にアクセスできるようになります。  
 また、データベースは[http://localhost:8080](http://localhost:8080) からアクセスすることができます。
 
 ※アプリが重くなっているため、ローカル環境でページを移動する際にお使いの環境によってはサーバーエラーが発生する場合があります。
 その場合、ページを再読み込みする、もしくはアクションを再度実行していただくことで解決できます。
 
-### 7, ダミーデータの作成
+### 6, ダミーデータの作成
 
 必要に応じて、以下のコマンドを実行してあらかじめ作成されたダミーのデータを作成することができます。
 
-php artisan migrate:fresh (エラーが出る場合があるため念のためdb内をfresh)
-php artisan db:seed
+php artisan migrate:fresh (エラーが出る場合があるため念のためdb内をfresh)  
+php artisan db:seed  
 
 #### -（ダミーで作成されるアカウント）-
 
@@ -179,8 +176,22 @@ queueを実行することで非同期で実行される管理者の一斉メー
 
 php artisan config:clear
 
+php artisan migrate:fresh --env=production
+
 php artisan migrate --seed --env=production (本番環境のmigrateとダミーデータの作成を同時に実行）
 
 これにより、ローカル環境から本番環境で利用しているデータベースにアクセスが可能になります。
+
+#### 3,自動テストと自動デプロイ
+
+coachtech-flea-marketディレクトリに移動し、以下のコマンドを実行してgithubにpushします。
+
+git add -A
+git commit -m "コミット名"
+git branch -M main
+git push -u origin main
+
+上記のコマンドを実行することで、git push -u origin mainを実行した時に自動テストが実行され、テストに通った場合に本番環境への自動デプロイが実行されます。
+
 
 以上の工程を実行することで、ローカルの環境構築が完了します。
