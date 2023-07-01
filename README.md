@@ -26,6 +26,7 @@
 商品お気に入り追加機能
 商品お気に入り削除機能
 コメント機能
+出品者によるコメント削除機能
 プロフィール登録機能
 プロフィール編集機能
 配送先変更機能
@@ -174,6 +175,8 @@ queueを実行することで非同期で実行される管理者の一斉メー
 コンテナ内で以下のコマンドを実行することで、本番環境のデータベースをmigrateし、ダミーデータを作成することができます。
 
 php artisan config:clear
+
+php artisan migrate:fresh --env=production
 
 php artisan migrate --seed --env=production (本番環境のmigrateとダミーデータの作成を同時に実行）
 
